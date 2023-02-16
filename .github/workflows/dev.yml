@@ -1,4 +1,4 @@
-name: CI/CD for client-side
+name: Dev branch
 
 on:
   push:

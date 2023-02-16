@@ -1,4 +1,4 @@
-name: Actions for main branch
+name: Main branch
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Actions for other branches
+name: Other branches
 
 on:
   push:
