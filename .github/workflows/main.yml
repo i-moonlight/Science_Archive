@@ -1,0 +1,6 @@
+name: CI/CD for client-side
+
+on:
+  push:
+    branches: [ "dev" ]
+    
