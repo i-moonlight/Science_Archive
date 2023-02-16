@@ -23,9 +23,10 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
+    - run: ls
     - run: npm cache clean --force
     - run: npm install
-    - run: npm install @angular/cli > /dev/null
+    - run: npm install @angular/cli
     - run: ng build
 
     - name: Copy build files to web-server folder
