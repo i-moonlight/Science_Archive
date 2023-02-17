@@ -27,7 +27,7 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-          
+
     - name: Install dependencies and build
       run: |
         cd science-archive-web &&
@@ -45,6 +45,6 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
       with:
         source: "science-archive-web/dist/"
-        target: "/var/www/html/"
+        target: "/var/www/science-archie.com/"
         rm: true
         strip_components: 3
