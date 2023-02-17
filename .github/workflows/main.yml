@@ -45,6 +45,6 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
       with:
         source: "science-archive-web/dist/"
-        target: "/var/www/science-archie.com/"
+        target: "/var/www/science-archive.com/"
         rm: true
         strip_components: 3
