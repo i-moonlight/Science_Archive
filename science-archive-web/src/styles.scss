@@ -1,4 +1,10 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('./assets/fonts/MerriweatherSans.ttf');
+}
+
 * {
+  font-family: 'Merriweather';
   margin: 0;
   padding: 0;
 }
