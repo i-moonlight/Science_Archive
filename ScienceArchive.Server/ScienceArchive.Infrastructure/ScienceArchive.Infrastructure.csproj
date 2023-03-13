@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Persistence\" />
+    <None Remove="Persistence\Repositories\" />
+    <None Remove="Persistence\Models\" />
+    <None Remove="Persistence\Mappers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Persistence\" />
+    <Folder Include="Persistence\Repositories\" />
+    <Folder Include="Persistence\Models\" />
+    <Folder Include="Persistence\Mappers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
+  </ItemGroup>
+</Project>

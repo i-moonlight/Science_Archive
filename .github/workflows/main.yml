@@ -12,7 +12,7 @@ jobs:
     environment: Main
 
     steps:
-    - name: Link checkut action
+    - name: Checkout repo
       uses: actions/checkout@v1
 
     - name: Set up NodeJS
@@ -27,7 +27,7 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-          
+
     - name: Install dependencies and build
       run: |
         cd science-archive-web &&

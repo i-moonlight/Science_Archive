@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Services\" />
+    <None Remove="Mappers\" />
+    <None Remove="UseCases\" />
+    <None Remove="UseCases\User\" />
+    <None Remove="Mappers\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="UseCases\" />
+    <Folder Include="UseCases\User\" />
+    <Folder Include="Mappers\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
+  </ItemGroup>
+</Project>

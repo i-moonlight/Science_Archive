@@ -1,22 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ScienceArchive.Core.Interfaces.Services;
+using ScienceArchive.Api.Responses;
+using ScienceArchive.Core.Dtos.UserRequest;
+using ScienceArchive.Api.Auth;
 
 namespace ScienceArchive.Api.Controllers
 {
     [Route("api/auth")]
     public class AuthController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
+        private readonly IUserService _userService;
+        private readonly IConfiguration _configuration;
+        private readonly AuthManager _authManager;
+
+        public AuthController(IUserService userService, IConfiguration configuration)
         {
-            return Json(new
+            _userService = userService;
+            _configuration = configuration;
+            _authManager = new AuthManager(configuration);
+        }
+
+        [HttpPost("signin")]
+        public async Task<IActionResult> SignIn([FromBody] AuthorizeUserRequestDto request)
+        {
+            try
             {
-                success = true,
-            });
+                var result = await _userService.Authorize(request);
+
+                if (!result.UserExist || result.User is null)
+                {
+                    var response = new ErrorResponse("This user does not exist!");
+                    return Json(response);
+                }
+
+                var token = _authManager.GenerateToken(result.User);
+
+                return Ok(token);
+            }
+            catch (Exception e)
+            {
+                var response = new ErrorResponse(e.Message);
+                return Json(response);
+            }
+        }
+
+        [HttpPost("signup")]
+        public async Task<IActionResult> SignUp([FromBody] CreateUserRequestDto request)
+        {
+            try
+            {
+                var result = await _userService.Create(request);
+                var response = new SuccessResponse(result);
+
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                var response = new ErrorResponse(e.Message);
+                return Json(response);
+            }
         }
     }
 }
-

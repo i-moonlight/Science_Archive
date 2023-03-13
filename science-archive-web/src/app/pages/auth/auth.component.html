@@ -11,32 +11,13 @@
   </div>
 
   <div class="auth-block">
-    <div class="auth-form">
-      <h2 class="auth-form-header">
-        Sign up
-      </h2>
-      <div class="auth-form-data">
-        <p>Name:</p>
-        <input type="text" />
-
-        <p>Email:</p>
-        <input type="text" />
-
-        <p>Login:</p>
-        <input type="text" />
-
-        <p>Password:</p>
-        <input type="password" />
-
-        <p>Repeat password:</p>
-        <input type="password" />
-
-        <div class="auth-form-data-submit-wrapper">
-          <button>
-            Sign up
-          </button>
-        </div>
-      </div>
-    </div>
+    <app-sign-up-form
+      *ngIf="isSignUp"
+      (onChangeForm)="changeAuthType('sign-in')"
+    />
+    <app-sign-in-form
+      *ngIf="isSignIn"
+      (onChangeForm)="changeAuthType('sign-up')"
+    />
   </div>
 </div>

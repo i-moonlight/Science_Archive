@@ -10,4 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout repo
+      uses: actions/checkout@v1
+
+    - name: Set up NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: "14.x"
+
+    - name: Link cache action
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install dependencies and build
+      run: |
+        cd science-archive-web &&
+        npm cache clean --force &&
+        npm install &&
+        npm install -g @angular/cli &&
+        ng build
