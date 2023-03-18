@@ -29,13 +29,18 @@ namespace ScienceArchive.Api.Controllers
 
                 if (!result.UserExist || result.User is null)
                 {
-                    var response = new ErrorResponse("This user does not exist!");
-                    return Json(response);
+                    var errorResponse = new ErrorResponse("This user does not exist!");
+                    return Json(errorResponse);
                 }
 
                 var token = _authManager.GenerateToken(result.User);
 
-                return Ok(token);
+                var response = new SuccessResponse(new
+                {
+                    token = token
+                });
+
+                return Json(response);
             }
             catch (Exception e)
             {

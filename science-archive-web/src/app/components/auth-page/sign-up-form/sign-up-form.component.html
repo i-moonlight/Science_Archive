@@ -4,22 +4,22 @@
   </h2>
   <div class="data-block">
     <p>Name:</p>
-    <input type="text" />
+    <input type="text" [(ngModel)]="name" />
 
     <p>Email:</p>
-    <input type="text" />
+    <input type="text" [(ngModel)]="email" />
 
     <p>Login:</p>
-    <input type="text" />
+    <input type="text" [(ngModel)]="login" />
 
     <p>Password:</p>
-    <input type="password" />
+    <input type="password" [(ngModel)]="password" />
 
     <p>Repeat password:</p>
-    <input type="password" />
+    <input type="password" [(ngModel)]="repeatPassword" />
 
     <div class="data-submit-wrapper">
-      <button>
+      <button (click)="onSignUp()">
         Sign up
       </button>
     </div>

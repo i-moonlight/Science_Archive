@@ -4,13 +4,13 @@
   </h2>
   <div class="data-block">
     <p>Login or Email:</p>
-    <input type="text" />
+    <input type="text" [(ngModel)]="login" />
 
     <p>Password:</p>
-    <input type="password" />
+    <input type="password" [(ngModel)]="password" />
 
     <div class="data-submit-wrapper">
-      <button>
+      <button (click)="onSignIn()">
         Sign in
       </button>
     </div>

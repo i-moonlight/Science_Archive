@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Api.Responses;
 using ScienceArchive.Core.Interfaces.Services;
@@ -19,8 +15,8 @@ namespace ScienceArchive.Api.Controllers
             _userService = userService;
         }
 
-        [Authorize]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             try
