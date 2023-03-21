@@ -2,8 +2,9 @@ name: Frontend deployment workflow from main branch
 
 on:
   push:
-    branches:
-    - main
+    tags:
+    - v**
+
     paths:
     - science-archive-web/**
 

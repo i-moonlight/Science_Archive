@@ -2,8 +2,8 @@ name: Backend deployment workflow from main branch
 
 on:
   push:
-    branches:
-    - main
+    tags:
+    - v**
 
     paths:
     - ScienceArchive.Server/**

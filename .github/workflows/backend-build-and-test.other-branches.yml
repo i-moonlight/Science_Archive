@@ -6,6 +6,9 @@ on:
     - feature/**
     - fix/**
 
+    paths:
+    - ScienceArchive.Server/**
+
 jobs:
   build-and-test-frontend:
     name: Build and test frontend project
