@@ -57,7 +57,7 @@ namespace ScienceArchive.Api.Controllers
                 var result = await _userService.Create(request);
                 var response = new SuccessResponse(result);
 
-                return Json(result);
+                return Json(response);
             }
             catch (Exception e)
             {
