@@ -9,35 +9,6 @@ on:
     - ScienceArchive.Server/**
 
 jobs:
-  build-and-test-frontend:
-    name: Build and test frontend project
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up NodeJS
-      uses: actions/setup-node@v1
-      with:
-        node-version: "14.x"
-
-    - name: Install dependencies
-      working-directory: science-archive-web
-      run: |
-        npm cache clean --force
-        npm install
-
-    - name: Build project
-      working-directory: science-archive-web
-      run: npm run build
-
-#   TODO When tests will be created uncomment it
-#    - name: Test project
-#      working-directory: science-archive-web
-#      run: npm run test
-
-
   build-and-test-backend:
     name: Build and test backend solution
     runs-on: ubuntu-latest
