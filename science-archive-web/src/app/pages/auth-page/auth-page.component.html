@@ -1,0 +1,23 @@
+<div class="page-wrapper">
+  <div class="welcome-block">
+    <h1 class="welcome-block-title">
+      Welcome to the Science Archive
+    </h1>
+    <p class="welcome-block-description">
+      Our mission is to give to independent scientists and other knowledge explorers ability to
+      publish their works and share it across the world. It's so expensive to get access to modern
+      science literature in nowadays. So is to achieve publishing in any reputable publishing house.
+    </p>
+  </div>
+
+  <div class="auth-block">
+    <app-sign-up-form
+      *ngIf="isSignUp"
+      (onChangeForm)="changeAuthType('sign-in')"
+    />
+    <app-sign-in-form
+      *ngIf="isSignIn"
+      (onChangeForm)="changeAuthType('sign-up')"
+    />
+  </div>
+</div>

@@ -1,0 +1,77 @@
+name: Backend deployment workflow from main branch
+
+on:
+  push:
+    branches:
+    - main
+
+    paths:
+    - ScienceArchive.Server/**
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up .NET SDK
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Restore dependenices
+      working-directory: ScienceArchive.Server/
+      run: dotnet restore
+
+    - name: Build solution
+      working-directory: ScienceArchive.Server/
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Run tests
+      working-directory: ScienceArchive.Server/
+      run: dotnet test
+
+
+  deploy-backend:
+    name: Build and delpoy backend
+    runs-on: self-hosted
+    needs: build-and-test
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up .NET SDK
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Restore dependencies
+      working-directory: ScienceArchive.Server/
+      run: dotnet restore
+
+    - name: Build solution
+      working-directory: ScienceArchive.Server/
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Clean previous build
+      working-directory: /var/www/
+      run: sudo rm -rf ./science-archive-api/
+
+    - name: Create project build directory
+      working-directory: /var/www/
+      run: sudo mkdir -p ./science-archive-api/
+
+    - name: Publish
+      working-directory: ScienceArchive.Server/
+      run: dotnet publish -c Release
+
+    - name: Copy build files
+      working-directory: ScienceArchive.Server/ScienceArchive.Api/bin/Release/net7.0/publish/
+      run: sudo \cp -r ./* /var/www/science-archive-api/
+
+    - name: Reload API service
+      run: sudo systemctl restart science-archive-api

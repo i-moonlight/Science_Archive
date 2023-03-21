@@ -48,3 +48,4 @@ jobs:
         target: "/var/www/science-archive.com/"
         rm: true
         strip_components: 3
+
