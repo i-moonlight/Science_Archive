@@ -1,11 +1,26 @@
-﻿namespace ScienceArchive.Api;
+﻿using System.Collections;
+
+namespace ScienceArchive.Api;
 
 public class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        var dbConnectionString = builder.Configuration.GetConnectionString("PostgreSQL");
+        string dbConnectionString;
+
+        if (builder.Environment.IsDevelopment())
+        {
+            dbConnectionString =
+                builder.Configuration.GetConnectionString("PostgreSQL") ??
+                throw new NullReferenceException("Cannot get DB connection string from config");
+        }
+        else
+        {
+            dbConnectionString =
+                Environment.GetEnvironmentVariable("POSTGRESQL_CONNECTION_STRING") ??
+                throw new NullReferenceException("Cannot get DB connection string from environment");
+        }
 
         if (String.IsNullOrWhiteSpace(dbConnectionString))
         {

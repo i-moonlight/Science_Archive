@@ -1,0 +1,61 @@
+name: Build and test backend and frontend for dev branch
+
+on:
+  push:
+    branches:
+    - dev
+
+jobs:
+  build-and-test-frontend:
+    name: Build and test frontend project
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: "14.x"
+
+    - name: Install dependencies
+      working-directory: science-archive-web
+      run: |
+        npm cache clean --force
+        npm install
+
+    - name: Build project
+      working-directory: science-archive-web
+      run: npm run build
+
+#   TODO When tests will be created uncomment it
+#    - name: Test project
+#      working-directory: science-archive-web
+#      run: npm run test
+
+
+  build-and-test-backend:
+    name: Build and test backend solution
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up .NET SDK
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Restore dependenices
+      working-directory: ScienceArchive.Server/
+      run: dotnet restore
+
+    - name: Build solution
+      working-directory: ScienceArchive.Server/
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Run tests
+      working-directory: ScienceArchive.Server/
+      run: dotnet test

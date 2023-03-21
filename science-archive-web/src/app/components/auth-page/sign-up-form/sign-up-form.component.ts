@@ -34,10 +34,14 @@ export class SignUpFormComponent {
       .signup(request)
       .subscribe({
         next: (response) => {
-          console.log(response);
+          if (response.success) {
+            alert("You have successfully signed up!");
+          } else {
+            alert("Something is wrong!")
+          }
         },
         error: (error) => {
-          console.log(error);
+          alert(error);
         }
       });
   }

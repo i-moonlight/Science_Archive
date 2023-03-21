@@ -1,0 +1,65 @@
+name: Frontend deployment workflow from main branch
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - science-archive-web/**
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: "14.x"
+
+    - name: Install dependencies
+      working-directory: science-archive-web
+      run: |
+        npm cache clean --force
+        npm install
+
+    - name: Build project
+      working-directory: science-archive-web
+      run: npm run build
+
+#   TODO When tests will be created uncomment it
+#    - name: Test project
+#      working-directory: science-archive-web
+#      run: npm run test
+
+  deploy-frontend:
+    name: Build and deploy frontend
+    runs-on: self-hosted
+    needs: build-and-test
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: "14.x"
+
+    - name: Install dependencies
+      working-directory: science-archive-web
+      run: |
+        npm cache clean --force
+        npm install
+
+    - name: Build frontend
+      working-directory: science-archive-web
+      run: npm run build
+
+    - name: Copy build files
+      working-directory: ./science-archive-web/dist/science-archive-web/
+      run: sudo \cp -r ./* /var/www/science-archive.com
