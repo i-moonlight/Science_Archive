@@ -34,3 +34,4 @@ jobs:
     - name: Run tests
       working-directory: ScienceArchive.Server/
       run: dotnet test
+
