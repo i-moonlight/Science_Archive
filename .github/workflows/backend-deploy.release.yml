@@ -52,5 +52,11 @@ jobs:
           --build-arg SCIENCE_ARCHIVE_JWT_KEY="${{ secrets.SCIENCE_ARCHIVE_JWT_KEY }}" \
           -t ${{ secrets.BACKEND_IMAGE_NAME }} .
 
+    - name: Stop current container
+      run: docker stop $(docker ps -a -q)
+
+    - name: Remove existing containers
+      run: docker rm $(docker ps -a -q)
+
     - name: Run backend container
       run: docker run --net="host" -d ${{ secrets.BACKEND_IMAGE_NAME }}
