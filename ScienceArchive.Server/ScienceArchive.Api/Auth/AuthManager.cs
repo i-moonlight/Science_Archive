@@ -19,9 +19,10 @@ namespace ScienceArchive.Api.Auth
         public string GenerateToken(User user)
         {
             var jwtSub = _configuration["Jwt:Sub"] ?? "";
-            var jwtKey = _configuration["Jwt:Key"] ?? "";
             var jwtAudience = _configuration["Jwt:Audience"] ?? "";
             var jwtIssuer = _configuration["Jwt:Issuer"] ?? "";
+            var jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY")
+                ?? throw new NullReferenceException("JWT key was not present!");
 
             var claims = new[]
             {
