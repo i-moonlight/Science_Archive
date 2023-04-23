@@ -13,7 +13,7 @@ export interface Response<T> {
   data: T | null;
 
   /**
-   * Error accured while processing request
+   * Error occurred while processing request
    */
   error: string | null;
 }

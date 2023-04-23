@@ -1,6 +1,6 @@
 .auth-form {
-  width: 500px;
   padding: 30px;
+  height: 100%;
 
   &-header {
     text-align: center;
@@ -8,6 +8,9 @@
 }
 
 .data-block {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
   margin-top: 50px;
   height: 80%;
 
@@ -20,9 +23,9 @@
 
   input {
     width: 100%;
-    padding: 10px 0px 10px 10px;
+    padding: 10px 0 10px 10px;
     border-radius: 5px;
-    border-width: 0px;
+    border-width: 0;
     background-color: #f0f0f0;
     color: #6e6e6e;
   }

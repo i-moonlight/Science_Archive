@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using ScienceArchive.Core.Dtos;
 using ScienceArchive.Core.Entities;
 
 namespace ScienceArchive.Api.Auth
@@ -16,7 +17,7 @@ namespace ScienceArchive.Api.Auth
             _configuration = configuration;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(UserDto user)
         {
             var jwtSub = _configuration["Jwt:Sub"] ?? "";
             var jwtKey = _configuration["Jwt:Key"] ?? "";

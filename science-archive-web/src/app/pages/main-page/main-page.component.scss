@@ -1,0 +1,47 @@
+.top-logo-wrapper {
+  background-color: #1B57CFFF;
+  padding: 5px;
+  color: #FFFFFF;
+}
+
+.top-menu {
+  display: flex;
+  height: 50px;
+  box-shadow: 0 5px 10px 2px #9b9b9b4a;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &-elements-wrapper {
+    display: flex;
+    flex-direction: row;
+    line-height: 50px;
+    width: 80%;
+  }
+
+  &-element {
+    color: #606060;
+    width: 100px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-align: center;
+    transition: .3s;
+
+    &:hover {
+      color: #558eef;
+      cursor: pointer;
+    }
+  }
+
+  &-auth {
+    line-height: 50px;
+    padding-right: 25px;
+    padding-left: 25px;
+    transition: .3s;
+
+    &:hover {
+      background-color: #1B57CFFF;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  }
+}

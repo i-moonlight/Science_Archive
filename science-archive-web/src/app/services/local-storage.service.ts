@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,7 @@ export class LocalStorageService {
   }
 
   public getToken(): string | null {
-    const token = localStorage.getItem("api_token");
-
-    return token;
+    return localStorage.getItem("api_token");
   }
 
   public isLoggedIn(): boolean {

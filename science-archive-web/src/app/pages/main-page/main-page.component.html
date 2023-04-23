@@ -1,1 +1,36 @@
-<h1>{{welcomeMessage}}</h1>
+<div class="page-wrapper">
+  <div class="top-logo-wrapper">
+    <h1>Science Archive</h1>
+  </div>
+  <div class="top-menu">
+    <div class="top-menu-elements-wrapper">
+      <div class="top-menu-element">
+        Articles
+      </div>
+      <div class="top-menu-element">
+        Authors
+      </div>
+      <div class="top-menu-element">
+        Categories
+      </div>
+      <div class="top-menu-element">
+        News
+      </div>
+    </div>
+    <div
+      *ngIf='isAuthorized; else notAuthorizedBlock'
+      class='top-menu-auth'
+      (click)='onSignOut()'
+    >
+      {{login}}
+    </div>
+    <ng-template #notAuthorizedBlock>
+      <div
+        class="top-menu-auth"
+        (click)='onSignIn()'
+      >
+        Sign in
+      </div>
+    </ng-template>
+  </div>
+</div>
