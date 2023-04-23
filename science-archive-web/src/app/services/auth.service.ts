@@ -8,16 +8,16 @@ import { SignUpResponseData } from "../models/responses/response-data/sign-up.re
 import { TokenResponseData } from "../models/responses/response-data/token.response";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
-  signin(request: SignInRequest): Observable<Response<TokenResponseData>> {
+  signIn(request: SignInRequest): Observable<Response<TokenResponseData>> {
     return this.httpClient.post<Response<TokenResponseData>>("/api/auth/signin", request);
   }
 
-  signup(request: SignUpRequest): Observable<Response<SignUpResponseData>> {
+  signUp(request: SignUpRequest): Observable<Response<SignUpResponseData>> {
     return this.httpClient.post<Response<SignUpResponseData>>("/api/auth/signup", request);
   }
 }

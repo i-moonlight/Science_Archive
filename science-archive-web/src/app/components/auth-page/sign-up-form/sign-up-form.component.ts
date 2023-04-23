@@ -1,18 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SignUpRequest } from 'src/app/models/requests/sign-up.request';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, EventEmitter, Output } from "@angular/core";
+import { SignUpRequest } from "src/app/models/requests/sign-up.request";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
-  selector: 'app-sign-up-form',
-  templateUrl: './sign-up-form.component.html',
-  styleUrls: ['./sign-up-form.component.scss']
+  selector: "app-sign-up-form",
+  templateUrl: "./sign-up-form.component.html",
+  styleUrls: ["./sign-up-form.component.scss"],
 })
 export class SignUpFormComponent {
-  name: string = '';
-  email: string = '';
-  login: string = '';
-  password: string = '';
-  repeatPassword: string = '';
+  name: string = "";
+  email: string = "";
+  login: string = "";
+  password: string = "";
+  repeatPassword: string = "";
 
   @Output() onChangeForm = new EventEmitter<string>();
 
@@ -27,23 +27,21 @@ export class SignUpFormComponent {
       name: this.name,
       email: this.email,
       login: this.login,
-      password: this.password
+      password: this.password,
     };
 
-    this.authService
-      .signup(request)
-      .subscribe({
-        next: (response) => {
-          if (response.success) {
-            alert("You have successfully signed up!");
-            this.changeAuthType();
-          } else {
-            alert(response.error);
-          }
-        },
-        error: (error) => {
-          alert(error);
+    this.authService.signUp(request).subscribe({
+      next: (response) => {
+        if (response.success) {
+          alert("You have successfully signed up!");
+          this.changeAuthType();
+        } else {
+          alert(response.error);
         }
-      });
+      },
+      error: (error) => {
+        alert(error);
+      },
+    });
   }
 }

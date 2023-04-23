@@ -3,31 +3,35 @@
     Sign up
   </h2>
   <div class="data-block">
-    <p>Name:</p>
-    <input type="text" [(ngModel)]="name" />
+    <div>
+      <p>Name:</p>
+      <input type="text" [(ngModel)]="name" />
 
-    <p>Email:</p>
-    <input type="text" [(ngModel)]="email" />
+      <p>Email:</p>
+      <input type="text" [(ngModel)]="email" />
 
-    <p>Login:</p>
-    <input type="text" [(ngModel)]="login" />
+      <p>Login:</p>
+      <input type="text" [(ngModel)]="login" />
 
-    <p>Password:</p>
-    <input type="password" [(ngModel)]="password" />
+      <p>Password:</p>
+      <input type="password" [(ngModel)]="password" />
 
-    <p>Repeat password:</p>
-    <input type="password" [(ngModel)]="repeatPassword" />
-
-    <div class="data-submit-wrapper">
-      <button (click)="onSignUp()">
-        Sign up
-      </button>
+      <p>Repeat password:</p>
+      <input type="password" [(ngModel)]="repeatPassword" />
     </div>
 
-    <div class="change-form">
+    <div>
+      <div class="data-submit-wrapper">
+        <button (click)="onSignUp()">
+          Sign up
+        </button>
+      </div>
+
+      <div class="change-form">
       <span class="change-form-text" (click)="changeAuthType()">
         Already have an account? Sign in
       </span>
+      </div>
     </div>
   </div>
 </div>

@@ -1,10 +1,15 @@
 ﻿using System;
+using ScienceArchive.Application.Mappers;
+using System.Diagnostics.Contracts;
 using ScienceArchive.Core.Entities;
 using ScienceArchive.Core.Interfaces.Repositories;
+using ScienceArchive.Core.Dtos.UserResponse;
+using ScienceArchive.Core.Dtos.UserRequest;
+using ScienceArchive.Core.Interfaces.UseCases;
 
 namespace ScienceArchive.Application.UseCases
 {
-    public class CreateUserUseCase
+    public class CreateUserUseCase : IUseCase<CreateUserResponseDto, CreateUserRequestDto>
     {
         private IUserRepository _userRepository;
 
@@ -15,18 +20,22 @@ namespace ScienceArchive.Application.UseCases
             _userRepository = userRepository;
         }
 
-        public async Task<User> Execute(User user)
+        public async Task<CreateUserResponseDto> Execute(CreateUserRequestDto contract)
         {
-            user.HashOwnPassword();
+            User userToCreate = CreateUserMapper.MapToEntity(contract);
+            userToCreate.HashOwnPassword();
+
             var users = await _userRepository.GetAll();
 
-            _ = users.Any(u => u.Email == user.Email) ?
+            _ = users.Any(user => user.Email == userToCreate.Email) ?
                 throw new Exception("This email is already in use") : false;
 
-            _ = users.Any(u => u.Login == user.Login) ?
+            _ = users.Any(user => user.Login == userToCreate.Login) ?
                 throw new Exception("This login is already in use") : false;
 
-            return await _userRepository.Create(user);
+            User createdUser = await _userRepository.Create(userToCreate);
+
+            return CreateUserMapper.MapToResponse(createdUser);
         }
     }
 }

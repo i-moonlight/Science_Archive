@@ -11,6 +11,10 @@
   </div>
 
   <div class="auth-block">
+    <app-error-banner
+      *ngIf='!isServerWorking'
+      [innerText]="'Service is not available now!'"
+    />
     <app-sign-up-form
       *ngIf="isSignUp"
       (onChangeForm)="changeAuthType('sign-in')"

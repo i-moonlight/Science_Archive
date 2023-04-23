@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.IdentityModel.Tokens.Jwt;
+using ScienceArchive.Application.Mappers;
+using ScienceArchive.Core.Dtos.UserRequest;
+using ScienceArchive.Core.Dtos.UserResponse;
 using ScienceArchive.Core.Entities;
 using ScienceArchive.Core.Interfaces.Repositories;
+using ScienceArchive.Core.Interfaces.UseCases;
 using ScienceArchive.Core.Utils;
 
 namespace ScienceArchive.Application.UseCases
 {
-    public class AuthorizeUserUseCase
+    public class AuthorizeUserUseCase : IUseCase<AuthorizeUserResponseDto, AuthorizeUserRequestDto>
     {
         private IUserRepository _userRepository;
 
@@ -21,13 +26,26 @@ namespace ScienceArchive.Application.UseCases
         /// <param name="login">User login</param>
         /// <param name="password">User password</param>
         /// <returns>JWT token</returns>
-        public async Task<User> Execute(string login, string password)
+        public async Task<AuthorizeUserResponseDto> Execute(AuthorizeUserRequestDto contract)
         {
-            var userExist = await CheckUserExist(login, password);
-            return userExist;
+            var login = contract.Login;
+            var password = contract.Password;
+
+            var user = await GetUserByCredentials(login, password);
+
+            if (user is null)
+            {
+                throw new Exception("No such user exist!");
+            }
+
+            return new AuthorizeUserResponseDto
+            {
+                UserExist = true,
+                User = UserMapper.MapToResponse(user),
+            };
         }
 
-        private async Task<User> CheckUserExist(string login, string password)
+        private async Task<User> GetUserByCredentials(string login, string password)
         {
             User? foundUser = null;
 

@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DBD2A9F-8201-4149-9DCC-D5313E7CC177}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Infrastructure", "ScienceArchive.Infrastructure\ScienceArchive.Infrastructure.csproj", "{34A85BE8-6D58-4E05-91B4-D13D26E5693B}"

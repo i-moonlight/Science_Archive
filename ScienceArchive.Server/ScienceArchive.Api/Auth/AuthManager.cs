@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using ScienceArchive.Core.Dtos;
 using ScienceArchive.Core.Entities;
 
 namespace ScienceArchive.Api.Auth
@@ -16,12 +17,13 @@ namespace ScienceArchive.Api.Auth
             _configuration = configuration;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(UserDto user)
         {
             var jwtSub = _configuration["Jwt:Sub"] ?? "";
-            var jwtKey = _configuration["Jwt:Key"] ?? "";
             var jwtAudience = _configuration["Jwt:Audience"] ?? "";
             var jwtIssuer = _configuration["Jwt:Issuer"] ?? "";
+            var jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY")
+                ?? throw new NullReferenceException("JWT key was not present!");
 
             var claims = new[]
             {

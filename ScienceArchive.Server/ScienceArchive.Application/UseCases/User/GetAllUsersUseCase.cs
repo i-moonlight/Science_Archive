@@ -1,10 +1,14 @@
 ﻿using System;
+using ScienceArchive.Application.Mappers;
+using ScienceArchive.Core.Dtos.User.Request;
+using ScienceArchive.Core.Dtos.UserResponse;
 using ScienceArchive.Core.Entities;
 using ScienceArchive.Core.Interfaces.Repositories;
+using ScienceArchive.Core.Interfaces.UseCases;
 
 namespace ScienceArchive.Application.UseCases
 {
-    public class GetAllUsersUseCase
+    public class GetAllUsersUseCase : IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto>
     {
         private readonly IUserRepository _userRepository;
 
@@ -13,9 +17,11 @@ namespace ScienceArchive.Application.UseCases
             _userRepository = userRepository;
         }
 
-        public async Task<List<User>> Execute()
+        public async Task<GetAllUsersResponseDto> Execute(GetAllUsersRequestDto contract)
         {
-            return await _userRepository.GetAll();
+            List<User> users = await _userRepository.GetAll();
+
+            return GetAllUsersMapper.MapToResponse(users);
         }
     }
 }
