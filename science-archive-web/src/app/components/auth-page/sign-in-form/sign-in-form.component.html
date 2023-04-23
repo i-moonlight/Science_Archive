@@ -3,22 +3,26 @@
     Sign in
   </h2>
   <div class="data-block">
-    <p>Login or Email:</p>
-    <input type="text" [(ngModel)]="login" />
+    <div>
+      <p>Login or Email:</p>
+      <input type="text" [(ngModel)]="login" />
 
-    <p>Password:</p>
-    <input type="password" [(ngModel)]="password" />
-
-    <div class="data-submit-wrapper">
-      <button (click)="onSignIn()">
-        Sign in
-      </button>
+      <p>Password:</p>
+      <input type="password" [(ngModel)]="password" />
     </div>
 
-    <div class="change-form">
+    <div>
+      <div class="data-submit-wrapper">
+        <button (click)="onSignIn()">
+          Sign in
+        </button>
+      </div>
+
+      <div class="change-form">
       <span class="change-form-text" (click)="changeAuthType()">
         Don't have an account? Sign up
       </span>
+      </div>
     </div>
   </div>
 </div>

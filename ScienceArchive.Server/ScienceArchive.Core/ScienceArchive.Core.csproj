@@ -16,6 +16,10 @@
     <None Remove="Contracts\User\" />
     <None Remove="Dtos\User\Request\" />
     <None Remove="Dtos\User\Response\" />
+    <None Remove="Dtos\System\" />
+    <None Remove="Dtos\System\Response\" />
+    <None Remove="Interfaces\UseCases\" />
+    <None Remove="Dtos\System\Request\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
@@ -27,5 +31,9 @@
     <Folder Include="Dtos\User\" />
     <Folder Include="Dtos\User\Request\" />
     <Folder Include="Dtos\User\Response\" />
+    <Folder Include="Dtos\System\" />
+    <Folder Include="Dtos\System\Response\" />
+    <Folder Include="Interfaces\UseCases\" />
+    <Folder Include="Dtos\System\Request\" />
   </ItemGroup>
 </Project>

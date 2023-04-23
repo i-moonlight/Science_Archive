@@ -12,6 +12,7 @@
     <None Remove="UseCases\" />
     <None Remove="UseCases\User\" />
     <None Remove="Mappers\User\" />
+    <None Remove="UseCases\System\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -19,6 +20,7 @@
     <Folder Include="UseCases\" />
     <Folder Include="UseCases\User\" />
     <Folder Include="Mappers\User\" />
+    <Folder Include="UseCases\System\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />

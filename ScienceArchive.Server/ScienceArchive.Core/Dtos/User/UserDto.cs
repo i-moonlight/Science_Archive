@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ScienceArchive.Core.Dtos
 {
-    public class UserDto
+    public record class UserDto
     {
         /// <summary>
         /// ID of the user

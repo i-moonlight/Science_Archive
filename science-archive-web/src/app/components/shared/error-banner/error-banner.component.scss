@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.message-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: center;
+  display: flex;
+  background-color: #ffe5e5;
+  color: #646464;
+  width: 80%;
+  border-radius: 10px;
+  border: 2px solid #ff6060;
+  margin-top: 25px;
+}
+
+.message {
+  text-align: center;
+  width: 70%;
+  word-wrap: break-word;
+}

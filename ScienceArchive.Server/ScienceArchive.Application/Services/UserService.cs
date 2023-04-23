@@ -1,27 +1,29 @@
 ﻿using System;
 using ScienceArchive.Application.Mappers;
 using ScienceArchive.Application.UseCases;
+using ScienceArchive.Core.Dtos.User.Request;
 using ScienceArchive.Core.Dtos.UserRequest;
 using ScienceArchive.Core.Dtos.UserResponse;
 using ScienceArchive.Core.Entities;
 using ScienceArchive.Core.Interfaces.Services;
+using ScienceArchive.Core.Interfaces.UseCases;
 
 namespace ScienceArchive.Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly AuthorizeUserUseCase _authorizeUseCase;
-        private readonly GetAllUsersUseCase _getAllUseCase;
-        private readonly CreateUserUseCase _createUseCase;
-        private readonly DeleteUserUseCase _deleteUseCase;
-        private readonly UpdateUserUseCase _updateUseCase;
+        private readonly IUseCase<AuthorizeUserResponseDto, AuthorizeUserRequestDto> _authorizeUseCase;
+        private readonly IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto> _getAllUseCase;
+        private readonly IUseCase<CreateUserResponseDto, CreateUserRequestDto> _createUseCase;
+        private readonly IUseCase<DeleteUserResponseDto, DeleteUserRequestDto> _deleteUseCase;
+        private readonly IUseCase<UpdateUserResponseDto, UpdateUserRequestDto> _updateUseCase;
 
         public UserService(
-            AuthorizeUserUseCase checkUserExistUseCase,
-            GetAllUsersUseCase getAllUseCase,
-            CreateUserUseCase createUserUseCase,
-            DeleteUserUseCase deleteUserUseCase,
-            UpdateUserUseCase updateUserUseCase)
+            IUseCase<AuthorizeUserResponseDto, AuthorizeUserRequestDto> checkUserExistUseCase,
+            IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto> getAllUseCase,
+            IUseCase<CreateUserResponseDto, CreateUserRequestDto> createUserUseCase,
+            IUseCase<DeleteUserResponseDto, DeleteUserRequestDto> deleteUserUseCase,
+            IUseCase<UpdateUserResponseDto, UpdateUserRequestDto> updateUserUseCase)
         {
             _authorizeUseCase = checkUserExistUseCase;
             _getAllUseCase = getAllUseCase;
@@ -33,52 +35,33 @@ namespace ScienceArchive.Application.Services
         /// <inheritdoc/>
         public async Task<AuthorizeUserResponseDto> Authorize(AuthorizeUserRequestDto contract)
         {
-            var user = await _authorizeUseCase.Execute(contract.Login, contract.Password);
-
-            if (user is null)
-            {
-                throw new Exception("No such user exist!");
-            }
-
-            return new AuthorizeUserResponseDto
-            {
-                UserExist = true,
-                User = user
-            };
+            return await _authorizeUseCase.Execute(contract);
         }
 
         /// <inheritdoc/>
         public async Task<GetAllUsersResponseDto> GetAll()
         {
-            List<User> users = await _getAllUseCase.Execute();
+            var emptyDto = new GetAllUsersRequestDto();
 
-            return GetAllUsersMapper.MapToResponse(users);
+            return await _getAllUseCase.Execute(emptyDto);
         }
 
         /// <inheritdoc/>
         public async Task<CreateUserResponseDto> Create(CreateUserRequestDto contract)
         {
-            User userToCreate = CreateUserMapper.MapToEntity(contract);
-            User createdUser = await _createUseCase.Execute(userToCreate);
-
-            return CreateUserMapper.MapToResponse(createdUser);
+            return await _createUseCase.Execute(contract);
         }
 
         /// <inheritdoc/>
         public async Task<DeleteUserResponseDto> Delete(DeleteUserRequestDto contract)
         {
-            Guid deletedUserId = await _deleteUseCase.Execute(contract.Id);
-
-            return DeleteUserMapper.MapToResponse(deletedUserId);
+            return await _deleteUseCase.Execute(contract);
         }
 
         /// <inheritdoc/>
         public async Task<UpdateUserResponseDto> Update(UpdateUserRequestDto contract)
         {
-            User userToUpdate = UpdateUserMapper.MapToEntity(contract);
-            User updatedUser = await _updateUseCase.Execute(contract.Id, userToUpdate);
-
-            return UpdateUserMapper.MapToResponse(updatedUser);
+            return await _updateUseCase.Execute(contract);
         }
 
     }

@@ -13,7 +13,7 @@ namespace ScienceArchive.Core.Dtos.UserResponse
         /// <summary>
         /// Found user
         /// </summary>
-        public User? User { get; set; }
+        public UserDto? User { get; set; }
     }
 }
 
