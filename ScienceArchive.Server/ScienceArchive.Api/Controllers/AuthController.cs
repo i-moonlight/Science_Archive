@@ -13,11 +13,11 @@ namespace ScienceArchive.Api.Controllers
         private readonly IConfiguration _configuration;
         private readonly AuthManager _authManager;
 
-        public AuthController(IUserService userService, IConfiguration configuration)
+        public AuthController(IUserService userService, IConfiguration configuration, AuthManager authManager)
         {
             _userService = userService;
             _configuration = configuration;
-            _authManager = new AuthManager(configuration);
+            _authManager = authManager;
         }
 
         [HttpPost("signin")]
@@ -37,7 +37,8 @@ namespace ScienceArchive.Api.Controllers
 
                 var response = new SuccessResponse(new
                 {
-                    token = token
+                    token = token,
+                    user = result.User,
                 });
 
                 return Json(response);

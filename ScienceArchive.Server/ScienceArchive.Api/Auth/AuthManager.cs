@@ -11,10 +11,12 @@ namespace ScienceArchive.Api.Auth
     public class AuthManager
     {
         private readonly IConfiguration _configuration;
+        private readonly IHostEnvironment _hostEnvironment;
 
-        public AuthManager(IConfiguration configuration)
+        public AuthManager(IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
             _configuration = configuration;
+            _hostEnvironment = hostEnvironment;
         }
 
         public string GenerateToken(UserDto user)
@@ -22,8 +24,17 @@ namespace ScienceArchive.Api.Auth
             var jwtSub = _configuration["Jwt:Sub"] ?? "";
             var jwtAudience = _configuration["Jwt:Audience"] ?? "";
             var jwtIssuer = _configuration["Jwt:Issuer"] ?? "";
-            var jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY")
-                ?? throw new NullReferenceException("JWT key was not present!");
+            string jwtKey;
+
+            if (_hostEnvironment.IsDevelopment())
+            {
+                jwtKey = _configuration["Jwt:Key"] ?? "";
+            }
+            else
+            {
+                jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY")
+                    ?? throw new NullReferenceException("JWT key was not present!");
+            }
 
             var claims = new[]
             {

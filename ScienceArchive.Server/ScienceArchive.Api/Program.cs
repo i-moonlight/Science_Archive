@@ -37,7 +37,7 @@ public class Program
         builder.Services.RegisterUseCases();
         builder.Services.RegisterRepositories();
         builder.Services.RegisterDbContext(dbConnectionString);
-        builder.Services.RegisterAuth(builder.Configuration);
+        builder.Services.RegisterAuth(builder.Configuration, builder.Environment.IsDevelopment());
 
         var app = builder.Build();
 

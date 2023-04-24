@@ -36,7 +36,7 @@ export class SignInFormComponent {
           }
 
           this.storageService.saveToken(response.data.token);
-          this.storageService.saveLogin(this.login);
+          this.storageService.saveLogin(response.data.user.login);
           this.router.navigate(["main"]);
         } else {
           alert(response.error);
