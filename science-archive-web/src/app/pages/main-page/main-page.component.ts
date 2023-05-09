@@ -1,17 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { LocalStorageService } from "src/app/services/local-storage.service";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-main-page",
   templateUrl: "./main-page.component.html",
   styleUrls: ["./main-page.component.scss"],
 })
-export class MainComponent implements OnInit {
+export class MainPageComponent implements OnInit {
   login: string = "";
   isAuthorized: boolean = false;
 
-  constructor(private storageService: LocalStorageService, private router: Router) {}
+  constructor(private storageService: LocalStorageService) {}
 
   ngOnInit(): void {
     const login = this.storageService.getLogin();
@@ -23,12 +22,10 @@ export class MainComponent implements OnInit {
   }
 
   onSignIn() {
-    this.router.navigate(["auth"]);
+    window.location.href = "auth";
   }
 
   onSignOut() {
     this.storageService.clean();
   }
-
-  protected readonly navigator = navigator;
 }

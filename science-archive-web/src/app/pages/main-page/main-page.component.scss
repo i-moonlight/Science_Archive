@@ -45,3 +45,31 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .top-menu {
+    display: block;
+    box-shadow: none;
+
+    &-elements-wrapper {
+      display: inline-block;
+    }
+
+    &-element {
+      width: 100%;
+      border-bottom: 1px solid #c2c2c2;
+      color: #414141;
+      padding-left: 25px;
+      padding-right: 25px;
+      text-align: left;
+      transition: .3s;
+    }
+
+    &-auth {
+      line-height: 50px;
+      padding-right: 25px;
+      padding-left: 25px;
+      transition: .3s;
+    }
+  }
+}

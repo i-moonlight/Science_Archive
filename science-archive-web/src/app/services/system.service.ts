@@ -1,8 +1,9 @@
+import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Response } from "../models/responses/response";
-import CheckSystemStatusResponseData from "../models/responses/response-data/check-system-status.response";
+
+import { Response } from "@models/operations/response";
+import CheckSystemStatusResponse from "@models/operations/system/responses/check-system-status.response";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +11,7 @@ import CheckSystemStatusResponseData from "../models/responses/response-data/che
 export class SystemService {
   constructor(private httpClient: HttpClient) {}
 
-  public checkSystemStatus(): Observable<Response<CheckSystemStatusResponseData>> {
-    return this.httpClient.get<Response<CheckSystemStatusResponseData>>("/api/system/check-status");
+  public checkSystemStatus(): Observable<Response<CheckSystemStatusResponse>> {
+    return this.httpClient.get<Response<CheckSystemStatusResponse>>("/api/system/check-status");
   }
 }

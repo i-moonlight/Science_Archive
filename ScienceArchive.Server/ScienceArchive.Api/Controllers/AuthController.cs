@@ -28,7 +28,7 @@ namespace ScienceArchive.Api.Controllers
             _authManager = authManager;
         }
 
-        [HttpPost("signin")]
+        [HttpPost("sign-in")]
         public async Task<IActionResult> SignIn([FromBody] LoginRequestDto request)
         {
             try
@@ -51,7 +51,7 @@ namespace ScienceArchive.Api.Controllers
             }
         }
 
-        [HttpPost("signup")]
+        [HttpPost("sign-up")]
         public async Task<IActionResult> SignUp([FromBody] CreateUserRequestDto request)
         {
             try

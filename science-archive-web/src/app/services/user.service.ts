@@ -1,16 +1,16 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Response } from "../models/responses/response";
-import { GetAllUsersResponseData } from "../models/responses/response-data/get-all-users.response";
+import { Response } from "@models/operations/response";
+import { GetAllUsersResponse } from "@models/operations/users/responses/get-all-users.response";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class UserService {
-  constructor (private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
-  public getAllUsers(): Observable<Response<GetAllUsersResponseData>> {
-    return this.httpClient.get<Response<GetAllUsersResponseData>>('/api/users/');
+  public getAllUsers(): Observable<Response<GetAllUsersResponse>> {
+    return this.httpClient.get<Response<GetAllUsersResponse>>("/api/users/");
   }
 }
