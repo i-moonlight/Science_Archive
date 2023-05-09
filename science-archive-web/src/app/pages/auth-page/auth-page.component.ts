@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { SystemService } from "../../services/system.service";
+import { SystemService } from "@services/system.service";
 
 @Component({
   selector: "app-auth-page",
   templateUrl: "./auth-page.component.html",
   styleUrls: ["./auth-page.component.scss"],
 })
-export class AuthComponent implements OnInit {
+export class AuthPageComponent implements OnInit {
   isSignIn: boolean;
   isSignUp: boolean;
   isServerWorking: boolean;
@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
     this.systemService.checkSystemStatus().subscribe({
       next: (response) => {
-        this.isServerWorking = response.success && !!response.data?.working;
+        this.isServerWorking = response.success && !!response.data?.isWorking;
       },
       error: () => {
         this.isServerWorking = false;

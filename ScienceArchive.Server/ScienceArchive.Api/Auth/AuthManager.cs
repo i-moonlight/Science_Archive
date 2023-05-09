@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using ScienceArchive.Core.Dtos;
+using ScienceArchive.Core.Dtos.User;
 using ScienceArchive.Core.Entities;
 
 namespace ScienceArchive.Api.Auth
@@ -19,7 +20,7 @@ namespace ScienceArchive.Api.Auth
             _hostEnvironment = hostEnvironment;
         }
 
-        public string GenerateToken(UserDto user)
+        public string GenerateToken(IdentifiedUserDto user)
         {
             var jwtSub = _configuration["Jwt:Sub"] ?? "";
             var jwtAudience = _configuration["Jwt:Audience"] ?? "";

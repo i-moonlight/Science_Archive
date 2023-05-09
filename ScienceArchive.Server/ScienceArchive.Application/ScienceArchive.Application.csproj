@@ -11,16 +11,16 @@
     <None Remove="Mappers\" />
     <None Remove="UseCases\" />
     <None Remove="UseCases\User\" />
-    <None Remove="Mappers\User\" />
     <None Remove="UseCases\System\" />
+    <None Remove="UseCases\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Mappers\" />
     <Folder Include="UseCases\" />
     <Folder Include="UseCases\User\" />
-    <Folder Include="Mappers\User\" />
     <Folder Include="UseCases\System\" />
+    <Folder Include="UseCases\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />

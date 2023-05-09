@@ -23,7 +23,7 @@ namespace ScienceArchive.Application.UseCases
 
             Guid deletedUserId = await _userRepository.Delete(contract.Id);
 
-            return DeleteUserMapper.MapToResponse(deletedUserId);
+            return new DeleteUserResponseDto(deletedUserId);
         }
     }
 }

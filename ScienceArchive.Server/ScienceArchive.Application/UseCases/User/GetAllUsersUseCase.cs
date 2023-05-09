@@ -20,8 +20,9 @@ namespace ScienceArchive.Application.UseCases
         public async Task<GetAllUsersResponseDto> Execute(GetAllUsersRequestDto contract)
         {
             List<User> users = await _userRepository.GetAll();
+            var userDtos = users.Select((user) => UserMapper.MapToDto(user)).ToList();
 
-            return GetAllUsersMapper.MapToResponse(users);
+            return new GetAllUsersResponseDto(userDtos);
         }
     }
 }

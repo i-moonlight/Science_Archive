@@ -20,10 +20,12 @@ namespace ScienceArchive.Application.UseCases
 
         public async Task<UpdateUserResponseDto> Execute(UpdateUserRequestDto contract)
         {
-            User userToUpdate = UpdateUserMapper.MapToEntity(contract);
-            User updatedUser = await _userRepository.Update(contract.Id, userToUpdate);
+            User userToUpdate = UserMapper.MapToEntity(contract.User);
+            User updatedUser = await _userRepository.Update(contract.UserId, userToUpdate);
 
-            return UpdateUserMapper.MapToResponse(updatedUser);
+            var updatedUserDto = UserMapper.MapToDto(updatedUser);
+
+            return new UpdateUserResponseDto(updatedUserDto);
         }
     }
 }
