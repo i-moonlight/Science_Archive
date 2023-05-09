@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
-using System.IdentityModel.Tokens.Jwt;
 using ScienceArchive.Application.Mappers;
-using ScienceArchive.Core.Dtos.UserRequest;
-using ScienceArchive.Core.Dtos.UserResponse;
+using ScienceArchive.Core.Dtos.Auth.Request;
+using ScienceArchive.Core.Dtos.Auth.Response;
 using ScienceArchive.Core.Entities;
 using ScienceArchive.Core.Interfaces.Repositories;
 using ScienceArchive.Core.Interfaces.UseCases;
 using ScienceArchive.Core.Utils;
 
-namespace ScienceArchive.Application.UseCases
+namespace ScienceArchive.Application.UseCases.Auth
 {
-    public class AuthorizeUserUseCase : IUseCase<AuthorizeUserResponseDto, AuthorizeUserRequestDto>
+    public class LoginUseCase : IUseCase<LoginResponseDto, LoginRequestDto>
     {
         private IUserRepository _userRepository;
 
-        public AuthorizeUserUseCase(IUserRepository userRepository)
+        public LoginUseCase(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -26,7 +24,7 @@ namespace ScienceArchive.Application.UseCases
         /// <param name="login">User login</param>
         /// <param name="password">User password</param>
         /// <returns>JWT token</returns>
-        public async Task<AuthorizeUserResponseDto> Execute(AuthorizeUserRequestDto contract)
+        public async Task<LoginResponseDto> Execute(LoginRequestDto contract)
         {
             var login = contract.Login;
             var password = contract.Password;
@@ -38,11 +36,7 @@ namespace ScienceArchive.Application.UseCases
                 throw new Exception("No such user exist!");
             }
 
-            return new AuthorizeUserResponseDto
-            {
-                UserExist = true,
-                User = UserMapper.MapToResponse(user),
-            };
+            return new LoginResponseDto(UserMapper.MapToDto(user));
         }
 
         private async Task<User> GetUserByCredentials(string login, string password)

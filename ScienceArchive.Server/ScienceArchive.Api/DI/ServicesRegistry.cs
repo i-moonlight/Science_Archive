@@ -1,6 +1,9 @@
 ﻿using ScienceArchive.Application.Services;
 using ScienceArchive.Application.UseCases;
+using ScienceArchive.Application.UseCases.Auth;
 using ScienceArchive.Application.UseCases.System;
+using ScienceArchive.Core.Dtos.Auth.Request;
+using ScienceArchive.Core.Dtos.Auth.Response;
 using ScienceArchive.Core.Dtos.System.Request;
 using ScienceArchive.Core.Dtos.System.Response;
 using ScienceArchive.Core.Dtos.User.Request;
@@ -23,6 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>Registered services</returns>
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            _ = services.AddTransient<IAuthService, AuthService>();
             _ = services.AddTransient<IUserService, UserService>();
             _ = services.AddTransient<ISystemService, SystemService>();
 
@@ -36,8 +40,10 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>Services with registered Use Cases</returns>
         public static IServiceCollection RegisterUseCases(this IServiceCollection services)
         {
+            // Auth use cases
+            _ = services.AddTransient<IUseCase<LoginResponseDto, LoginRequestDto>, LoginUseCase>();
+
             // User use cases
-            _ = services.AddTransient<IUseCase<AuthorizeUserResponseDto, AuthorizeUserRequestDto>, AuthorizeUserUseCase>();
             _ = services.AddTransient<IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto>, GetAllUsersUseCase>();
             _ = services.AddTransient<IUseCase<CreateUserResponseDto, CreateUserRequestDto>, CreateUserUseCase>();
             _ = services.AddTransient<IUseCase<UpdateUserResponseDto, UpdateUserRequestDto>, UpdateUserUseCase>();

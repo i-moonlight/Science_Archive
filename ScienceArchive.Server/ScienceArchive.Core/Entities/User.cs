@@ -42,7 +42,7 @@ namespace ScienceArchive.Core.Entities
                     throw new Exception("Name must not be empty or containing only whitespaces");
                 }
 
-                _name = value;
+                _name = value.Trim();
             }
         }
 
@@ -59,7 +59,7 @@ namespace ScienceArchive.Core.Entities
                     throw new Exception("Email value is invalid!");
                 }
 
-                _email = value;
+                _email = value.Trim();
             }
         }
 
@@ -69,32 +69,41 @@ namespace ScienceArchive.Core.Entities
         public required string Login
         {
             get => _login;
-            set => _login = value;
+            set => _login = value.Trim();
         }
 
         /// <summary>
         ///	Hash of the salted user password
         /// </summary>
-        public required string Password
+        public string Password
         {
             get => _password;
-            set => _password = value;
+            set => _password = value.Trim();
         }
 
         /// <summary>
         /// Salt for password
         /// </summary>
-        public string? PasswordSalt
+        public string PasswordSalt
         {
             get => _passwordSalt;
         }
 
         /// <summary>
+        /// Has user a password
+        /// </summary>
+        /// <returns>True if user has password, otherwise, false</returns>
+        public bool HasOwnPassword()
+        {
+            return String.IsNullOrEmpty(_password);
+        }
+
+        /// <summary>
         /// Hash current inner password value
         /// </summary>
-        public void HashOwnPassword()
+        public void HashAndSetPassword(string password)
         {
-            _password = StringGenerator.HashPassword(_password, _passwordSalt);
+            _password = StringGenerator.HashPassword(password, _passwordSalt);
         }
     }
 }

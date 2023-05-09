@@ -20,6 +20,9 @@
     <None Remove="Dtos\System\Response\" />
     <None Remove="Interfaces\UseCases\" />
     <None Remove="Dtos\System\Request\" />
+    <None Remove="Dtos\Auth\" />
+    <None Remove="Dtos\Auth\Request\" />
+    <None Remove="Dtos\Auth\Response\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
@@ -35,5 +38,8 @@
     <Folder Include="Dtos\System\Response\" />
     <Folder Include="Interfaces\UseCases\" />
     <Folder Include="Dtos\System\Request\" />
+    <Folder Include="Dtos\Auth\" />
+    <Folder Include="Dtos\Auth\Request\" />
+    <Folder Include="Dtos\Auth\Response\" />
   </ItemGroup>
 </Project>

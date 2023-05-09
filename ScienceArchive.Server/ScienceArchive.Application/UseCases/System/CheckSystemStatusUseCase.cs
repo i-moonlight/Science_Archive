@@ -13,7 +13,7 @@ namespace ScienceArchive.Application.UseCases.System
 
         public Task<CheckSystemStatusResponseDto> Execute(CheckSystemStatusRequestDto dto)
         {
-            return Task.FromResult<CheckSystemStatusResponseDto>(new CheckSystemStatusResponseDto { Working = true });
+            return Task.FromResult<CheckSystemStatusResponseDto>(new CheckSystemStatusResponseDto(true));
         }
     }
 }

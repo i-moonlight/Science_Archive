@@ -22,8 +22,8 @@ namespace ScienceArchive.Application.UseCases
 
         public async Task<CreateUserResponseDto> Execute(CreateUserRequestDto contract)
         {
-            User userToCreate = CreateUserMapper.MapToEntity(contract);
-            userToCreate.HashOwnPassword();
+            User userToCreate = UserMapper.MapToEntity(contract.User);
+            userToCreate.HashAndSetPassword(contract.Password);
 
             var users = await _userRepository.GetAll();
 
@@ -33,9 +33,11 @@ namespace ScienceArchive.Application.UseCases
             _ = users.Any(user => user.Login == userToCreate.Login) ?
                 throw new Exception("This login is already in use") : false;
 
-            User createdUser = await _userRepository.Create(userToCreate);
+            var createdUser = await _userRepository.Create(userToCreate);
 
-            return CreateUserMapper.MapToResponse(createdUser);
+            var createdUserDto = UserMapper.MapToDto(createdUser);
+
+            return new CreateUserResponseDto(createdUserDto);
         }
     }
 }

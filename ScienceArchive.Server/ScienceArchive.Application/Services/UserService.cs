@@ -12,30 +12,21 @@ namespace ScienceArchive.Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUseCase<AuthorizeUserResponseDto, AuthorizeUserRequestDto> _authorizeUseCase;
         private readonly IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto> _getAllUseCase;
         private readonly IUseCase<CreateUserResponseDto, CreateUserRequestDto> _createUseCase;
         private readonly IUseCase<DeleteUserResponseDto, DeleteUserRequestDto> _deleteUseCase;
         private readonly IUseCase<UpdateUserResponseDto, UpdateUserRequestDto> _updateUseCase;
 
         public UserService(
-            IUseCase<AuthorizeUserResponseDto, AuthorizeUserRequestDto> checkUserExistUseCase,
             IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto> getAllUseCase,
             IUseCase<CreateUserResponseDto, CreateUserRequestDto> createUserUseCase,
             IUseCase<DeleteUserResponseDto, DeleteUserRequestDto> deleteUserUseCase,
             IUseCase<UpdateUserResponseDto, UpdateUserRequestDto> updateUserUseCase)
         {
-            _authorizeUseCase = checkUserExistUseCase;
             _getAllUseCase = getAllUseCase;
             _createUseCase = createUserUseCase;
             _deleteUseCase = deleteUserUseCase;
             _updateUseCase = updateUserUseCase;
-        }
-
-        /// <inheritdoc/>
-        public async Task<AuthorizeUserResponseDto> Authorize(AuthorizeUserRequestDto contract)
-        {
-            return await _authorizeUseCase.Execute(contract);
         }
 
         /// <inheritdoc/>

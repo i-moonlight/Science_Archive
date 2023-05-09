@@ -11,13 +11,6 @@ namespace ScienceArchive.Core.Interfaces.Services
     public interface IUserService
     {
         /// <summary>
-        /// Check if user exist
-        /// </summary>
-        /// <param name="contract">Data to check user</param>
-        /// <returns>Checking result</returns>
-        Task<AuthorizeUserResponseDto> Authorize(AuthorizeUserRequestDto contract);
-
-        /// <summary>
         /// Get all existing users
         /// </summary>
         /// <returns>All existing users</returns>
