@@ -8,15 +8,17 @@
 
   <ItemGroup>
     <None Remove="Persistence\" />
-    <None Remove="Persistence\Repositories\" />
-    <None Remove="Persistence\Models\" />
-    <None Remove="Persistence\Mappers\" />
+    <None Remove="Persistence\PostgreSql\" />
+    <None Remove="Persistence\PostgreSql\Mappers\" />
+    <None Remove="Persistence\PostgreSql\Models\" />
+    <None Remove="Persistence\PostgreSql\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Persistence\" />
-    <Folder Include="Persistence\Repositories\" />
-    <Folder Include="Persistence\Models\" />
-    <Folder Include="Persistence\Mappers\" />
+    <Folder Include="Persistence\PostgreSql\" />
+    <Folder Include="Persistence\PostgreSql\Mappers\" />
+    <Folder Include="Persistence\PostgreSql\Models\" />
+    <Folder Include="Persistence\PostgreSql\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />

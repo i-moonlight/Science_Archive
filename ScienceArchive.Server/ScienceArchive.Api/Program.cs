@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using ScienceArchive.Application;
+using ScienceArchive.Infrastructure.Persistence;
 
 namespace ScienceArchive.Api;
 

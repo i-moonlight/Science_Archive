@@ -16,13 +16,11 @@
 
   <ItemGroup>
     <None Remove="Controllers\" />
-    <None Remove="DI\" />
     <None Remove="Responses\" />
     <None Remove="Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="DI\" />
     <Folder Include="Responses\" />
     <Folder Include="Auth\" />
   </ItemGroup>

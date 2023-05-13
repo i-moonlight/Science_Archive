@@ -1,4 +1,6 @@
-﻿using ScienceArchive.Application.Services;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using ScienceArchive.Application.Services;
 using ScienceArchive.Application.UseCases;
 using ScienceArchive.Application.UseCases.Auth;
 using ScienceArchive.Application.UseCases.System;
@@ -12,12 +14,9 @@ using ScienceArchive.Core.Dtos.UserResponse;
 using ScienceArchive.Core.Interfaces.Services;
 using ScienceArchive.Core.Interfaces.UseCases;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace ScienceArchive.Application
 {
-    /// <summary>
-    /// Registry of services in system
-    /// </summary>
-    public static class ServicesRegistry
+    public static class ApplicationLayerRegistry
     {
         /// <summary>
         /// Register default services implementations

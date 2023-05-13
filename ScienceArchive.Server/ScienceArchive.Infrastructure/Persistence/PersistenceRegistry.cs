@@ -1,14 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ScienceArchive.Core.Interfaces.Repositories;
-using ScienceArchive.Infrastructure.Persistence;
 using ScienceArchive.Infrastructure.Persistence.Repositories;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace ScienceArchive.Infrastructure.Persistence
 {
-    /// <summary>
-    /// Registry of repositories in system
-    /// </summary>
     public static class PersistenceRegistry
     {
         /// <summary>
@@ -22,6 +19,11 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        /// <summary>
+        /// Register database context
+        /// </summary>
+        /// <param name="services">Application services</param>
+        /// <param name="connectionString">Database connection string</param>
         public static IServiceCollection RegisterDbContext(this IServiceCollection services, string connectionString)
         {
             _ = services.AddDbContext<ScienceArchiveDbContext>(options =>

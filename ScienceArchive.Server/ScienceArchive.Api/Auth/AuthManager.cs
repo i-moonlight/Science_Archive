@@ -43,9 +43,6 @@ namespace ScienceArchive.Api.Auth
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                 new Claim("UserId", user.Id.ToString()),
-                new Claim("DisplayName", user.Login),
-                new Claim("UserName", user.Name),
-                new Claim("Email", user.Email),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
