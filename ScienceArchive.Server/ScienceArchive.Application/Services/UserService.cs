@@ -4,7 +4,7 @@ using ScienceArchive.Application.UseCases;
 using ScienceArchive.Core.Dtos.User.Request;
 using ScienceArchive.Core.Dtos.UserRequest;
 using ScienceArchive.Core.Dtos.UserResponse;
-using ScienceArchive.Core.Entities;
+using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Interfaces.Services;
 using ScienceArchive.Core.Interfaces.UseCases;
 

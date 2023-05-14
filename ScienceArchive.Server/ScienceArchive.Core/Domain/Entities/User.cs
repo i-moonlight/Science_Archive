@@ -1,32 +1,22 @@
 ﻿using System;
+using ScienceArchive.Core.Domain.Common;
 using ScienceArchive.Core.Utils;
 
-namespace ScienceArchive.Core.Entities
+namespace ScienceArchive.Core.Domain.Entities
 {
     /// <summary>
-    /// Represents user
+    /// User entity
     /// </summary>
-    public class User
+    public class User : BaseEntity
     {
-        private Guid _id = Guid.Empty;
         private string _name = string.Empty;
         private string _email = string.Empty;
         private string _login = string.Empty;
         private string _password = string.Empty;
-        private string _passwordSalt = string.Empty;
 
-        public User(Guid id = default, string? salt = null)
+        public User(Guid id, string? passwordSalt = null) : base(id)
         {
-            _id = id == default ? Guid.NewGuid() : id;
-            _passwordSalt = salt ?? StringGenerator.CreateSalt();
-        }
-
-        /// <summary>
-        /// Identifier of the user
-        /// </summary>
-        public Guid Id
-        {
-            get => _id;
+            PasswordSalt = passwordSalt ?? StringGenerator.CreateSalt();
         }
 
         /// <summary>
@@ -84,18 +74,15 @@ namespace ScienceArchive.Core.Entities
         /// <summary>
         /// Salt for password
         /// </summary>
-        public string PasswordSalt
-        {
-            get => _passwordSalt;
-        }
+        public string PasswordSalt { get; }
 
         /// <summary>
         /// Has user a password
         /// </summary>
         /// <returns>True if user has password, otherwise, false</returns>
-        public bool HasOwnPassword()
+        public bool HasOwnPassword
         {
-            return String.IsNullOrEmpty(_password);
+            get => String.IsNullOrWhiteSpace(_password);
         }
 
         /// <summary>
@@ -103,7 +90,7 @@ namespace ScienceArchive.Core.Entities
         /// </summary>
         public void HashAndSetPassword(string password)
         {
-            _password = StringGenerator.HashPassword(password, _passwordSalt);
+            _password = StringGenerator.HashPassword(password, PasswordSalt);
         }
     }
 }

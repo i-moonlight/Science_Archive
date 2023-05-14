@@ -1,7 +1,7 @@
 ﻿using System;
 using ScienceArchive.Core.Dtos.UserRequest;
 using ScienceArchive.Core.Dtos.UserResponse;
-using ScienceArchive.Core.Entities;
+using ScienceArchive.Core.Domain.Entities;
 
 namespace ScienceArchive.Core.Interfaces.Services
 {
@@ -19,22 +19,21 @@ namespace ScienceArchive.Core.Interfaces.Services
         /// <summary>
         /// Create new user
         /// </summary>
-        /// <param name="newUser">New user to create</param>
+        /// <param name="contract">Contract to create new user</param>
         /// <returns>Created user</returns>
         Task<CreateUserResponseDto> Create(CreateUserRequestDto contract);
 
         /// <summary>
         /// Update existing user
         /// </summary>
-        /// <param name="userId">User ID to update</param>
-        /// <param name="newUser">New user data</param>
+        /// <param name="contract">Contract to update user</param>
         /// <returns>Updated user</returns>
         Task<UpdateUserResponseDto> Update(UpdateUserRequestDto contract);
 
         /// <summary>
         /// Delete existing user
         /// </summary>
-        /// <param name="userId">User ID to delete</param>
+        /// <param name="contract">Contract to delete user</param>
         /// <returns>Deleted user ID</returns>
         Task<DeleteUserResponseDto> Delete(DeleteUserRequestDto contract);
     }

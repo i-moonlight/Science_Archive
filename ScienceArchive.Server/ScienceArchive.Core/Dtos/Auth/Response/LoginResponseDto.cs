@@ -7,6 +7,6 @@ namespace ScienceArchive.Core.Dtos.Auth.Response
     /// Response contract to login request
     /// </summary>
     /// <param name="User">Found user</param>
-    public record LoginResponseDto(IdentifiedUserDto User);
+    public record LoginResponseDto(UserDto User);
 }
 

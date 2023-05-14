@@ -2,20 +2,24 @@
 using ScienceArchive.Application.Mappers;
 using ScienceArchive.Core.Dtos.Auth.Request;
 using ScienceArchive.Core.Dtos.Auth.Response;
-using ScienceArchive.Core.Entities;
+using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Interfaces.Repositories;
 using ScienceArchive.Core.Interfaces.UseCases;
 using ScienceArchive.Core.Utils;
+using ScienceArchive.Core.Interfaces.Mappers;
+using ScienceArchive.Core.Dtos;
 
 namespace ScienceArchive.Application.UseCases.Auth
 {
     public class LoginUseCase : IUseCase<LoginResponseDto, LoginRequestDto>
     {
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper<User, UserDto> _mapper;
 
-        public LoginUseCase(IUserRepository userRepository)
+        public LoginUseCase(IUserRepository userRepository, IMapper<User, UserDto> mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -36,7 +40,7 @@ namespace ScienceArchive.Application.UseCases.Auth
                 throw new Exception("No such user exist!");
             }
 
-            return new LoginResponseDto(UserMapper.MapToDto(user));
+            return new LoginResponseDto(_mapper.MapToDto(user));
         }
 
         private async Task<User> GetUserByCredentials(string login, string password)
@@ -50,7 +54,12 @@ namespace ScienceArchive.Application.UseCases.Auth
 
             var users = await _userRepository.GetAll();
             foundUser = users.Find(u => u.Login == login || u.Email == login);
-            _ = foundUser ?? throw new Exception($"Wrong login or password!");
+
+            if (foundUser is null)
+            {
+                throw new Exception($"Wrong login or password!");
+            }
+
 
             var passwordHash = StringGenerator.HashPassword(password, foundUser.PasswordSalt);
 

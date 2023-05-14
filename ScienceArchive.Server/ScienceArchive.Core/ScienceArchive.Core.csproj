@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Entities\" />
     <None Remove="Interfaces\" />
     <None Remove="Interfaces\Repositories\" />
     <None Remove="Interfaces\Services\" />
@@ -23,9 +22,22 @@
     <None Remove="Dtos\Auth\" />
     <None Remove="Dtos\Auth\Request\" />
     <None Remove="Dtos\Auth\Response\" />
+    <None Remove="Domain\" />
+    <None Remove="Domain\Entities\" />
+    <None Remove="Domain\Common\" />
+    <None Remove="Dtos\Article\" />
+    <None Remove="Dtos\Article\Request\" />
+    <None Remove="Dtos\Article\Response\" />
+    <None Remove="Interfaces\Mappers\" />
+    <None Remove="Dtos\Role\" />
+    <None Remove="Dtos\News\" />
+    <None Remove="Dtos\Claim\" />
+    <None Remove="Dtos\News\Request\" />
+    <None Remove="Dtos\News\Response\" />
+    <None Remove="Dtos\Role\Request\" />
+    <None Remove="Dtos\Role\Response\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Interfaces\Services\" />
@@ -41,5 +53,19 @@
     <Folder Include="Dtos\Auth\" />
     <Folder Include="Dtos\Auth\Request\" />
     <Folder Include="Dtos\Auth\Response\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Domain\Entities\" />
+    <Folder Include="Domain\Common\" />
+    <Folder Include="Dtos\Article\" />
+    <Folder Include="Dtos\Article\Request\" />
+    <Folder Include="Dtos\Article\Response\" />
+    <Folder Include="Interfaces\Mappers\" />
+    <Folder Include="Dtos\Role\" />
+    <Folder Include="Dtos\News\" />
+    <Folder Include="Dtos\Claim\" />
+    <Folder Include="Dtos\News\Request\" />
+    <Folder Include="Dtos\News\Response\" />
+    <Folder Include="Dtos\Role\Request\" />
+    <Folder Include="Dtos\Role\Response\" />
   </ItemGroup>
 </Project>

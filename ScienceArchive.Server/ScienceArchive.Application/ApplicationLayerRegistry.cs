@@ -1,9 +1,12 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using ScienceArchive.Application.Mappers;
 using ScienceArchive.Application.Services;
 using ScienceArchive.Application.UseCases;
 using ScienceArchive.Application.UseCases.Auth;
 using ScienceArchive.Application.UseCases.System;
+using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Dtos;
 using ScienceArchive.Core.Dtos.Auth.Request;
 using ScienceArchive.Core.Dtos.Auth.Response;
 using ScienceArchive.Core.Dtos.System.Request;
@@ -11,6 +14,7 @@ using ScienceArchive.Core.Dtos.System.Response;
 using ScienceArchive.Core.Dtos.User.Request;
 using ScienceArchive.Core.Dtos.UserRequest;
 using ScienceArchive.Core.Dtos.UserResponse;
+using ScienceArchive.Core.Interfaces.Mappers;
 using ScienceArchive.Core.Interfaces.Services;
 using ScienceArchive.Core.Interfaces.UseCases;
 
@@ -50,6 +54,13 @@ namespace ScienceArchive.Application
 
             // System use cases
             _ = services.AddTransient<IUseCase<CheckSystemStatusResponseDto, CheckSystemStatusRequestDto>, CheckSystemStatusUseCase>();
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterApplicationLayerMappers(this IServiceCollection services)
+        {
+            _ = services.AddTransient<IMapper<User, UserDto>, UserMapper>();
 
             return services;
         }

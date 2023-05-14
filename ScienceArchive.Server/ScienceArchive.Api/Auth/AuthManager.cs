@@ -5,7 +5,9 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using ScienceArchive.Core.Dtos;
 using ScienceArchive.Core.Dtos.User;
-using ScienceArchive.Core.Entities;
+using ScienceArchive.Core.Domain.Entities;
+
+using JwtClaim = System.Security.Claims.Claim;
 
 namespace ScienceArchive.Api.Auth
 {
@@ -20,7 +22,7 @@ namespace ScienceArchive.Api.Auth
             _hostEnvironment = hostEnvironment;
         }
 
-        public string GenerateToken(IdentifiedUserDto user)
+        public string GenerateToken(UserDto user)
         {
             var jwtSub = _configuration["Jwt:Sub"] ?? "";
             var jwtAudience = _configuration["Jwt:Audience"] ?? "";
@@ -39,10 +41,10 @@ namespace ScienceArchive.Api.Auth
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, jwtSub),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim("UserId", user.Id.ToString()),
+                new JwtClaim(JwtRegisteredClaimNames.Sub, jwtSub),
+                new JwtClaim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new JwtClaim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                new JwtClaim("UserId", user.Id.ToString()),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));

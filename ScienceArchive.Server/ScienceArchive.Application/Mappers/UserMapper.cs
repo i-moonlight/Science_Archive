@@ -4,24 +4,30 @@ using ScienceArchive.Core.Dtos;
 using ScienceArchive.Core.Dtos.User;
 using ScienceArchive.Core.Dtos.UserRequest;
 using ScienceArchive.Core.Dtos.UserResponse;
-using ScienceArchive.Core.Entities;
+using ScienceArchive.Core.Domain.Entities;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using ScienceArchive.Core.Interfaces.Mappers;
 
 namespace ScienceArchive.Application.Mappers
 {
-    public class UserMapper
+    public class UserMapper : IMapper<User, UserDto>
     {
-        public static IdentifiedUserDto MapToDto(User user)
+        public UserDto MapToDto(User user)
         {
-            return new IdentifiedUserDto(
-                user.Id,
-                user.Name,
-                user.Email,
-                user.Login);
+            return new UserDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Login = user.Login
+            };
         }
 
-        public static User MapToEntity(UserDto userDto)
+        public User MapToEntity(UserDto userDto, Guid? id = null)
         {
-            return new User(Guid.NewGuid())
+            var userId = id ?? Guid.NewGuid();
+
+            return new User(userId)
             {
                 Name = userDto.Name,
                 Email = userDto.Email,

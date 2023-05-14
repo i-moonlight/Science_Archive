@@ -4,6 +4,9 @@ using ScienceArchive.Core.Dtos.Auth.Response;
 
 namespace ScienceArchive.Core.Interfaces.Services
 {
+    /// <summary>
+    /// Base functionality of auth service
+    /// </summary>
     public interface IAuthService
     {
         /// <summary>

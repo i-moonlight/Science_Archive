@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using ScienceArchive.Core.Entities;
+using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Interfaces.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Mappers;
 using ScienceArchive.Infrastructure.Persistence.Models;

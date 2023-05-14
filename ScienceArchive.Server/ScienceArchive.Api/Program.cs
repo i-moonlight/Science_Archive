@@ -35,6 +35,7 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         // Register own services
+        builder.Services.RegisterApplicationLayerMappers();
         builder.Services.RegisterServices();
         builder.Services.RegisterUseCases();
         builder.Services.RegisterRepositories();

@@ -1,5 +1,5 @@
 ﻿using System;
-using ScienceArchive.Core.Entities;
+using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Infrastructure.Persistence.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.Mappers

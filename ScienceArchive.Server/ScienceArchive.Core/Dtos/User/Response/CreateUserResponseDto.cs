@@ -7,6 +7,6 @@ namespace ScienceArchive.Core.Dtos.UserResponse
     /// Response contract to create user request
     /// </summary>
     /// <param name="User">Created user</param>
-    public record class CreateUserResponseDto(IdentifiedUserDto User);
+    public record class CreateUserResponseDto(UserDto User);
 }
 

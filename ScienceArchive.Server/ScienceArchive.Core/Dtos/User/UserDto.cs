@@ -4,8 +4,26 @@ namespace ScienceArchive.Core.Dtos
     /// <summary>
     /// User DTO
     /// </summary>
-    /// <param name="Name">User name</param>
-    /// <param name="Email">User email</param>
-    /// <param name="Login">User auth login</param>
-    public record UserDto(string Name, string Email, string Login);
+    public record UserDto
+    {
+        /// <summary>
+        /// User ID
+        /// </summary>
+        public Guid? Id { get; set; }
+
+        /// <summary>
+        /// User name
+        /// </summary>
+        public required string Name { get; set; }
+
+        /// <summary>
+        /// User email
+        /// </summary>
+        public required string Email { get; set; }
+
+        /// <summary>
+        /// User auth login
+        /// </summary>
+        public required string Login { get; set; }
+    }
 }
