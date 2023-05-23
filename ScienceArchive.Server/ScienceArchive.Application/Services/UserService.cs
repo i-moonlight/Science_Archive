@@ -7,52 +7,38 @@ using ScienceArchive.Core.Dtos.UserResponse;
 using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Interfaces.Services;
 using ScienceArchive.Core.Interfaces.UseCases;
+using System.Diagnostics.Contracts;
 
 namespace ScienceArchive.Application.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
-        private readonly IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto> _getAllUseCase;
-        private readonly IUseCase<CreateUserResponseDto, CreateUserRequestDto> _createUseCase;
-        private readonly IUseCase<DeleteUserResponseDto, DeleteUserRequestDto> _deleteUseCase;
-        private readonly IUseCase<UpdateUserResponseDto, UpdateUserRequestDto> _updateUseCase;
-
-        public UserService(
-            IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto> getAllUseCase,
-            IUseCase<CreateUserResponseDto, CreateUserRequestDto> createUserUseCase,
-            IUseCase<DeleteUserResponseDto, DeleteUserRequestDto> deleteUserUseCase,
-            IUseCase<UpdateUserResponseDto, UpdateUserRequestDto> updateUserUseCase)
-        {
-            _getAllUseCase = getAllUseCase;
-            _createUseCase = createUserUseCase;
-            _deleteUseCase = deleteUserUseCase;
-            _updateUseCase = updateUserUseCase;
-        }
+        public UserService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
         /// <inheritdoc/>
         public async Task<GetAllUsersResponseDto> GetAll()
         {
             var emptyDto = new GetAllUsersRequestDto();
 
-            return await _getAllUseCase.Execute(emptyDto);
+            return await ExecuteUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto>(emptyDto);
         }
 
         /// <inheritdoc/>
         public async Task<CreateUserResponseDto> Create(CreateUserRequestDto contract)
         {
-            return await _createUseCase.Execute(contract);
+            return await ExecuteUseCase<CreateUserResponseDto, CreateUserRequestDto>(contract);
         }
 
         /// <inheritdoc/>
         public async Task<DeleteUserResponseDto> Delete(DeleteUserRequestDto contract)
         {
-            return await _deleteUseCase.Execute(contract);
+            return await ExecuteUseCase<DeleteUserResponseDto, DeleteUserRequestDto>(contract);
         }
 
         /// <inheritdoc/>
         public async Task<UpdateUserResponseDto> Update(UpdateUserRequestDto contract)
         {
-            return await _updateUseCase.Execute(contract);
+            return await ExecuteUseCase<UpdateUserResponseDto, UpdateUserRequestDto>(contract);
         }
 
     }

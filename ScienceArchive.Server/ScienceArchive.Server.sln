@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Infrastructure", "ScienceArchive.Infrastructure\ScienceArchive.Infrastructure.csproj", "{34A85BE8-6D58-4E05-91B4-D13D26E5693B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2765A120-228A-49BA-8780-6640C39A331D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Core.Tests", "ScienceArchive.Core.Tests\ScienceArchive.Core.Tests.csproj", "{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,11 +43,18 @@ Global
 		{34A85BE8-6D58-4E05-91B4-D13D26E5693B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A85BE8-6D58-4E05-91B4-D13D26E5693B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A85BE8-6D58-4E05-91B4-D13D26E5693B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94121A3E-CA09-4579-8399-CBF761D3BCFF}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88} = {2765A120-228A-49BA-8780-6640C39A331D}
 	EndGlobalSection
 EndGlobal

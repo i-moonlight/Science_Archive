@@ -6,18 +6,13 @@ using ScienceArchive.Core.Interfaces.UseCases;
 
 namespace ScienceArchive.Application.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService : BaseService, IAuthService
     {
-        IUseCase<LoginResponseDto, LoginRequestDto> _loginUseCase;
-
-        public AuthService(IUseCase<LoginResponseDto, LoginRequestDto> loginUseCase)
-        {
-            _loginUseCase = loginUseCase;
-        }
+        public AuthService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
         public async Task<LoginResponseDto> Login(LoginRequestDto contract)
         {
-            return await _loginUseCase.Execute(contract);
+            return await ExecuteUseCase<LoginResponseDto, LoginRequestDto>(contract);
         }
     }
 }

@@ -13,6 +13,9 @@
     <None Remove="UseCases\User\" />
     <None Remove="UseCases\System\" />
     <None Remove="UseCases\Auth\" />
+    <None Remove="UseCases\Article\" />
+    <None Remove="UseCases\Role\" />
+    <None Remove="UseCases\News\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -21,6 +24,9 @@
     <Folder Include="UseCases\User\" />
     <Folder Include="UseCases\System\" />
     <Folder Include="UseCases\Auth\" />
+    <Folder Include="UseCases\Article\" />
+    <Folder Include="UseCases\Role\" />
+    <Folder Include="UseCases\News\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />

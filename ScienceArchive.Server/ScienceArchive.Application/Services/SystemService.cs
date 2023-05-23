@@ -6,21 +6,15 @@ using ScienceArchive.Core.Interfaces.UseCases;
 
 namespace ScienceArchive.Application.Services
 {
-    public class SystemService : ISystemService
+    public class SystemService : BaseService, ISystemService
     {
-        private readonly IUseCase<CheckSystemStatusResponseDto, CheckSystemStatusRequestDto> _checkSystemStatusUseCase;
+        public SystemService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
-        public SystemService(
-            IUseCase<CheckSystemStatusResponseDto, CheckSystemStatusRequestDto> checkSystemStatusUseCase)
-        {
-            _checkSystemStatusUseCase = checkSystemStatusUseCase;
-        }
-
+        /// <inheritdoc/>
         public async Task<CheckSystemStatusResponseDto> CheckSystemStatus()
         {
             var emptyDto = new CheckSystemStatusRequestDto();
-
-            return await _checkSystemStatusUseCase.Execute(emptyDto);
+            return await ExecuteUseCase<CheckSystemStatusResponseDto, CheckSystemStatusRequestDto>(emptyDto);
         }
     }
 }
