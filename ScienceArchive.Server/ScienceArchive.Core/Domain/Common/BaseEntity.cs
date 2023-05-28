@@ -6,14 +6,9 @@ namespace ScienceArchive.Core.Domain.Common
     /// </summary>
     public class BaseEntity
     {
-        public BaseEntity(Guid id)
+        public BaseEntity(Guid? id = null)
         {
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
-            Id = id;
+            Id = id ?? Guid.NewGuid();
         }
 
         /// <summary>

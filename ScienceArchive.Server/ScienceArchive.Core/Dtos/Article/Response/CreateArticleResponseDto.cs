@@ -1,7 +1,7 @@
 ﻿using System;
 using ScienceArchive.Core.Dtos.Article;
 
-namespace ScienceArchive.Core.Dtos.ArticleResponse
+namespace ScienceArchive.Core.Dtos.Article.Response
 {
     /// <summary>
     /// Response contract of article creation

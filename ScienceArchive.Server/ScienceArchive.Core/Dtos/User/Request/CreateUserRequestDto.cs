@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ScienceArchive.Core.Dtos.UserRequest
+namespace ScienceArchive.Core.Dtos.User.Request
 {
     /// <summary>
     /// Request contract to create user

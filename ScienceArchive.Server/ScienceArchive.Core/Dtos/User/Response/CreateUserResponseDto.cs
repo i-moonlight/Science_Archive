@@ -1,7 +1,7 @@
 ﻿using System;
 using ScienceArchive.Core.Dtos.User;
 
-namespace ScienceArchive.Core.Dtos.UserResponse
+namespace ScienceArchive.Core.Dtos.User.Response
 {
     /// <summary>
     /// Response contract to create user request

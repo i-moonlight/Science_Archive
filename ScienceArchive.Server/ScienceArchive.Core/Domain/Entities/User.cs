@@ -14,7 +14,7 @@ namespace ScienceArchive.Core.Domain.Entities
         private string _login = string.Empty;
         private string _password = string.Empty;
 
-        public User(Guid id, string? passwordSalt = null) : base(id)
+        public User(Guid? id = null, string? passwordSalt = null) : base(id)
         {
             PasswordSalt = passwordSalt ?? StringGenerator.CreateSalt();
         }

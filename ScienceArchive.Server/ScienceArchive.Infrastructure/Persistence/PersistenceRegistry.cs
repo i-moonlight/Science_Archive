@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ScienceArchive.Core.Interfaces.Repositories;
+using ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Repositories;
 
 namespace ScienceArchive.Infrastructure.Persistence
@@ -14,6 +15,9 @@ namespace ScienceArchive.Infrastructure.Persistence
         /// <param name="services">Application services</param>
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
+            _ = services.AddTransient<IArticleRepository, ArticleRepository>();
+            _ = services.AddTransient<INewsRepository, NewsRepository>();
+            _ = services.AddTransient<IRoleRepository, RoleRepository>();
             _ = services.AddTransient<IUserRepository, UserRepository>();
 
             return services;

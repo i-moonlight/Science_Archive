@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Core.Interfaces.Services;
 using ScienceArchive.Api.Responses;
-using ScienceArchive.Core.Dtos.UserRequest;
+using ScienceArchive.Core.Dtos.User.Request;
 using ScienceArchive.Api.Auth;
 using ScienceArchive.Core.Dtos.Auth.Response;
 using ScienceArchive.Core.Dtos.Auth.Request;

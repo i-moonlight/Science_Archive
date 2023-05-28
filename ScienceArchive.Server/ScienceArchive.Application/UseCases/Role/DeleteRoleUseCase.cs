@@ -1,19 +1,33 @@
 ﻿using System;
+using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Dtos.Role;
 using ScienceArchive.Core.Dtos.Role.Request;
 using ScienceArchive.Core.Dtos.Role.Response;
+using ScienceArchive.Core.Interfaces.Mappers;
+using ScienceArchive.Core.Interfaces.Repositories;
 using ScienceArchive.Core.Interfaces.UseCases;
 
-namespace ScienceArchive.Application.UseCases.Role
+namespace ScienceArchive.Application.RoleUseCases
 {
     public class DeleteRoleUseCase : IUseCase<DeleteRoleResponseDto, DeleteRoleRequestDto>
     {
-        public DeleteRoleUseCase()
+        private readonly IRoleRepository _roleRepository;
+
+        public DeleteRoleUseCase(IRoleRepository roleRepository, IMapper<Role, RoleDto> roleMapper)
         {
+            if (roleRepository is null)
+            {
+                throw new ArgumentNullException(nameof(roleRepository));
+            }
+
+            _roleRepository = roleRepository;
         }
 
-        public Task<DeleteRoleResponseDto> Execute(DeleteRoleRequestDto dto)
+        public async Task<DeleteRoleResponseDto> Execute(DeleteRoleRequestDto dto)
         {
-            throw new NotImplementedException();
+            var deletedRoleId = await _roleRepository.Delete(dto.Id);
+
+            return new(deletedRoleId);
         }
     }
 }

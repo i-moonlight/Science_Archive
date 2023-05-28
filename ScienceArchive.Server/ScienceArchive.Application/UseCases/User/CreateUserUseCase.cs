@@ -3,13 +3,13 @@ using ScienceArchive.Application.Mappers;
 using System.Diagnostics.Contracts;
 using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Interfaces.Repositories;
-using ScienceArchive.Core.Dtos.UserResponse;
-using ScienceArchive.Core.Dtos.UserRequest;
+using ScienceArchive.Core.Dtos.User.Response;
+using ScienceArchive.Core.Dtos.User.Request;
 using ScienceArchive.Core.Interfaces.UseCases;
 using ScienceArchive.Core.Dtos;
 using ScienceArchive.Core.Interfaces.Mappers;
 
-namespace ScienceArchive.Application.UseCases
+namespace ScienceArchive.Application.UserUseCases
 {
     public class CreateUserUseCase : IUseCase<CreateUserResponseDto, CreateUserRequestDto>
     {

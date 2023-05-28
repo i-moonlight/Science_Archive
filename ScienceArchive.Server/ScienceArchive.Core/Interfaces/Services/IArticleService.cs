@@ -1,6 +1,6 @@
 ﻿using System;
-using ScienceArchive.Core.Dtos.ArticleRequest;
-using ScienceArchive.Core.Dtos.ArticleResponse;
+using ScienceArchive.Core.Dtos.Article.Request;
+using ScienceArchive.Core.Dtos.Article.Response;
 
 namespace ScienceArchive.Core.Interfaces.Services
 {

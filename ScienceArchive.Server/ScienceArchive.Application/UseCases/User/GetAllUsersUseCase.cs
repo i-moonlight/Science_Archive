@@ -1,14 +1,14 @@
 ﻿using System;
 using ScienceArchive.Application.Mappers;
 using ScienceArchive.Core.Dtos.User.Request;
-using ScienceArchive.Core.Dtos.UserResponse;
+using ScienceArchive.Core.Dtos.User.Response;
 using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Interfaces.Repositories;
 using ScienceArchive.Core.Interfaces.UseCases;
 using ScienceArchive.Core.Dtos;
 using ScienceArchive.Core.Interfaces.Mappers;
 
-namespace ScienceArchive.Application.UseCases
+namespace ScienceArchive.Application.UserUseCases
 {
     public class GetAllUsersUseCase : IUseCase<GetAllUsersResponseDto, GetAllUsersRequestDto>
     {

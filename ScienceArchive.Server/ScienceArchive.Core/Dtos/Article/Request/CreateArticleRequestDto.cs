@@ -1,7 +1,7 @@
 ﻿using System;
 using ScienceArchive.Core.Dtos.Article;
 
-namespace ScienceArchive.Core.Dtos.ArticleRequest
+namespace ScienceArchive.Core.Dtos.Article.Request
 {
     /// <summary>
     /// Request contract to create article

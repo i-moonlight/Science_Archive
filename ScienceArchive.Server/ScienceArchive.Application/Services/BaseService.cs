@@ -12,6 +12,11 @@ namespace ScienceArchive.Application.Services
 
         public BaseService(IServiceProvider serviceProvider)
         {
+            if (serviceProvider is null)
+            {
+                throw new ArgumentNullException(nameof(serviceProvider));
+            }
+
             _serviceProvider = serviceProvider;
         }
 
@@ -37,7 +42,7 @@ namespace ScienceArchive.Application.Services
 
             if (useCase is null)
             {
-                throw new NullReferenceException("Cannot get UseCase for processing the operation!");
+                throw new NullReferenceException("Cannot get use-case for processing the operation!");
             }
 
             return await useCase.Execute(contract);

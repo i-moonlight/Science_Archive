@@ -9,9 +9,7 @@ namespace ScienceArchive.Core.Domain.Entities
     /// </summary>
     public class Claim : BaseEntity
     {
-        public Claim(Guid id) : base(id)
-        {
-        }
+        public Claim(Guid? id = null) : base(id) { }
 
         /// <summary>
         /// Claim value

@@ -1,6 +1,6 @@
 ﻿using System;
-using ScienceArchive.Core.Dtos.UserRequest;
-using ScienceArchive.Core.Dtos.UserResponse;
+using ScienceArchive.Core.Dtos.User.Request;
+using ScienceArchive.Core.Dtos.User.Response;
 using ScienceArchive.Core.Domain.Entities;
 
 namespace ScienceArchive.Core.Interfaces.Services

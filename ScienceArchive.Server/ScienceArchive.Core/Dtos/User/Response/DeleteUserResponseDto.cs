@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ScienceArchive.Core.Dtos.UserResponse
+namespace ScienceArchive.Core.Dtos.User.Response
 {
     /// <summary>
     /// Response contract to delete user request

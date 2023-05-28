@@ -1,20 +1,32 @@
 ﻿using System;
-using ScienceArchive.Core.Dtos.ArticleRequest;
-using ScienceArchive.Core.Dtos.ArticleResponse;
+using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Dtos.Article;
+using ScienceArchive.Core.Dtos.Article.Request;
+using ScienceArchive.Core.Dtos.Article.Response;
+using ScienceArchive.Core.Interfaces.Mappers;
+using ScienceArchive.Core.Interfaces.Repositories;
 using ScienceArchive.Core.Interfaces.UseCases;
 
-namespace ScienceArchive.Application.UseCases.Article
+namespace ScienceArchive.Application.ArticleUseCases
 {
     public class DeleteArticleUseCase : IUseCase<DeleteArticleResponseDto, DeleteArticleRequestDto>
-
     {
-        public DeleteArticleUseCase()
+        private readonly IArticleRepository _articleRepository;
+
+        public DeleteArticleUseCase(IArticleRepository articleRepository, IMapper<Article, ArticleDto> articleMapper)
         {
+            if (articleRepository is null)
+            {
+                throw new ArgumentNullException(nameof(articleRepository));
+            }
+
+            _articleRepository = articleRepository;
         }
 
-        public Task<DeleteArticleResponseDto> Execute(DeleteArticleRequestDto dto)
+        public async Task<DeleteArticleResponseDto> Execute(DeleteArticleRequestDto dto)
         {
-            throw new NotImplementedException();
+            var deletedArticleId = await _articleRepository.Delete(dto.Id);
+            return new(deletedArticleId);
         }
     }
 }

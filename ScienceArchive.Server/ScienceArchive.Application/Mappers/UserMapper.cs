@@ -2,8 +2,6 @@
 using System.Xml.Linq;
 using ScienceArchive.Core.Dtos;
 using ScienceArchive.Core.Dtos.User;
-using ScienceArchive.Core.Dtos.UserRequest;
-using ScienceArchive.Core.Dtos.UserResponse;
 using ScienceArchive.Core.Domain.Entities;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using ScienceArchive.Core.Interfaces.Mappers;

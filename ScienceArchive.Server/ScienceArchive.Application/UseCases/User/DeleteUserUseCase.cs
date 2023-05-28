@@ -2,11 +2,11 @@
 using ScienceArchive.Application.Mappers;
 using System.Diagnostics.Contracts;
 using ScienceArchive.Core.Interfaces.Repositories;
-using ScienceArchive.Core.Dtos.UserResponse;
-using ScienceArchive.Core.Dtos.UserRequest;
+using ScienceArchive.Core.Dtos.User.Response;
+using ScienceArchive.Core.Dtos.User.Request;
 using ScienceArchive.Core.Interfaces.UseCases;
 
-namespace ScienceArchive.Application.UseCases
+namespace ScienceArchive.Application.UserUseCases
 {
     public class DeleteUserUseCase : IUseCase<DeleteUserResponseDto, DeleteUserRequestDto>
     {
@@ -20,8 +20,7 @@ namespace ScienceArchive.Application.UseCases
         }
         public async Task<DeleteUserResponseDto> Execute(DeleteUserRequestDto contract)
         {
-
-            Guid deletedUserId = await _userRepository.Delete(contract.Id);
+            var deletedUserId = await _userRepository.Delete(contract.Id);
 
             return new DeleteUserResponseDto(deletedUserId);
         }

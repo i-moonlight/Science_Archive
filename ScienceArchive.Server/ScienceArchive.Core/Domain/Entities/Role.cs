@@ -8,7 +8,7 @@ namespace ScienceArchive.Core.Domain.Entities
     /// </summary>
     public class Role : BaseEntity
     {
-        public Role(Guid id) : base(id)
+        public Role(Guid? id = null) : base(id)
         {
         }
 

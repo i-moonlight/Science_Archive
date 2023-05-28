@@ -9,7 +9,7 @@ namespace ScienceArchive.Core.Domain.Entities
     /// </summary>
     public class Article : BaseEntity
     {
-        public Article(Guid id) : base(id)
+        public Article(Guid? id = null) : base(id)
         {
         }
 
