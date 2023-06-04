@@ -33,7 +33,7 @@ namespace ScienceArchive.Application.RoleUseCases
         public async Task<GetAllRolesResponseDto> Execute(GetAllRolesRequestDto dto)
         {
             var roles = await _roleRepository.GetAll();
-            var rolesDtos = roles.Select(role => _roleMapper.MapToDto(role)).ToList();
+            var rolesDtos = roles.Select(role => _roleMapper.MapToModel(role)).ToList();
 
             return new(rolesDtos);
         }

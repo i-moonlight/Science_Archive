@@ -36,6 +36,7 @@ public class Program
 
         // Register own services
         builder.Services.RegisterApplicationLayerMappers();
+        builder.Services.RegisterPersistenceLayerMappers();
         builder.Services.RegisterServices();
         builder.Services.RegisterUseCases();
         builder.Services.RegisterRepositories();

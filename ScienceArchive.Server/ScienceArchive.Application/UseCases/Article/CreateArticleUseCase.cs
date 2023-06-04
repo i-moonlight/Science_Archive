@@ -35,7 +35,7 @@ namespace ScienceArchive.Application.ArticleUseCases
             var article = _articleMapper.MapToEntity(dto.Article);
             var createdArticle = await _articleRepository.Create(article);
 
-            return new(_articleMapper.MapToDto(createdArticle));
+            return new(_articleMapper.MapToModel(createdArticle));
         }
     }
 }

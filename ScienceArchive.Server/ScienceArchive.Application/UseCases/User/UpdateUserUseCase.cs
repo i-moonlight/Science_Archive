@@ -27,7 +27,7 @@ namespace ScienceArchive.Application.UserUseCases
             User userToUpdate = _mapper.MapToEntity(contract.User);
             User updatedUser = await _userRepository.Update(contract.UserId, userToUpdate);
 
-            var updatedUserDto = _mapper.MapToDto(updatedUser);
+            var updatedUserDto = _mapper.MapToModel(updatedUser);
 
             return new UpdateUserResponseDto(updatedUserDto);
         }

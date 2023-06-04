@@ -33,7 +33,7 @@ namespace ScienceArchive.Application.NewsUseCases
         public async Task<GetAllNewsResponseDto> Execute(GetAllNewsRequestDto dto)
         {
             var news = await _newsRepository.GetAll();
-            var newsDtos = news.Select(singleNews => _newsMapper.MapToDto(singleNews)).ToList();
+            var newsDtos = news.Select(singleNews => _newsMapper.MapToModel(singleNews)).ToList();
 
             return new(newsDtos);
         }

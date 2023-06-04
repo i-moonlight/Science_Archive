@@ -40,7 +40,7 @@ namespace ScienceArchive.Application.UseCases.Auth
                 throw new Exception("No such user exist!");
             }
 
-            return new LoginResponseDto(_mapper.MapToDto(user));
+            return new LoginResponseDto(_mapper.MapToModel(user));
         }
 
         private async Task<User> GetUserByCredentials(string login, string password)

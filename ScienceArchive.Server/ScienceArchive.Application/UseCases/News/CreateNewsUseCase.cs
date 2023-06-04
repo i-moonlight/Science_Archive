@@ -35,7 +35,7 @@ namespace ScienceArchive.Application.NewsUseCases
             var news = _newsMapper.MapToEntity(dto.News);
             var createdNews = await _newsRepository.Create(news);
 
-            return new(_newsMapper.MapToDto(createdNews));
+            return new(_newsMapper.MapToModel(createdNews));
         }
     }
 }

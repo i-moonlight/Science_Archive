@@ -35,7 +35,7 @@ namespace ScienceArchive.Application.ArticleUseCases
             var newArticle = _articleMapper.MapToEntity(dto.NewArticle);
             var updatedArticle = await _articleRepository.Update(dto.Id, newArticle);
 
-            return new(_articleMapper.MapToDto(updatedArticle));
+            return new(_articleMapper.MapToModel(updatedArticle));
         }
     }
 }

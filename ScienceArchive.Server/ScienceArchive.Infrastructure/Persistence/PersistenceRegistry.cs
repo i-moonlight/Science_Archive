@@ -1,7 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Interfaces.Mappers;
 using ScienceArchive.Core.Interfaces.Repositories;
+using ScienceArchive.Infrastructure.Persistence.Mappers;
+using ScienceArchive.Infrastructure.Persistence.Models;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Repositories;
 
@@ -19,6 +23,13 @@ namespace ScienceArchive.Infrastructure.Persistence
             _ = services.AddTransient<INewsRepository, PostgresNewsRepository>();
             _ = services.AddTransient<IRoleRepository, PostgresRoleRepository>();
             _ = services.AddTransient<IUserRepository, PostgresUserRepository>();
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterPersistenceLayerMappers(this IServiceCollection services)
+        {
+            _ = services.AddTransient<IMapper<User, UserModel>, UserMapper>();
 
             return services;
         }

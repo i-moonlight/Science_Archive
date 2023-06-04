@@ -37,7 +37,7 @@ namespace ScienceArchive.Application.UserUseCases
 
             var createdUser = await _userRepository.Create(userToCreate);
 
-            var createdUserDto = _mapper.MapToDto(createdUser);
+            var createdUserDto = _mapper.MapToModel(createdUser);
 
             return new CreateUserResponseDto(createdUserDto);
         }

@@ -33,7 +33,7 @@ namespace ScienceArchive.Application.ArticleUseCases
         public async Task<GetAllArticlesResponseDto> Execute(GetAllArticlesRequestDto dto)
         {
             var articles = await _articleRepository.GetAll();
-            var articlesDtos = articles.Select(article => _articleMapper.MapToDto(article)).ToList();
+            var articlesDtos = articles.Select(article => _articleMapper.MapToModel(article)).ToList();
 
             return new(articlesDtos);
         }

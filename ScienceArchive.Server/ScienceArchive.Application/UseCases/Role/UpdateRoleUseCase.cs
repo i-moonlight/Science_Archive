@@ -35,7 +35,7 @@ namespace ScienceArchive.Application.RoleUseCases
             var newRole = _roleMapper.MapToEntity(dto.Role);
             var updatedRole = await _roleRepository.Update(dto.Id, newRole);
 
-            return new(_roleMapper.MapToDto(updatedRole));
+            return new(_roleMapper.MapToModel(updatedRole));
         }
     }
 }

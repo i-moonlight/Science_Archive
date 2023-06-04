@@ -36,7 +36,7 @@ namespace ScienceArchive.Application.RoleUseCases
             var newRole = _roleMapper.MapToEntity(dto.Role);
             var createdRole = await _roleRepository.Create(newRole);
 
-            return new(_roleMapper.MapToDto(createdRole));
+            return new(_roleMapper.MapToModel(createdRole));
         }
     }
 }
