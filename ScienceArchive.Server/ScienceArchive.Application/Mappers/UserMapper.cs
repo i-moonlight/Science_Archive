@@ -10,7 +10,7 @@ namespace ScienceArchive.Application.Mappers
 {
     public class UserMapper : IMapper<User, UserDto>
     {
-        public UserDto MapToDto(User user)
+        public UserDto MapToModel(User user)
         {
             return new UserDto
             {
@@ -21,15 +21,15 @@ namespace ScienceArchive.Application.Mappers
             };
         }
 
-        public User MapToEntity(UserDto userDto, Guid? id = null)
+        public User MapToEntity(UserDto model, Guid? id = null)
         {
             var userId = id ?? Guid.NewGuid();
 
             return new User(userId)
             {
-                Name = userDto.Name,
-                Email = userDto.Email,
-                Login = userDto.Login
+                Name = model.Name,
+                Email = model.Email,
+                Login = model.Login
             };
         }
     }

@@ -7,7 +7,7 @@ namespace ScienceArchive.Application.Mappers
 {
     public class NewsMapper : IMapper<News, NewsDto>
     {
-        public NewsDto MapToDto(News entity)
+        public NewsDto MapToModel(News entity)
         {
             return new()
             {
@@ -18,13 +18,13 @@ namespace ScienceArchive.Application.Mappers
             };
         }
 
-        public News MapToEntity(NewsDto dto, Guid? id = null)
+        public News MapToEntity(NewsDto model, Guid? id = null)
         {
             return new(id)
             {
-                Body = dto.Body,
-                CreationDate = dto.CreationDate,
-                Title = dto.Title
+                Body = model.Body,
+                CreationDate = model.CreationDate,
+                Title = model.Title
             };
         }
     }

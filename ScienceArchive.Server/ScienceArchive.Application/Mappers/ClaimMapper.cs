@@ -7,7 +7,7 @@ namespace ScienceArchive.Application.Mappers
 {
     public class ClaimMapper : IMapper<Claim, ClaimDto>
     {
-        public ClaimDto MapToDto(Claim entity)
+        public ClaimDto MapToModel(Claim entity)
         {
             return new()
             {
@@ -18,13 +18,13 @@ namespace ScienceArchive.Application.Mappers
             };
         }
 
-        public Claim MapToEntity(ClaimDto dto, Guid? id = null)
+        public Claim MapToEntity(ClaimDto model, Guid? id = null)
         {
             return new(id)
             {
-                Name = dto.Name,
-                Description = dto.Description,
-                Value = dto.Value
+                Name = model.Name,
+                Description = model.Description,
+                Value = model.Value
             };
         }
     }

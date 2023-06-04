@@ -42,7 +42,7 @@ namespace ScienceArchive.Application.Services
 
             if (useCase is null)
             {
-                throw new NullReferenceException("Cannot get use-case for processing the operation!");
+                throw new NullReferenceException("Cannot get use case for processing the operation!");
             }
 
             return await useCase.Execute(contract);

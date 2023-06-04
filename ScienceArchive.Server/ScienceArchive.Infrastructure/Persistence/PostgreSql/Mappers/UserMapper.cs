@@ -1,12 +1,13 @@
 ﻿using System;
 using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Interfaces.Mappers;
 using ScienceArchive.Infrastructure.Persistence.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.Mappers
 {
-    public static class UserMapper
+    public class UserMapper : IMapper<User, UserModel>
     {
-        public static UserModel MapToPersistence(User user)
+        public UserModel MapToModel(User user)
         {
             if (String.IsNullOrWhiteSpace(user.PasswordSalt))
             {
@@ -26,7 +27,7 @@ namespace ScienceArchive.Infrastructure.Persistence.Mappers
             return userModel;
         }
 
-        public static User MapToDomain(UserModel userModel)
+        public User MapToEntity(UserModel userModel, Guid? id = null)
         {
             var user = new User(userModel.Id, userModel.PasswordSalt)
             {

@@ -4,9 +4,9 @@ using ScienceArchive.Core.Interfaces.Repositories;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories
 {
-    public class RoleRepository : IRoleRepository
+    public class PostgresRoleRepository : IRoleRepository
     {
-        public RoleRepository()
+        public PostgresRoleRepository()
         {
         }
 

@@ -4,10 +4,11 @@ using ScienceArchive.Core.Interfaces.Repositories;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories
 {
-    public class ArticleRepository : IArticleRepository
+    public class PostgresArticleRepository : IArticleRepository
     {
-        public ArticleRepository()
+        public PostgresArticleRepository()
         {
+
         }
 
         public Task<List<Article>> GetAll()

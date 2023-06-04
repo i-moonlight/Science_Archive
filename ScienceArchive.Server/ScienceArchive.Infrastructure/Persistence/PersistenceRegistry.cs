@@ -15,10 +15,10 @@ namespace ScienceArchive.Infrastructure.Persistence
         /// <param name="services">Application services</param>
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            _ = services.AddTransient<IArticleRepository, ArticleRepository>();
-            _ = services.AddTransient<INewsRepository, NewsRepository>();
-            _ = services.AddTransient<IRoleRepository, RoleRepository>();
-            _ = services.AddTransient<IUserRepository, UserRepository>();
+            _ = services.AddTransient<IArticleRepository, PostgresArticleRepository>();
+            _ = services.AddTransient<INewsRepository, PostgresNewsRepository>();
+            _ = services.AddTransient<IRoleRepository, PostgresRoleRepository>();
+            _ = services.AddTransient<IUserRepository, PostgresUserRepository>();
 
             return services;
         }

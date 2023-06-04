@@ -36,6 +36,7 @@
     <None Remove="Dtos\News\Response\" />
     <None Remove="Dtos\Role\Request\" />
     <None Remove="Dtos\Role\Response\" />
+    <None Remove="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
@@ -67,5 +68,6 @@
     <Folder Include="Dtos\News\Response\" />
     <Folder Include="Dtos\Role\Request\" />
     <Folder Include="Dtos\Role\Response\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 </Project>

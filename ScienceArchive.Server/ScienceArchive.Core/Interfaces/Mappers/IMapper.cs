@@ -6,23 +6,23 @@ using ScienceArchive.Core.Dtos.User;
 
 namespace ScienceArchive.Core.Interfaces.Mappers
 {
-    public interface IMapper<TEntity, TDto>
+    public interface IMapper<TEntity, TModel>
         where TEntity : BaseEntity
     {
         /// <summary>
-        /// Map entity to DTO
+        /// Map entity to model type
         /// </summary>
         /// <param name="entity">Entity to map</param>
-        /// <returns>Mapped DTO</returns>
-        public TDto MapToDto(TEntity entity);
+        /// <returns>Mapped model</returns>
+        public TModel MapToModel(TEntity entity);
 
         /// <summary>
-        /// Map DTO to entity
+        /// Map model to entity
         /// </summary>
-        /// <param name="dto">DTO to map</param>
+        /// <param name="dto">Model to map</param>
         /// <param name="id">ID of the entity</param>
         /// <returns>Mapped entity</returns>
-        public TEntity MapToEntity(TDto dto, Guid? id = null);
+        public TEntity MapToEntity(TModel model, Guid? id = null);
     }
 }
 

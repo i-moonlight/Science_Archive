@@ -15,9 +15,9 @@ namespace ScienceArchive.Application.Mappers
             _claimMapper = claimMapper;
         }
 
-        public RoleDto MapToDto(Role entity)
+        public RoleDto MapToModel(Role entity)
         {
-            var claimDtos = entity.Claims.Select((claim) => _claimMapper.MapToDto(claim)).ToList();
+            var claimDtos = entity.Claims.Select((claim) => _claimMapper.MapToModel(claim)).ToList();
 
             return new()
             {
@@ -28,14 +28,14 @@ namespace ScienceArchive.Application.Mappers
             };
         }
 
-        public Role MapToEntity(RoleDto dto, Guid? id = null)
+        public Role MapToEntity(RoleDto model, Guid? id = null)
         {
-            var claims = dto.Claims.Select((claimDto) => _claimMapper.MapToEntity(claimDto, claimDto.Id)).ToList();
+            var claims = model.Claims.Select((claimDto) => _claimMapper.MapToEntity(claimDto, claimDto.Id)).ToList();
 
             return new(id)
             {
-                Name = dto.Name,
-                Description = dto.Description,
+                Name = model.Name,
+                Description = model.Description,
                 Claims = claims,
             };
         }

@@ -20,12 +20,12 @@ namespace ScienceArchive.Application.Mappers
             _userMapper = userMapper;
         }
 
-        public ArticleDto MapToDto(Article entity)
+        public ArticleDto MapToModel(Article entity)
         {
             return new()
             {
                 Id = entity.Id,
-                Author = _userMapper.MapToDto(entity.Author),
+                Author = _userMapper.MapToModel(entity.Author),
                 CreationDate = entity.CreationDate,
                 Title = entity.Title,
                 Description = entity.Description,
@@ -33,15 +33,15 @@ namespace ScienceArchive.Application.Mappers
             };
         }
 
-        public Article MapToEntity(ArticleDto dto, Guid? id = null)
+        public Article MapToEntity(ArticleDto model, Guid? id = null)
         {
             return new(id)
             {
-                Author = _userMapper.MapToEntity(dto.Author),
-                CreationDate = dto.CreationDate,
-                Title = dto.Title,
-                Description = dto.Description,
-                DocumentPath = dto.DocumentPath
+                Author = _userMapper.MapToEntity(model.Author),
+                CreationDate = model.CreationDate,
+                Title = model.Title,
+                Description = model.Description,
+                DocumentPath = model.DocumentPath
             };
         }
     }

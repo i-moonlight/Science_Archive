@@ -4,9 +4,9 @@ using ScienceArchive.Core.Interfaces.Repositories;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories
 {
-    public class NewsRepository : INewsRepository
+    public class PostgresNewsRepository : INewsRepository
     {
-        public NewsRepository()
+        public PostgresNewsRepository()
         {
         }
 
