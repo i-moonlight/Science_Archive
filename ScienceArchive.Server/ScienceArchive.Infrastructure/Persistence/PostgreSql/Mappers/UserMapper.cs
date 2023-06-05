@@ -34,7 +34,7 @@ namespace ScienceArchive.Infrastructure.Persistence.Mappers
                 Email = userModel.Email,
                 Login = userModel.Login,
                 Name = userModel.Name,
-                Password = userModel.Password,
+                Password = userModel.Password ?? "",
             };
 
             return user;

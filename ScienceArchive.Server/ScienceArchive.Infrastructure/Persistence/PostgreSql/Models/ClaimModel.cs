@@ -1,9 +1,11 @@
 ﻿using System;
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models
 {
-    public record class ArticleModel
-    {
-
-    }
+	public class ClaimModel
+	{
+		public ClaimModel()
+		{
+		}
+	}
 }
 

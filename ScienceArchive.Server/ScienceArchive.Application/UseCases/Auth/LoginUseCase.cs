@@ -52,7 +52,7 @@ namespace ScienceArchive.Application.UseCases.Auth
                 throw new Exception("Login or password are empty!");
             }
 
-            var users = await _userRepository.GetAll();
+            var users = await _userRepository.GetAllUsersWithPasswords();
             foundUser = users.Find(u => u.Login == login || u.Email == login);
 
             if (foundUser is null)

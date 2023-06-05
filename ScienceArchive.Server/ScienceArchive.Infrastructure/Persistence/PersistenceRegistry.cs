@@ -1,11 +1,12 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Interfaces.Mappers;
 using ScienceArchive.Core.Interfaces.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Mappers;
 using ScienceArchive.Infrastructure.Persistence.Models;
+using ScienceArchive.Infrastructure.Persistence.Options;
+using ScienceArchive.Infrastructure.Persistence.PostgreSql;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Repositories;
 
@@ -39,11 +40,16 @@ namespace ScienceArchive.Infrastructure.Persistence
         /// </summary>
         /// <param name="services">Application services</param>
         /// <param name="connectionString">Database connection string</param>
-        public static IServiceCollection RegisterDbContext(this IServiceCollection services, string connectionString)
+        public static IServiceCollection RegisterPersistenceConnections(this IServiceCollection services, ConnectionOptions connectionOptions)
         {
-            _ = services.AddDbContext<ScienceArchiveDbContext>(options =>
-                options.UseNpgsql(connectionString)
-            );
+            if (connectionOptions.PostgresConnectionString is null)
+            {
+                throw new ArgumentNullException(nameof(connectionOptions));
+            }
+
+            var postgresContext = new PostgresContext(connectionOptions.PostgresConnectionString);
+
+            _ = services.AddSingleton<PostgresContext>(postgresContext);
 
             return services;
         }

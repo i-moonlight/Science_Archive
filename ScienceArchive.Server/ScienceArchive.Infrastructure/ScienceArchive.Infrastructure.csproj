@@ -12,6 +12,7 @@
     <None Remove="Persistence\PostgreSql\Mappers\" />
     <None Remove="Persistence\PostgreSql\Models\" />
     <None Remove="Persistence\PostgreSql\Repositories\" />
+    <None Remove="Persistence\Options\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Persistence\" />
@@ -19,11 +20,14 @@
     <Folder Include="Persistence\PostgreSql\Mappers\" />
     <Folder Include="Persistence\PostgreSql\Models\" />
     <Folder Include="Persistence\PostgreSql\Repositories\" />
+    <Folder Include="Persistence\Options\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Npgsql" Version="7.0.4" />
   </ItemGroup>
 </Project>

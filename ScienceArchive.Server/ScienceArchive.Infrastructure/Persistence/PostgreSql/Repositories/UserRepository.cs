@@ -1,20 +1,24 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
+using System.Data;
+using Dapper;
 using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Exceptions;
 using ScienceArchive.Core.Interfaces.Mappers;
 using ScienceArchive.Core.Interfaces.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Mappers;
 using ScienceArchive.Infrastructure.Persistence.Models;
+using ScienceArchive.Infrastructure.Persistence.Options;
+using ScienceArchive.Infrastructure.Persistence.PostgreSql;
 
 namespace ScienceArchive.Infrastructure.Persistence.Repositories
 {
     public class PostgresUserRepository : IUserRepository
     {
-        private readonly ScienceArchiveDbContext _dbContext;
+        private readonly PostgresContext _dbContext;
+        private readonly IDbConnection _connection;
         private readonly IMapper<User, UserModel> _mapper;
 
-        public PostgresUserRepository(ScienceArchiveDbContext dbContext, IMapper<User, UserModel> mapper)
+        public PostgresUserRepository(PostgresContext dbContext, IMapper<User, UserModel> mapper)
         {
             if (dbContext is null)
             {
@@ -27,13 +31,17 @@ namespace ScienceArchive.Infrastructure.Persistence.Repositories
             }
 
             _dbContext = dbContext;
+            _connection = dbContext.CreateConnection();
             _mapper = mapper;
         }
 
         /// <inheritdoc/>
         public async Task<User> GetById(Guid userId)
         {
-            var user = await _dbContext.Users.Where(user => user.Id.Equals(userId)).FirstOrDefaultAsync();
+            var parameters = new DynamicParameters();
+            parameters.Add("user_id", userId);
+
+            var user = await _connection.QuerySingleOrDefaultAsync<UserModel>("SELECT * FROM get_user_by_id(@Id)", parameters, commandType: CommandType.StoredProcedure);
 
             if (user is null)
             {
@@ -46,7 +54,19 @@ namespace ScienceArchive.Infrastructure.Persistence.Repositories
         /// <inheritdoc/>
         public async Task<List<User>> GetAll()
         {
-            var users = await _dbContext.Users.ToListAsync();
+            var users = await _connection.QueryAsync<UserModel>("SELECT * FROM get_users()", commandType: CommandType.Text);
+
+            if (users is null)
+            {
+                throw new EntityNotFoundException<User[]>("Database returned NULL!");
+            }
+
+            return users.Select(user => _mapper.MapToEntity(user)).ToList();
+        }
+
+        public async Task<List<User>> GetAllUsersWithPasswords()
+        {
+            var users = await _connection.QueryAsync<UserModel>("SELECT * FROM get_users_with_passwords()", commandType: CommandType.Text);
 
             if (users is null)
             {
@@ -60,11 +80,12 @@ namespace ScienceArchive.Infrastructure.Persistence.Repositories
         public async Task<User> Create(User newUser)
         {
             var userToCreate = _mapper.MapToModel(newUser);
+            var parameters = new DynamicParameters(userToCreate);
 
-            await _dbContext.Users.AddAsync(userToCreate);
-            await _dbContext.SaveChangesAsync();
-
-            var createdUser = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == newUser.Id);
+            var createdUser = await _connection.QuerySingleOrDefaultAsync<UserModel>(
+                    "SELECT * FROM create_user(@Id, @Name, @Email, @Login, @Password, @PasswordSalt)",
+                    parameters,
+                    commandType: CommandType.Text);
 
             if (createdUser == null)
             {
