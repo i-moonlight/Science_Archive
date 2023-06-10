@@ -30,12 +30,12 @@ namespace ScienceArchive.BusinessLogic
         /// <returns>System services with registered business logic services</returns>
         public static IServiceCollection RegisterDomainServices(this IServiceCollection services)
         {
-            _ = services.AddTransient<IArticleService, ArticleService>();
-            _ = services.AddTransient<IAuthService, AuthService>();
-            _ = services.AddTransient<INewsService, NewsService>();
-            _ = services.AddTransient<IRoleService, RoleService>();
-            _ = services.AddTransient<ISystemService, SystemService>();
-            _ = services.AddTransient<IUserService, UserService>();
+            _ = services.AddSingleton<IArticleService, ArticleService>();
+            _ = services.AddSingleton<IAuthService, AuthService>();
+            _ = services.AddSingleton<INewsService, NewsService>();
+            _ = services.AddSingleton<IRoleService, RoleService>();
+            _ = services.AddSingleton<ISystemService, SystemService>();
+            _ = services.AddSingleton<IUserService, UserService>();
 
             return services;
         }
