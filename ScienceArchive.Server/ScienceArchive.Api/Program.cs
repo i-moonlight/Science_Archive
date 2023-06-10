@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using ScienceArchive.Application;
+using ScienceArchive.BusinessLogic;
 using ScienceArchive.Infrastructure.Persistence;
 using ScienceArchive.Infrastructure.Persistence.Options;
 
@@ -40,13 +41,21 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        // Register own services
-        builder.Services.RegisterApplicationLayerMappers();
-        builder.Services.RegisterPersistenceLayerMappers();
-        builder.Services.RegisterServices();
-        builder.Services.RegisterUseCases();
-        builder.Services.RegisterRepositories();
+        // Register core domain layer services
+        builder.Services.RegisterDomainServices();
+        builder.Services.RegisterDomainUseCases();
+
+        // Register infrastructure layer services
         builder.Services.RegisterPersistenceConnections(connectionOptions);
+        builder.Services.RegisterPersistenceMappers();
+        builder.Services.RegisterRepositories();
+
+
+        // Register application layer services
+        builder.Services.RegisterApplicationMappers();
+        builder.Services.RegisterInteractors();
+
+        // Register presentation layser services
         builder.Services.RegisterAuth(builder.Configuration, builder.Environment.IsDevelopment());
 
         var app = builder.Build();

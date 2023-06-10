@@ -1,11 +1,11 @@
 ﻿using System;
 using ScienceArchive.Core.Domain.Entities;
-using ScienceArchive.Core.Interfaces.Mappers;
+using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.Mappers
 {
-    public class UserMapper : IMapper<User, UserModel>
+    public class UserMapper : IPersistenceMapper<User, UserModel>
     {
         public UserModel MapToModel(User user)
         {

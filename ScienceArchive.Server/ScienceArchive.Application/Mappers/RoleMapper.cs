@@ -1,38 +1,42 @@
 ﻿using System;
+using ScienceArchive.Application.Dtos.Claim;
+using ScienceArchive.Application.Dtos.Role;
+using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Core.Domain.Entities;
-using ScienceArchive.Core.Dtos.Claim;
-using ScienceArchive.Core.Dtos.Role;
-using ScienceArchive.Core.Interfaces.Mappers;
 
 namespace ScienceArchive.Application.Mappers
 {
-    public class RoleMapper : IMapper<Role, RoleDto>
+    public class RoleMapper : IApplicationMapper<Role, RoleDto>
     {
-        private readonly IMapper<Claim, ClaimDto> _claimMapper;
+        private readonly IApplicationMapper<Claim, ClaimDto> _claimMapper;
 
-        public RoleMapper(IMapper<Claim, ClaimDto> claimMapper)
+        public RoleMapper(IApplicationMapper<Claim, ClaimDto> claimMapper)
         {
             _claimMapper = claimMapper;
         }
 
-        public RoleDto MapToModel(Role entity)
+        public RoleDto MapToDto(Role entity)
         {
-            var claimDtos = entity.Claims.Select((claim) => _claimMapper.MapToModel(claim)).ToList();
+            var claimDtos = entity.Claims.Select((claim) => _claimMapper.MapToDto(claim)).ToList();
 
             return new()
             {
-                Id = entity.Id,
+                Id = entity.Id.ToString(),
                 Name = entity.Name,
                 Description = entity.Description,
                 Claims = claimDtos,
             };
         }
 
-        public Role MapToEntity(RoleDto model, Guid? id = null)
+        public Role MapToEntity(RoleDto model, string? id = null)
         {
             var claims = model.Claims.Select((claimDto) => _claimMapper.MapToEntity(claimDto, claimDto.Id)).ToList();
 
-            return new(id)
+            Guid? roleId = id is not null
+                ? new Guid(id)
+                : null;
+
+            return new(roleId)
             {
                 Name = model.Name,
                 Description = model.Description,

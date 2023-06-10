@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using ScienceArchive.Core.Domain.Entities;
-using ScienceArchive.Core.Interfaces.Mappers;
-using ScienceArchive.Core.Interfaces.Repositories;
+using ScienceArchive.Core.Repositories;
+using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.Mappers;
 using ScienceArchive.Infrastructure.Persistence.Models;
 using ScienceArchive.Infrastructure.Persistence.Options;
@@ -28,9 +28,9 @@ namespace ScienceArchive.Infrastructure.Persistence
             return services;
         }
 
-        public static IServiceCollection RegisterPersistenceLayerMappers(this IServiceCollection services)
+        public static IServiceCollection RegisterPersistenceMappers(this IServiceCollection services)
         {
-            _ = services.AddTransient<IMapper<User, UserModel>, UserMapper>();
+            _ = services.AddTransient<IPersistenceMapper<User, UserModel>, UserMapper>();
 
             return services;
         }

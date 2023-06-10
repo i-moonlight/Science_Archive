@@ -3,11 +3,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using ScienceArchive.Core.Dtos;
-using ScienceArchive.Core.Dtos.User;
 using ScienceArchive.Core.Domain.Entities;
 
 using JwtClaim = System.Security.Claims.Claim;
+using ScienceArchive.Application.Dtos;
 
 namespace ScienceArchive.Api.Auth
 {
@@ -37,6 +36,11 @@ namespace ScienceArchive.Api.Auth
             {
                 jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY")
                     ?? throw new NullReferenceException("JWT key was not present!");
+            }
+
+            if (user.Id is null)
+            {
+                throw new ArgumentNullException(nameof(user));
             }
 
             var claims = new[]

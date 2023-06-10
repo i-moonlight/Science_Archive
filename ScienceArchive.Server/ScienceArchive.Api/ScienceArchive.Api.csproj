@@ -31,5 +31,8 @@
     <ProjectReference Include="..\ScienceArchive.Infrastructure\ScienceArchive.Infrastructure.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\ScienceArchive.BusinessLogic\ScienceArchive.BusinessLogic.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

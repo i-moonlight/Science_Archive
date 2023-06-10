@@ -13,6 +13,7 @@
     <None Remove="Persistence\PostgreSql\Models\" />
     <None Remove="Persistence\PostgreSql\Repositories\" />
     <None Remove="Persistence\Options\" />
+    <None Remove="Persistence\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Persistence\" />
@@ -21,6 +22,7 @@
     <Folder Include="Persistence\PostgreSql\Models\" />
     <Folder Include="Persistence\PostgreSql\Repositories\" />
     <Folder Include="Persistence\Options\" />
+    <Folder Include="Persistence\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />

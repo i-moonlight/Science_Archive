@@ -1,6 +1,6 @@
 ﻿using System;
 using ScienceArchive.Core.Domain.Entities;
-using ScienceArchive.Core.Interfaces.Repositories;
+using ScienceArchive.Core.Repositories;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories
 {

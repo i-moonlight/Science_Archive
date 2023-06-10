@@ -1,16 +1,16 @@
 ﻿using System;
+using ScienceArchive.Application.Dtos;
+using ScienceArchive.Application.Dtos.Article;
+using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Core.Domain.Entities;
-using ScienceArchive.Core.Dtos;
-using ScienceArchive.Core.Dtos.Article;
-using ScienceArchive.Core.Interfaces.Mappers;
 
 namespace ScienceArchive.Application.Mappers
 {
-    public class ArticleMapper : IMapper<Article, ArticleDto>
+    public class ArticleMapper : IApplicationMapper<Article, ArticleDto>
     {
-        private readonly IMapper<User, UserDto> _userMapper;
+        private readonly IApplicationMapper<User, UserDto> _userMapper;
 
-        public ArticleMapper(IMapper<User, UserDto> userMapper)
+        public ArticleMapper(IApplicationMapper<User, UserDto> userMapper)
         {
             if (userMapper is null)
             {
@@ -20,12 +20,12 @@ namespace ScienceArchive.Application.Mappers
             _userMapper = userMapper;
         }
 
-        public ArticleDto MapToModel(Article entity)
+        public ArticleDto MapToDto(Article entity)
         {
             return new()
             {
-                Id = entity.Id,
-                Author = _userMapper.MapToModel(entity.Author),
+                Id = entity.Id.ToString(),
+                Author = _userMapper.MapToDto(entity.Author),
                 CreationDate = entity.CreationDate,
                 Title = entity.Title,
                 Description = entity.Description,
@@ -33,15 +33,19 @@ namespace ScienceArchive.Application.Mappers
             };
         }
 
-        public Article MapToEntity(ArticleDto model, Guid? id = null)
+        public Article MapToEntity(ArticleDto dto, string? id = null)
         {
-            return new(id)
+            Guid? articleId = id is not null
+                ? new Guid(id)
+                : null;
+
+            return new(articleId)
             {
-                Author = _userMapper.MapToEntity(model.Author),
-                CreationDate = model.CreationDate,
-                Title = model.Title,
-                Description = model.Description,
-                DocumentPath = model.DocumentPath
+                Author = _userMapper.MapToEntity(dto.Author),
+                CreationDate = dto.CreationDate,
+                Title = dto.Title,
+                Description = dto.Description,
+                DocumentPath = dto.DocumentPath
             };
         }
     }

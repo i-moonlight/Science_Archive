@@ -3,8 +3,8 @@ using System.Data;
 using Dapper;
 using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Exceptions;
-using ScienceArchive.Core.Interfaces.Mappers;
-using ScienceArchive.Core.Interfaces.Repositories;
+using ScienceArchive.Core.Repositories;
+using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.Mappers;
 using ScienceArchive.Infrastructure.Persistence.Models;
 using ScienceArchive.Infrastructure.Persistence.Options;
@@ -16,9 +16,11 @@ namespace ScienceArchive.Infrastructure.Persistence.Repositories
     {
         private readonly PostgresContext _dbContext;
         private readonly IDbConnection _connection;
-        private readonly IMapper<User, UserModel> _mapper;
+        private readonly IPersistenceMapper<User, UserModel> _mapper;
 
-        public PostgresUserRepository(PostgresContext dbContext, IMapper<User, UserModel> mapper)
+        public PostgresUserRepository(
+            PostgresContext dbContext,
+            IPersistenceMapper<User, UserModel> mapper)
         {
             if (dbContext is null)
             {

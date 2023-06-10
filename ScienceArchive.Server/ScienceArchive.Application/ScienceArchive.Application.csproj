@@ -7,31 +7,37 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Services\" />
-    <None Remove="Mappers\" />
-    <None Remove="UseCases\" />
-    <None Remove="UseCases\User\" />
-    <None Remove="UseCases\System\" />
-    <None Remove="UseCases\Auth\" />
-    <None Remove="UseCases\Article\" />
-    <None Remove="UseCases\Role\" />
-    <None Remove="UseCases\News\" />
+    <Compile Remove="UseCases\Role\DeleteRoleUseCase.cs" />
+    <Compile Remove="UseCases\Role\CreateRoleUseCase.cs" />
+    <Compile Remove="UseCases\Role\GetAllRolesUseCase.cs" />
+    <Compile Remove="UseCases\Auth\LoginUseCase.cs" />
+    <Compile Remove="UseCases\User\CreateUserUseCase.cs" />
+    <Compile Remove="UseCases\User\DeleteUserUseCase.cs" />
+    <Compile Remove="UseCases\User\GetAllUsersUseCase.cs" />
+    <Compile Remove="UseCases\System\CheckSystemStatusUseCase.cs" />
+    <Compile Remove="UseCases\News\CreateNewsUseCase.cs" />
+    <Compile Remove="UseCases\News\DeleteNewsUseCase.cs" />
+    <Compile Remove="UseCases\News\UpdateNewsUseCase.cs" />
+    <Compile Remove="UseCases\News\GetAllNewsUseCase.cs" />
+    <Compile Remove="UseCases\Article\DeleteArticleUseCase.cs" />
+    <Compile Remove="UseCases\Article\GetAllArticlesUseCase.cs" />
+    <Compile Remove="UseCases\Article\CreateArticleUseCase.cs" />
+    <Compile Remove="UseCases\Article\UpdateArticleUseCase.cs" />
+    <Compile Remove="UseCases\Role\UpdateRoleUseCase.cs" />
+    <Compile Remove="UseCases\User\UpdateUserUseCase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Mappers\" />
-    <Folder Include="UseCases\" />
-    <Folder Include="UseCases\User\" />
-    <Folder Include="UseCases\System\" />
-    <Folder Include="UseCases\Auth\" />
-    <Folder Include="UseCases\Article\" />
-    <Folder Include="UseCases\Role\" />
-    <Folder Include="UseCases\News\" />
+    <None Remove="Dtos\" />
+    <None Remove="Interactors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+    <Folder Include="Interactors\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 </Project>

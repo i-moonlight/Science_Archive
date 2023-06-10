@@ -1,29 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ScienceArchive.Core.Interfaces.Services;
 using ScienceArchive.Api.Responses;
-using ScienceArchive.Core.Dtos.User.Request;
 using ScienceArchive.Api.Auth;
-using ScienceArchive.Core.Dtos.Auth.Response;
-using ScienceArchive.Core.Dtos.Auth.Request;
+using ScienceArchive.Application.Dtos.Auth.Request;
+using ScienceArchive.Application.Dtos.User.Request;
+using ScienceArchive.Application.Interfaces.Interactors;
 
 namespace ScienceArchive.Api.Controllers
 {
     [Route("api/auth")]
     public class AuthController : Controller
     {
-        private readonly IAuthService _authService;
-        private readonly IUserService _userService;
-        private readonly IConfiguration _configuration;
         private readonly AuthManager _authManager;
+        private readonly IAuthInteractor _authInteractor;
+        private readonly IConfiguration _configuration;
 
         public AuthController(
-            IAuthService authService,
-            IUserService userService,
-            IConfiguration configuration,
-            AuthManager authManager)
+            AuthManager authManager,
+            IAuthInteractor authInteractor,
+            IConfiguration configuration)
         {
-            _authService = authService;
-            _userService = userService;
+            if (authManager is null)
+            {
+                throw new ArgumentNullException(nameof(authManager));
+            }
+
+            if (authInteractor is null)
+            {
+                throw new ArgumentNullException(nameof(authInteractor));
+            }
+
+            if (configuration is null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
+            _authInteractor = authInteractor;
             _configuration = configuration;
             _authManager = authManager;
         }
@@ -33,7 +44,7 @@ namespace ScienceArchive.Api.Controllers
         {
             try
             {
-                var result = await _authService.Login(request);
+                var result = await _authInteractor.Login(request);
                 var token = _authManager.GenerateToken(result.User);
 
                 var response = new SuccessResponse(new
@@ -52,11 +63,11 @@ namespace ScienceArchive.Api.Controllers
         }
 
         [HttpPost("sign-up")]
-        public async Task<IActionResult> SignUp([FromBody] CreateUserRequestDto request)
+        public async Task<IActionResult> SignUp([FromBody] SignUpRequestDto request)
         {
             try
             {
-                var result = await _userService.Create(request);
+                var result = await _authInteractor.SignUp(request);
                 var response = new SuccessResponse(result);
 
                 return Json(response);

@@ -1,27 +1,34 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Api.Responses;
-using ScienceArchive.Core.Interfaces.Services;
+using ScienceArchive.Application.Dtos.User.Request;
+using ScienceArchive.Application.Interfaces.Interactors;
 
 namespace ScienceArchive.Api.Controllers
 {
     [Route("api/users")]
     public class UserController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IUserInteractor _userInteractor;
 
-        public UserController(IUserService userService)
+        public UserController(IUserInteractor userInteractor)
         {
-            _userService = userService;
+            if (userInteractor is null)
+            {
+                throw new ArgumentNullException(nameof(userInteractor));
+            }
+
+            _userInteractor = userInteractor;
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetAll()
         {
+            var emptyRequest = new GetAllUsersRequestDto();
+
             try
             {
-                var result = await _userService.GetAll();
+                var result = await _userInteractor.GetAllUsers(emptyRequest);
                 var response = new SuccessResponse(result);
 
                 return Json(response);

@@ -1,29 +1,29 @@
 ﻿using System;
 using System.Xml.Linq;
-using ScienceArchive.Core.Dtos;
-using ScienceArchive.Core.Dtos.User;
 using ScienceArchive.Core.Domain.Entities;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using ScienceArchive.Core.Interfaces.Mappers;
+using ScienceArchive.Application.Dtos;
+using ScienceArchive.Application.Interfaces;
 
 namespace ScienceArchive.Application.Mappers
 {
-    public class UserMapper : IMapper<User, UserDto>
+    public class UserMapper : IApplicationMapper<User, UserDto>
     {
-        public UserDto MapToModel(User user)
+        public UserDto MapToDto(User user)
         {
             return new UserDto
             {
-                Id = user.Id,
+                Id = user.Id.ToString(),
                 Name = user.Name,
                 Email = user.Email,
                 Login = user.Login
             };
         }
 
-        public User MapToEntity(UserDto model, Guid? id = null)
+        public User MapToEntity(UserDto model, string? id = null)
         {
-            var userId = id ?? Guid.NewGuid();
+            Guid? userId = id is not null
+                ? new Guid(id)
+                : null;
 
             return new User(userId)
             {
