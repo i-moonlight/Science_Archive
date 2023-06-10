@@ -1,6 +1,6 @@
 ﻿using System;
 using ScienceArchive.Core.Domain.Common;
-using ScienceArchive.Core.Utils;
+using ScienceArchive.Core.Domain.Utils;
 
 namespace ScienceArchive.Core.Domain.Entities
 {
@@ -13,10 +13,10 @@ namespace ScienceArchive.Core.Domain.Entities
         private string _email = string.Empty;
         private string _login = string.Empty;
         private string _password = string.Empty;
+        private string _passwordSalt = string.Empty;
 
         public User(Guid? id = null, string? passwordSalt = null) : base(id)
         {
-            PasswordSalt = passwordSalt ?? StringGenerator.CreateSalt();
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace ScienceArchive.Core.Domain.Entities
             get => _name;
             set
             {
-                if (StringValidator.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new Exception("Name must not be empty or containing only whitespaces");
                 }
@@ -68,29 +68,32 @@ namespace ScienceArchive.Core.Domain.Entities
         public string Password
         {
             get => _password;
-            set => _password = value.Trim();
+            set => _password = value;
         }
 
         /// <summary>
         /// Salt for password
         /// </summary>
-        public string PasswordSalt { get; }
+        public string PasswordSalt
+        {
+            get => _passwordSalt;
+            set => _passwordSalt = value;
+        }
 
         /// <summary>
         /// Has user a password
         /// </summary>
-        /// <returns>True if user has password, otherwise, false</returns>
         public bool HasOwnPassword
         {
             get => String.IsNullOrWhiteSpace(_password);
         }
 
         /// <summary>
-        /// Hash current inner password value
+        /// Has user a password salt
         /// </summary>
-        public void HashAndSetPassword(string password)
+        public bool HasOwnPasswordSalt
         {
-            _password = StringGenerator.HashPassword(password, PasswordSalt);
+            get => String.IsNullOrWhiteSpace(_passwordSalt);
         }
     }
 }
