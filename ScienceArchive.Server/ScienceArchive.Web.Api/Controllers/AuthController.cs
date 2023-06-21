@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ScienceArchive.Api.Responses;
-using ScienceArchive.Api.Auth;
 using ScienceArchive.Application.Dtos.Auth.Request;
 using ScienceArchive.Application.Dtos.User.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
+using ScienceArchive.Web.Api.Auth;
+using ScienceArchive.Web.Api.Responses;
 
-namespace ScienceArchive.Api.Controllers
+namespace ScienceArchive.Web.Api.Controllers
 {
     [Route("api/auth")]
     public class AuthController : Controller

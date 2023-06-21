@@ -2,7 +2,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using ScienceArchive.Api.Auth;
+using ScienceArchive.Web.Api.Auth;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

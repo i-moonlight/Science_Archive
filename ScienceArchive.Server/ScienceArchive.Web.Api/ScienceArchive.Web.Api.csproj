@@ -18,11 +18,13 @@
     <None Remove="Controllers\" />
     <None Remove="Responses\" />
     <None Remove="Auth\" />
+    <None Remove="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Responses\" />
     <Folder Include="Auth\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Application\ScienceArchive.Application.csproj">

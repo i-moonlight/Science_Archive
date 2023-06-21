@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ScienceArchive.Api.Responses
+namespace ScienceArchive.Web.Api.Responses
 {
     public class ErrorResponse : Response
     {

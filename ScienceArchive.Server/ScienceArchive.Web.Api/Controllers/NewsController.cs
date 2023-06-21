@@ -3,36 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
-using ScienceArchive.Api.Responses;
-using ScienceArchive.Application.Dtos.Role.Request;
+using ScienceArchive.Application.Dtos.News.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
+using ScienceArchive.Web.Api.Responses;
 
-namespace ScienceArchive.Api.Controllers
+namespace ScienceArchive.Web.Api.Controllers
 {
-    [Route("api/roles")]
-    public class RoleController : Controller
+    [Route("api/news")]
+    public class NewsController : Controller
     {
-        private readonly IRoleInteractor _roleInteractor;
+        private readonly INewsInteractor _newsInteractor;
 
-        public RoleController(IRoleInteractor roleInteractor)
+        public NewsController(INewsInteractor newsInteractor)
         {
-            if (roleInteractor is null)
+            if (newsInteractor is null)
             {
-                throw new ArgumentNullException(nameof(roleInteractor));
+                throw new ArgumentNullException(nameof(newsInteractor));
             }
 
-            _roleInteractor = roleInteractor;
+            _newsInteractor = newsInteractor;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var emptyRequest = new GetAllRolesRequestDto();
+            var emptyRequest = new GetAllNewsRequestDto();
 
             try
             {
-                var result = await _roleInteractor.GetAllRoles(emptyRequest);
+                var result = await _newsInteractor.GetAllNews(emptyRequest);
                 var response = new SuccessResponse(result);
                 return Json(response);
             }

@@ -8,7 +8,7 @@ using ScienceArchive.Core.Domain.Entities;
 using JwtClaim = System.Security.Claims.Claim;
 using ScienceArchive.Application.Dtos;
 
-namespace ScienceArchive.Api.Auth
+namespace ScienceArchive.Web.Api.Auth
 {
     public class AuthManager
     {

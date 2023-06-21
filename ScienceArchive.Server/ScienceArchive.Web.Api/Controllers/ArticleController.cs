@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ScienceArchive.Api.Responses;
 using ScienceArchive.Application.Dtos.Article.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
+using ScienceArchive.Web.Api.Responses;
 
-namespace ScienceArchive.Api.Controllers
+namespace ScienceArchive.Web.Api.Controllers
 {
     [Route("api/articles")]
     public class ArticleController : Controller

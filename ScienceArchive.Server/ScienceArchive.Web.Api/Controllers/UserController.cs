@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ScienceArchive.Api.Responses;
 using ScienceArchive.Application.Dtos.User.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
+using ScienceArchive.Web.Api.Responses;
 
-namespace ScienceArchive.Api.Controllers
+namespace ScienceArchive.Web.Api.Controllers
 {
     [Route("api/users")]
     public class UserController : Controller

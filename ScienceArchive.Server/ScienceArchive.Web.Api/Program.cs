@@ -4,7 +4,7 @@ using ScienceArchive.BusinessLogic;
 using ScienceArchive.Infrastructure.Persistence;
 using ScienceArchive.Infrastructure.Persistence.Options;
 
-namespace ScienceArchive.Api;
+namespace ScienceArchive.Web.Api;
 
 public class Program
 {

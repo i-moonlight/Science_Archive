@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1704.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Api", "ScienceArchive.Api\ScienceArchive.Api.csproj", "{5472851B-1259-4F48-B42E-7CFE5F41F683}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Web.Api", "ScienceArchive.Web.Api\ScienceArchive.Web.Api.csproj", "{5472851B-1259-4F48-B42E-7CFE5F41F683}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Core", "ScienceArchive.Core\ScienceArchive.Core.csproj", "{BB815083-291A-4FF2-8DE3-52C79943196E}"
 EndProject
