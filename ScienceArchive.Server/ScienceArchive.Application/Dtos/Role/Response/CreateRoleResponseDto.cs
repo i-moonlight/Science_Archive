@@ -1,5 +1,4 @@
-﻿using System;
-namespace ScienceArchive.Application.Dtos.Role.Response
+﻿namespace ScienceArchive.Application.Dtos.Role.Response
 {
     /// <summary>
     /// Response contract of role creation

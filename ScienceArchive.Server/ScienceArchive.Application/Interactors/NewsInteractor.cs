@@ -1,38 +1,60 @@
-﻿using System;
+﻿using ScienceArchive.Application.Dtos.News;
 using ScienceArchive.Application.Dtos.News.Request;
 using ScienceArchive.Application.Dtos.News.Response;
+using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
+using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Services;
+using ScienceArchive.Core.Services.NewsContracts;
 
 namespace ScienceArchive.Application.Interactors
 {
     public class NewsInteractor : INewsInteractor
     {
-        public NewsInteractor()
+        private readonly INewsService _newsService;
+        private readonly IApplicationMapper<News, NewsDto> _newsMapper;
+
+        public NewsInteractor(INewsService newsService, IApplicationMapper<News, NewsDto> newsMapper)
         {
+            _newsService = newsService ?? throw new ArgumentNullException(nameof(newsService));
+            _newsMapper = newsMapper ?? throw new ArgumentNullException(nameof(newsMapper));
         }
 
         /// <inheritdoc/>
-        public Task<CreateNewsResponseDto> CreateNews(CreateNewsRequestDto dto)
+        public async Task<GetAllNewsResponseDto> GetAllNews(GetAllNewsRequestDto dto)
         {
-            throw new NotImplementedException();
+            var contract = new GetAllNewsContract();
+            var news = await _newsService.GetAll(contract);
+            var newsDtos = news.Select(newsEntity => _newsMapper.MapToDto(newsEntity)).ToList();
+
+            return new(newsDtos);
         }
 
         /// <inheritdoc/>
-        public Task<DeleteNewsResponseDto> DeleteNews(DeleteNewsRequestDto dto)
+        public async Task<CreateNewsResponseDto> CreateNews(CreateNewsRequestDto dto)
         {
-            throw new NotImplementedException();
+            var contract = new CreateNewsContract(_newsMapper.MapToEntity(dto.News));
+            var createdNews = await _newsService.Create(contract);
+
+            return new(_newsMapper.MapToDto(createdNews));
         }
 
         /// <inheritdoc/>
-        public Task<GetAllNewsResponseDto> GetAllNews(GetAllNewsRequestDto dto)
+        public async Task<UpdateNewsResponseDto> UpdateNews(UpdateNewsRequestDto dto)
         {
-            throw new NotImplementedException();
+            var contract = new UpdateNewsContract(dto.Id, _newsMapper.MapToEntity(dto.News));
+            var updatedNews = await _newsService.Update(contract);
+
+            return new(_newsMapper.MapToDto(updatedNews));
         }
 
         /// <inheritdoc/>
-        public Task<UpdateNewsResponseDto> UpdateNews(UpdateNewsRequestDto dto)
+        public async Task<DeleteNewsResponseDto> DeleteNews(DeleteNewsRequestDto dto)
         {
-            throw new NotImplementedException();
+            var contract = new DeleteNewsContract(dto.Id);
+            var deletedNewsId = await _newsService.Delete(contract);
+
+            return new(deletedNewsId);
         }
     }
 }

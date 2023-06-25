@@ -1,5 +1,4 @@
-﻿using System;
-using ScienceArchive.Application.Dtos;
+﻿using ScienceArchive.Application.Dtos;
 using ScienceArchive.Application.Dtos.User.Request;
 using ScienceArchive.Application.Dtos.User.Response;
 using ScienceArchive.Application.Interfaces;
@@ -19,18 +18,8 @@ namespace ScienceArchive.Application.Interactors
             IApplicationMapper<User, UserDto> userMapper,
             IUserService userService)
         {
-            if (userMapper is null)
-            {
-                throw new ArgumentNullException(nameof(userMapper));
-            }
-
-            if (userService is null)
-            {
-                throw new ArgumentNullException(nameof(userService));
-            }
-
-            _userMapper = userMapper;
-            _userService = userService;
+            _userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         /// <inheritdoc/>
@@ -56,15 +45,21 @@ namespace ScienceArchive.Application.Interactors
         }
 
         /// <inheritdoc/>
-        public Task<DeleteUserResponseDto> DeleteUser(DeleteUserRequestDto dto)
+        public async Task<DeleteUserResponseDto> DeleteUser(DeleteUserRequestDto dto)
         {
-            throw new NotImplementedException();
+            var contract = new DeleteUserContract(dto.Id);
+            var deletedUserId = await _userService.Delete(contract);
+
+            return new(deletedUserId);
         }
 
         /// <inheritdoc/>
-        public Task<UpdateUserResponseDto> UpdateUser(UpdateUserRequestDto dto)
+        public async Task<UpdateUserResponseDto> UpdateUser(UpdateUserRequestDto dto)
         {
-            throw new NotImplementedException();
+            var contract = new UpdateUserContract(dto.UserId, _userMapper.MapToEntity(dto.User));
+            var updatedUser = await _userService.Update(contract);
+
+            return new(_userMapper.MapToDto(updatedUser));
         }
     }
 }

@@ -1,53 +1,45 @@
-﻿using System;
-using ScienceArchive.Application.Dtos;
+﻿using ScienceArchive.Application.Dtos;
 using ScienceArchive.Application.Dtos.Article;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Core.Domain.Entities;
 
-namespace ScienceArchive.Application.Mappers
+namespace ScienceArchive.Application.Mappers;
+
+public class ArticleMapper : IApplicationMapper<Article, ArticleDto>
 {
-    public class ArticleMapper : IApplicationMapper<Article, ArticleDto>
+    private readonly IApplicationMapper<User, UserDto> _userMapper;
+
+    public ArticleMapper(IApplicationMapper<User, UserDto> userMapper)
     {
-        private readonly IApplicationMapper<User, UserDto> _userMapper;
+        _userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
+    }
 
-        public ArticleMapper(IApplicationMapper<User, UserDto> userMapper)
+    public ArticleDto MapToDto(Article entity)
+    {
+        return new()
         {
-            if (userMapper is null)
-            {
-                throw new ArgumentNullException(nameof(userMapper));
-            }
+            Id = entity.Id.ToString(),
+            Author = _userMapper.MapToDto(entity.Author),
+            CreationDate = entity.CreationDate,
+            Title = entity.Title,
+            Description = entity.Description,
+            DocumentPath = entity.DocumentPath
+        };
+    }
 
-            _userMapper = userMapper;
-        }
+    public Article MapToEntity(ArticleDto dto, string? id = null)
+    {
+        Guid? articleId = id is not null
+            ? new Guid(id)
+            : null;
 
-        public ArticleDto MapToDto(Article entity)
+        return new(articleId)
         {
-            return new()
-            {
-                Id = entity.Id.ToString(),
-                Author = _userMapper.MapToDto(entity.Author),
-                CreationDate = entity.CreationDate,
-                Title = entity.Title,
-                Description = entity.Description,
-                DocumentPath = entity.DocumentPath
-            };
-        }
-
-        public Article MapToEntity(ArticleDto dto, string? id = null)
-        {
-            Guid? articleId = id is not null
-                ? new Guid(id)
-                : null;
-
-            return new(articleId)
-            {
-                Author = _userMapper.MapToEntity(dto.Author),
-                CreationDate = dto.CreationDate,
-                Title = dto.Title,
-                Description = dto.Description,
-                DocumentPath = dto.DocumentPath
-            };
-        }
+            Author = _userMapper.MapToEntity(dto.Author),
+            CreationDate = dto.CreationDate,
+            Title = dto.Title,
+            Description = dto.Description,
+            DocumentPath = dto.DocumentPath
+        };
     }
 }
-
