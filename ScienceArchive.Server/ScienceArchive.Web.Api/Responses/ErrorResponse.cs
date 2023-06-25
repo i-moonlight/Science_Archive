@@ -1,12 +1,9 @@
-﻿using System;
-namespace ScienceArchive.Web.Api.Responses
+﻿namespace ScienceArchive.Web.Api.Responses;
+
+public class ErrorResponse : Response
 {
-    public class ErrorResponse : Response
+    public ErrorResponse(string errorMessage) : base()
     {
-        public ErrorResponse(string errorMessage) : base()
-        {
-            Error = errorMessage;
-        }
+        Error = errorMessage;
     }
 }
-

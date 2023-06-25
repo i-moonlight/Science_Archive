@@ -5,32 +5,30 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace ScienceArchive.Web.Api.Middleware
+namespace ScienceArchive.Web.Api.Middleware;
+
+// You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
+public class ExceptionHandler
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class ExceptionHandler
+    private readonly RequestDelegate _next;
+
+    public ExceptionHandler(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public ExceptionHandler(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public Task Invoke(HttpContext httpContext)
-        {
-
-            return _next(httpContext);
-        }
+        _next = next;
     }
 
-    // Extension method used to add the middleware to the HTTP request pipeline.
-    public static class ExceptionHandlerExtensions
+    public Task Invoke(HttpContext httpContext)
     {
-        public static IApplicationBuilder UseMiddlewareClassTemplate(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<ExceptionHandler>();
-        }
+
+        return _next(httpContext);
     }
 }
 
+// Extension method used to add the middleware to the HTTP request pipeline.
+public static class ExceptionHandlerExtensions
+{
+    public static IApplicationBuilder UseMiddlewareClassTemplate(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<ExceptionHandler>();
+    }
+}

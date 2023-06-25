@@ -1,33 +1,31 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using ScienceArchive.Web.Api.Auth;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace ScienceArchive.Web.Api.Auth;
+
+public static class AuthRegistry
 {
-    public static class AuthRegistry
+    public static IServiceCollection RegisterAuth(this IServiceCollection services, ConfigurationManager configuration, bool isDevelopment)
     {
-        public static IServiceCollection RegisterAuth(this IServiceCollection services, ConfigurationManager configuration, bool isDevelopment)
+        var jwtAudience = configuration["Jwt:Audience"] ?? "";
+        var jwtIssuer = configuration["Jwt:Issuer"] ?? "";
+
+        string jwtKey;
+
+        if (isDevelopment)
         {
-            var jwtAudience = configuration["Jwt:Audience"] ?? "";
-            var jwtIssuer = configuration["Jwt:Issuer"] ?? "";
+            jwtKey = configuration["Jwt:Key"] ?? "";
+        }
+        else
+        {
+            jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY")
+                     ?? throw new NullReferenceException("JWT key was not present!");
+        }
 
-            string jwtKey;
-
-            if (isDevelopment)
-            {
-                jwtKey = configuration["Jwt:Key"] ?? "";
-            }
-            else
-            {
-                jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY")
-                    ?? throw new NullReferenceException("JWT key was not present!");
-            }
-
-            _ = services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+        _ = services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
@@ -41,10 +39,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 };
             });
 
-            _ = services.AddTransient<AuthManager>();
+        _ = services.AddTransient<AuthManager>();
 
-            return services;
-        }
+        return services;
     }
 }
-

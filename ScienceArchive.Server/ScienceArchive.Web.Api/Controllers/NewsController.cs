@@ -1,46 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Application.Dtos.News.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Web.Api.Responses;
 
-namespace ScienceArchive.Web.Api.Controllers
+namespace ScienceArchive.Web.Api.Controllers;
+
+[Route("api/news")]
+public class NewsController : Controller
 {
-    [Route("api/news")]
-    public class NewsController : Controller
+    private readonly INewsInteractor _newsInteractor;
+
+    public NewsController(INewsInteractor newsInteractor)
     {
-        private readonly INewsInteractor _newsInteractor;
+        _newsInteractor = newsInteractor ?? throw new ArgumentNullException(nameof(newsInteractor));
+    }
 
-        public NewsController(INewsInteractor newsInteractor)
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var emptyRequest = new GetAllNewsRequestDto();
+
+        try
         {
-            if (newsInteractor is null)
-            {
-                throw new ArgumentNullException(nameof(newsInteractor));
-            }
-
-            _newsInteractor = newsInteractor;
+            var result = await _newsInteractor.GetAllNews(emptyRequest);
+            var response = new SuccessResponse(result);
+            return Json(response);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        catch (Exception ex)
         {
-            var emptyRequest = new GetAllNewsRequestDto();
-
-            try
-            {
-                var result = await _newsInteractor.GetAllNews(emptyRequest);
-                var response = new SuccessResponse(result);
-                return Json(response);
-            }
-            catch (Exception ex)
-            {
-                var response = new ErrorResponse(ex.Message);
-                return Json(response);
-            }
+            var response = new ErrorResponse(ex.Message);
+            return Json(response);
         }
     }
 }
-

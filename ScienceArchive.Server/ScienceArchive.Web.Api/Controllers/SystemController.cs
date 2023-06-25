@@ -1,49 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Application.Dtos.System.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Web.Api.Responses;
 
-namespace ScienceArchive.Web.Api.Controllers
+namespace ScienceArchive.Web.Api.Controllers;
+
+[Route("api/system")]
+public class SystemController : Controller
 {
-    [Route("api/system")]
-    public class SystemController : Controller
+    private readonly ISystemInteractor _systemInteractor;
+
+    public SystemController(ISystemInteractor systemInteractor)
     {
-        private readonly ISystemInteractor _systemInteractor;
+        _systemInteractor = systemInteractor ?? throw new ArgumentNullException(nameof(systemInteractor));
+    }
 
-        public SystemController(ISystemInteractor systemInteractor)
+    [HttpGet("check-status")]
+    public async Task<IActionResult> CheckStatus()
+    {
+        var emptyRequest = new CheckSystemStatusRequestDto();
+
+        try
         {
-            if (systemInteractor is null)
-            {
-                throw new ArgumentNullException(nameof(systemInteractor));
-            }
+            var result = await _systemInteractor.CheckSystemStatus(emptyRequest);
+            var response = new SuccessResponse(result);
 
-            _systemInteractor = systemInteractor;
+            return Json(response);
         }
-
-        [HttpGet("check-status")]
-        public async Task<IActionResult> CheckStatus()
+        catch (Exception ex)
         {
-            var emptyRequest = new CheckSystemStatusRequestDto();
+            var response = new ErrorResponse(ex.Message);
 
-            try
-            {
-                var result = await _systemInteractor.CheckSystemStatus(emptyRequest);
-                var response = new SuccessResponse(result);
-
-                return Json(response);
-            }
-            catch (Exception ex)
-            {
-                var response = new ErrorResponse(ex.Message);
-
-                return Json(response);
-            }
+            return Json(response);
         }
     }
 }
-

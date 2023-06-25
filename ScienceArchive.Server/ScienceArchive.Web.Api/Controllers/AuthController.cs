@@ -1,82 +1,60 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Application.Dtos.Auth.Request;
-using ScienceArchive.Application.Dtos.User.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Web.Api.Auth;
 using ScienceArchive.Web.Api.Responses;
 
-namespace ScienceArchive.Web.Api.Controllers
+namespace ScienceArchive.Web.Api.Controllers;
+
+[Route("api/auth")]
+public class AuthController : Controller
 {
-    [Route("api/auth")]
-    public class AuthController : Controller
+    private readonly AuthManager _authManager;
+    private readonly IAuthInteractor _authInteractor;
+
+    public AuthController(AuthManager authManager, IAuthInteractor authInteractor)
     {
-        private readonly AuthManager _authManager;
-        private readonly IAuthInteractor _authInteractor;
-        private readonly IConfiguration _configuration;
+        _authInteractor = authInteractor ?? throw new ArgumentNullException(nameof(authInteractor));
+        _authManager = authManager ?? throw new ArgumentNullException(nameof(authManager));
+    }
 
-        public AuthController(
-            AuthManager authManager,
-            IAuthInteractor authInteractor,
-            IConfiguration configuration)
+    [HttpPost("sign-in")]
+    public async Task<IActionResult> SignIn([FromBody] LoginRequestDto request)
+    {
+        try
         {
-            if (authManager is null)
-            {
-                throw new ArgumentNullException(nameof(authManager));
-            }
+            var result = await _authInteractor.Login(request);
+            var token = _authManager.GenerateToken(result.User);
 
-            if (authInteractor is null)
+            var response = new SuccessResponse(new
             {
-                throw new ArgumentNullException(nameof(authInteractor));
-            }
+                user = result.User,
+                token,
+            });
 
-            if (configuration is null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-
-            _authInteractor = authInteractor;
-            _configuration = configuration;
-            _authManager = authManager;
+            return Json(response);
         }
-
-        [HttpPost("sign-in")]
-        public async Task<IActionResult> SignIn([FromBody] LoginRequestDto request)
+        catch (Exception e)
         {
-            try
-            {
-                var result = await _authInteractor.Login(request);
-                var token = _authManager.GenerateToken(result.User);
-
-                var response = new SuccessResponse(new
-                {
-                    token = token,
-                    user = result.User,
-                });
-
-                return Json(response);
-            }
-            catch (Exception e)
-            {
-                var response = new ErrorResponse(e.Message);
-                return Json(response);
-            }
+            var response = new ErrorResponse(e.Message);
+            return Json(response);
         }
+    }
 
-        [HttpPost("sign-up")]
-        public async Task<IActionResult> SignUp([FromBody] SignUpRequestDto request)
+    [HttpPost("sign-up")]
+    public async Task<IActionResult> SignUp([FromBody] SignUpRequestDto request)
+    {
+        try
         {
-            try
-            {
-                var result = await _authInteractor.SignUp(request);
-                var response = new SuccessResponse(result);
+            var result = await _authInteractor.SignUp(request);
+            var response = new SuccessResponse(result);
 
-                return Json(response);
-            }
-            catch (Exception e)
-            {
-                var response = new ErrorResponse(e.Message);
-                return Json(response);
-            }
+            return Json(response);
+        }
+        catch (Exception e)
+        {
+            var response = new ErrorResponse(e.Message);
+            return Json(response);
         }
     }
 }
