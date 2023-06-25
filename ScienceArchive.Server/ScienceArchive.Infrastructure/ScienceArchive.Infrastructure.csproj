@@ -16,7 +16,6 @@
     <None Remove="Persistence\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Persistence\" />
     <Folder Include="Persistence\PostgreSql\" />
     <Folder Include="Persistence\PostgreSql\Mappers\" />
     <Folder Include="Persistence\PostgreSql\Models\" />

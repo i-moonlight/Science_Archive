@@ -1,20 +1,16 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using Dapper;
 using ScienceArchive.Core.Domain.Entities;
-using ScienceArchive.Core.Exceptions;
 using ScienceArchive.Core.Repositories;
+using ScienceArchive.Infrastructure.Persistence.Exceptions;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
-using ScienceArchive.Infrastructure.Persistence.Mappers;
 using ScienceArchive.Infrastructure.Persistence.Models;
-using ScienceArchive.Infrastructure.Persistence.Options;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql;
 
 namespace ScienceArchive.Infrastructure.Persistence.Repositories
 {
     public class PostgresUserRepository : IUserRepository
     {
-        private readonly PostgresContext _dbContext;
         private readonly IDbConnection _connection;
         private readonly IPersistenceMapper<User, UserModel> _mapper;
 
@@ -22,19 +18,9 @@ namespace ScienceArchive.Infrastructure.Persistence.Repositories
             PostgresContext dbContext,
             IPersistenceMapper<User, UserModel> mapper)
         {
-            if (dbContext is null)
-            {
-                throw new ArgumentNullException(nameof(dbContext));
-            }
-
-            if (mapper is null)
-            {
-                throw new ArgumentNullException(nameof(mapper));
-            }
-
-            _dbContext = dbContext;
-            _connection = dbContext.CreateConnection();
-            _mapper = mapper;
+            var context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _connection = context.CreateConnection();
         }
 
         /// <inheritdoc/>
@@ -98,13 +84,13 @@ namespace ScienceArchive.Infrastructure.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<User> Update(Guid userId, User newUser)
+        public Task<User> Update(Guid userId, User newUser)
         {
             throw new NotImplementedException("Update method is not implemented!");
         }
 
         /// <inheritdoc/>
-        public async Task<Guid> Delete(Guid userId)
+        public Task<Guid> Delete(Guid userId)
         {
             throw new NotImplementedException("Delete method is not implemented!");
         }
