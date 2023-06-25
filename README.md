@@ -8,4 +8,4 @@ Welcome to my pet project of Science Archive! The idea of this project is to cre
 
 Consider backend UML Class diagram below:
 
-![Backend Diagram](./docs/assets/backend/science-archive-backend-diagram.png)
+![Backend Diagram](./docs/assets/backend/science-archive-backend-diagram.jpg)
