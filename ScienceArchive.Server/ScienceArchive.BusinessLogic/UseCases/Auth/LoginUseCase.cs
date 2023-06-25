@@ -1,56 +1,53 @@
-﻿using System;
-using ScienceArchive.BusinessLogic.Interfaces;
+﻿using ScienceArchive.BusinessLogic.Interfaces;
 using ScienceArchive.BusinessLogic.Utils;
 using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services.AuthContracts;
 
-namespace ScienceArchive.BusinessLogic.UseCases.Auth
+namespace ScienceArchive.BusinessLogic.UseCases.Auth;
+
+public class LoginUseCase : IUseCase<User, LoginContract>
 {
-    public class LoginUseCase : IUseCase<User, LoginContract>
+    private readonly IUserRepository _userRepository;
+
+    public LoginUseCase(IUserRepository userRepository)
     {
-        private readonly IUserRepository _userRepository;
+        _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+    }
 
-        public LoginUseCase(IUserRepository userRepository)
+    public async Task<User> Execute(LoginContract contract)
+    {
+        var login = contract.Login;
+        var password = contract.Password;
+
+        return await GetUserByCredentials(login, password);
+    }
+
+    private async Task<User> GetUserByCredentials(string login, string password)
+    {
+        User? foundUser = null;
+
+        if (String.IsNullOrWhiteSpace(login) || String.IsNullOrWhiteSpace(password))
         {
-            _userRepository = userRepository;
+            throw new Exception("Login or password are empty!");
         }
 
-        public async Task<User> Execute(LoginContract contract)
-        {
-            var login = contract.Login;
-            var password = contract.Password;
+        var users = await _userRepository.GetAllUsersWithPasswords();
+        foundUser = users.Find(u => u.Login == login || u.Email == login);
 
-            return await GetUserByCredentials(login, password);
+        if (foundUser is null)
+        {
+            throw new Exception($"Wrong login or password!");
         }
 
-        private async Task<User> GetUserByCredentials(string login, string password)
+
+        var passwordHash = StringGenerator.HashPassword(password, foundUser.PasswordSalt);
+
+        if (passwordHash != foundUser.Password)
         {
-            User? foundUser = null;
-
-            if (String.IsNullOrWhiteSpace(login) || String.IsNullOrWhiteSpace(password))
-            {
-                throw new Exception("Login or password are empty!");
-            }
-
-            var users = await _userRepository.GetAllUsersWithPasswords();
-            foundUser = users.Find(u => u.Login == login || u.Email == login);
-
-            if (foundUser is null)
-            {
-                throw new Exception($"Wrong login or password!");
-            }
-
-
-            var passwordHash = StringGenerator.HashPassword(password, foundUser.PasswordSalt);
-
-            if (passwordHash != foundUser.Password)
-            {
-                throw new Exception("Wrong login or password!");
-            }
-
-            return foundUser;
+            throw new Exception("Wrong login or password!");
         }
+
+        return foundUser;
     }
 }
-

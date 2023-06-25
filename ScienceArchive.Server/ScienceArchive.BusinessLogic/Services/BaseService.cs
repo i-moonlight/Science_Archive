@@ -1,50 +1,40 @@
-﻿using System;
-using ScienceArchive.BusinessLogic.Interfaces;
+﻿using ScienceArchive.BusinessLogic.Interfaces;
 
-namespace ScienceArchive.BusinessLogic.Services
+namespace ScienceArchive.BusinessLogic.Services;
+
+/// <summary>
+/// Base service functionality
+/// </summary>
+public abstract class BaseService
 {
-    /// <summary>
-    /// Base service functionality
-    /// </summary>
-    public class BaseService
+    private readonly IServiceProvider _serviceProvider;
+
+    protected BaseService(IServiceProvider serviceProvider)
     {
-        private readonly IServiceProvider _serviceProvider;
+        _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+    }
 
-        public BaseService(IServiceProvider serviceProvider)
+    /// <summary>
+    /// Execute operation (Use Case)
+    /// with specified contract DTO
+    /// </summary>
+    /// <typeparam name="TResult">Response type</typeparam>
+    /// <typeparam name="TDto">Request type</typeparam>
+    /// <param name="contract">Contract to perform operation</param>
+    /// <returns>Use Case execution result</returns>
+    /// <exception cref="NullReferenceException">
+    /// Thrown if cannot get necessary
+    /// use case to process operation
+    /// </exception>
+    protected async Task<TResult> ExecuteUseCase<TResult, TDto>(TDto contract)
+    {
+        var useCaseType = typeof(IUseCase<TResult, TDto>);
+
+        if (_serviceProvider.GetService(useCaseType) is not IUseCase<TResult, TDto> useCase)
         {
-            if (serviceProvider is null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
-
-            _serviceProvider = serviceProvider;
+            throw new NullReferenceException("Cannot get use case for processing the operation!");
         }
 
-        /// <summary>
-        /// Execute operation (Use Case)
-        /// with specified contract DTO
-        /// </summary>
-        /// <typeparam name="TResult">Response type</typeparam>
-        /// <typeparam name="TDto">Request type</typeparam>
-        /// <param name="contract">Contract to perform operation</param>
-        /// <returns>Use Case execution result</returns>
-        /// <exception cref="NullReferenceException">
-        /// Thrown if cannot get neccessary
-        /// use case to process operation
-        /// </exception>
-        protected async Task<TResult> ExecuteUseCase<TResult, TDto>(TDto contract)
-        {
-            var useCaseType = typeof(IUseCase<TResult, TDto>);
-
-            var useCase = _serviceProvider.GetService(useCaseType) as IUseCase<TResult, TDto>;
-
-            if (useCase is null)
-            {
-                throw new NullReferenceException("Cannot get use case for processing the operation!");
-            }
-
-            return await useCase.Execute(contract);
-        }
+        return await useCase.Execute(contract);
     }
 }
-
