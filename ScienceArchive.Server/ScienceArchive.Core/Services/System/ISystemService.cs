@@ -1,21 +1,18 @@
-﻿using System;
-using ScienceArchive.Core.Domain.ValueObjects;
+﻿using ScienceArchive.Core.Domain.ValueObjects;
 using ScienceArchive.Core.Services.SystemContracts;
 
-namespace ScienceArchive.Core.Services
+namespace ScienceArchive.Core.Services;
+
+/// <summary>
+/// SystemService provides necessary
+/// functionality to system operations
+/// </summary>
+public interface ISystemService
 {
     /// <summary>
-    /// SystemService provides necessary
-    /// functionality to system operations
+    /// Check current system status
     /// </summary>
-    public interface ISystemService
-    {
-        /// <summary>
-        /// Check current system status
-        /// </summary>
-        /// <param name="contract">Contract to check system status</param>
-        /// <returns>The system check report</returns>
-        Task<SystemStatus> CheckSystemStatus(CheckSystemStatusContract contract);
-    }
+    /// <param name="contract">Contract to check system status</param>
+    /// <returns>The system check report</returns>
+    Task<SystemStatus> CheckSystemStatus(CheckSystemStatusContract contract);
 }
-

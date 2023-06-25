@@ -32,7 +32,6 @@
     <Folder Include="Domain\" />
     <Folder Include="Domain\Entities\" />
     <Folder Include="Domain\Common\" />
-    <Folder Include="Exceptions\" />
     <Folder Include="Domain\ValueObjects\" />
     <Folder Include="Services\" />
     <Folder Include="Repositories\" />

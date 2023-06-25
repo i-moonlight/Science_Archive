@@ -1,9 +1,6 @@
-﻿using System;
-namespace ScienceArchive.Core.Domain.Common
-{
-    /// <summary>
-    /// Represents base value object
-    /// </summary>
-    public class BaseValueObject { }
-}
+﻿namespace ScienceArchive.Core.Domain.Common;
 
+/// <summary>
+/// Represents base value object
+/// </summary>
+public class BaseValueObject { }
