@@ -38,7 +38,10 @@ public class AuthInteractor : IAuthInteractor
     /// <inheritdoc/>
     public async Task<SignUpResponseDto> SignUp(SignUpRequestDto dto)
     {
-        var contract = new CreateUserContract(_userMapper.MapToEntity(dto.User));
+        var userToCreate = _userMapper.MapToEntity(dto.User);
+        userToCreate.Password = dto.Password;
+        
+        var contract = new CreateUserContract(userToCreate);
         var createdUser = await _userService.Create(contract);
 
         return new(_userMapper.MapToDto(createdUser));
