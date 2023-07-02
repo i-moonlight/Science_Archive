@@ -11,14 +11,14 @@ AS $$
 BEGIN
   UPDATE "users_auth" as ua
   SET
-    "login" = COALESCE("p_login", ua."login"),
-    "password" = COALESCE("p_password", ua."password"),
+    "login"         = COALESCE("p_login", ua."login"),
+    "password"      = COALESCE("p_password", ua."password"),
     "password_salt" = COALESCE("p_password_salt", ua."password_salt")
   WHERE ua."user_id" = "p_id";
   
   UPDATE "users" as u
   SET
-    "name" = COALESCE("p_name", u."name"),
+    "name"  = COALESCE("p_name", u."name"),
     "email" = COALESCE("p_email", u."email")
   WHERE u."id" = "p_id";
 END;$$

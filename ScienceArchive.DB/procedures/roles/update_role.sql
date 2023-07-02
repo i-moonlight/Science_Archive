@@ -9,7 +9,7 @@ AS $$
 BEGIN 
   UPDATE "roles" as r 
   SET 
-    "name" = COALESCE("p_name", r."name"),
+    "name"        = COALESCE("p_name", r."name"),
     "description" = COALESCE("p_description", r."description")
   WHERE r."id" = "p_id";
   

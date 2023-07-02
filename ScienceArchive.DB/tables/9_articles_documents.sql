@@ -2,7 +2,7 @@
 
 CREATE TABLE IF NOT EXISTS "articles_documents" (
   "article_id"    UUID NOT NULL,
-  "document_path" UUID NOT NULL,
+  "document_path" VARCHAR(255) NOT NULL,
   
   PRIMARY KEY ("article_id"),
   
