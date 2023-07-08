@@ -4,9 +4,9 @@ CREATE OR REPLACE PROCEDURE "proc_delete_news" (
 LANGUAGE plpgsql
 AS $$
 BEGIN
-  DELETE FROM "news"
-  WHERE "id" = "p_id";
-  
   DELETE FROM "news_creation"
   WHERE "news_id" = "p_id";
+  
+  DELETE FROM "news"
+  WHERE "id" = "p_id";
 END;$$
