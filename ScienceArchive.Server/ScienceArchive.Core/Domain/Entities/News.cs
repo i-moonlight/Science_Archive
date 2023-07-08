@@ -13,6 +13,11 @@ public class News : BaseEntity
     }
 
     /// <summary>
+    /// News creator
+    /// </summary>
+    public required Guid AuthorId { get; set; }
+    
+    /// <summary>
     /// News title
     /// </summary>
     public required string Title { get; set; }

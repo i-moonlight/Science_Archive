@@ -9,6 +9,11 @@ public record NewsDto
     /// News ID
     /// </summary>
     public string? Id { get; set; }
+    
+    /// <summary>
+    /// Author ID
+    /// </summary>
+    public required Guid AuthorId { get; set; }
 
     /// <summary>
     /// News title

@@ -19,7 +19,7 @@ public class Article : BaseEntity
     /// <summary>
     /// Author of an article
     /// </summary>
-    public required User Author { get; set; }
+    public required Guid AuthorId { get; set; }
 
     /// <summary>
     /// Date when article was created

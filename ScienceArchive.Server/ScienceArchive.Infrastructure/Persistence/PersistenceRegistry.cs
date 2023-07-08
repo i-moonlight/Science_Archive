@@ -1,58 +1,58 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using ScienceArchive.Core.Domain.Entities;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
-using ScienceArchive.Infrastructure.Persistence.Mappers;
-using ScienceArchive.Infrastructure.Persistence.Models;
 using ScienceArchive.Infrastructure.Persistence.Options;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql;
+using ScienceArchive.Infrastructure.Persistence.PostgreSql.Mappers;
+using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
-using ScienceArchive.Infrastructure.Persistence.Repositories;
 
-namespace ScienceArchive.Infrastructure.Persistence
+namespace ScienceArchive.Infrastructure.Persistence;
+
+public static class PersistenceRegistry
 {
-    public static class PersistenceRegistry
+    /// <summary>
+    /// Register repositories implementations
+    /// </summary>
+    /// <param name="services">Application services</param>
+    public static IServiceCollection RegisterRepositories(this IServiceCollection services)
     {
-        /// <summary>
-        /// Register repositories implementations
-        /// </summary>
-        /// <param name="services">Application services</param>
-        public static IServiceCollection RegisterRepositories(this IServiceCollection services)
-        {
-            _ = services.AddTransient<IArticleRepository, PostgresArticleRepository>();
-            _ = services.AddTransient<INewsRepository, PostgresNewsRepository>();
-            _ = services.AddTransient<IRoleRepository, PostgresRoleRepository>();
-            _ = services.AddTransient<IUserRepository, PostgresUserRepository>();
+        _ = services.AddTransient<IArticleRepository, PostgresArticleRepository>();
+        _ = services.AddTransient<INewsRepository, PostgresNewsRepository>();
+        _ = services.AddTransient<IRoleRepository, PostgresRoleRepository>();
+        _ = services.AddTransient<IUserRepository, PostgresUserRepository>();
 
-            return services;
+        return services;
+    }
+
+    public static IServiceCollection RegisterPersistenceMappers(this IServiceCollection services)
+    {
+        _ = services.AddTransient<IPersistenceMapper<Article, ArticleModel>, ArticleMapper>();
+        _ = services.AddTransient<IPersistenceMapper<Claim, ClaimModel>, ClaimMapper>();
+        _ = services.AddTransient<IPersistenceMapper<News, NewsModel>, NewsMapper>();
+        _ = services.AddTransient<IPersistenceMapper<Role, RoleModel>, RoleMapper>();
+        _ = services.AddTransient<IPersistenceMapper<User, UserModel>, UserMapper>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Register database context
+    /// </summary>
+    /// <param name="services">Application services</param>
+    /// <param name="connectionOptions">Database connection options</param>
+    public static IServiceCollection RegisterPersistenceConnections(this IServiceCollection services, ConnectionOptions connectionOptions)
+    {
+        if (connectionOptions.PostgresConnectionString is null)
+        {
+            throw new ArgumentNullException(nameof(connectionOptions));
         }
 
-        public static IServiceCollection RegisterPersistenceMappers(this IServiceCollection services)
-        {
-            _ = services.AddTransient<IPersistenceMapper<User, UserModel>, UserMapper>();
+        var postgresContext = new PostgresContext(connectionOptions.PostgresConnectionString);
 
-            return services;
-        }
+        _ = services.AddSingleton(postgresContext);
 
-        /// <summary>
-        /// Register database context
-        /// </summary>
-        /// <param name="services">Application services</param>
-        /// <param name="connectionString">Database connection string</param>
-        public static IServiceCollection RegisterPersistenceConnections(this IServiceCollection services, ConnectionOptions connectionOptions)
-        {
-            if (connectionOptions.PostgresConnectionString is null)
-            {
-                throw new ArgumentNullException(nameof(connectionOptions));
-            }
-
-            var postgresContext = new PostgresContext(connectionOptions.PostgresConnectionString);
-
-            _ = services.AddSingleton<PostgresContext>(postgresContext);
-
-            return services;
-        }
+        return services;
     }
 }
-

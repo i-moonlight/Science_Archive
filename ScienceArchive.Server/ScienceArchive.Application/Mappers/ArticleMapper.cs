@@ -19,7 +19,7 @@ public class ArticleMapper : IApplicationMapper<Article, ArticleDto>
         return new()
         {
             Id = entity.Id.ToString(),
-            Author = _userMapper.MapToDto(entity.Author),
+            AuthorId = entity.AuthorId.ToString(),
             CreationDate = entity.CreationDate,
             Title = entity.Title,
             Description = entity.Description,
@@ -35,7 +35,7 @@ public class ArticleMapper : IApplicationMapper<Article, ArticleDto>
 
         return new(articleId)
         {
-            Author = _userMapper.MapToEntity(dto.Author),
+            AuthorId = new Guid(dto.AuthorId),
             CreationDate = dto.CreationDate,
             Title = dto.Title,
             Description = dto.Description,

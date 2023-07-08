@@ -1,10 +1,10 @@
-﻿namespace ScienceArchive.Core.Repositories;
+﻿namespace ScienceArchive.Core.Repositories.Common;
 
 /// <summary>
-/// Base functionality of a repository
+/// Base functionality of a CRUD repository
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public interface IBaseRepository<TEntity>
+public interface ICrudRepository<TEntity>
 {
     /// <summary>
     /// Get entity by ID

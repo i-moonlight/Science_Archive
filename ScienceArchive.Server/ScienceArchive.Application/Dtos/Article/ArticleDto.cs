@@ -18,7 +18,7 @@ public record ArticleDto
     /// <summary>
     /// Author of an article
     /// </summary>
-    public required UserDto Author { get; set; }
+    public required string AuthorId { get; set; }
 
     /// <summary>
     /// Date when article was created

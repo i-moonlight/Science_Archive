@@ -34,7 +34,6 @@
     <Folder Include="Domain\Common\" />
     <Folder Include="Domain\ValueObjects\" />
     <Folder Include="Services\" />
-    <Folder Include="Repositories\" />
     <Folder Include="Services\Article\" />
     <Folder Include="Services\Auth\" />
     <Folder Include="Services\News\" />

@@ -11,6 +11,7 @@ public class NewsMapper : IApplicationMapper<News, NewsDto>
         return new()
         {
             Id = entity.Id.ToString(),
+            AuthorId = entity.AuthorId,
             Body = entity.Body,
             CreationDate = entity.CreationDate,
             Title = entity.Title
@@ -25,6 +26,7 @@ public class NewsMapper : IApplicationMapper<News, NewsDto>
 
         return new(newsId)
         {
+            AuthorId = model.AuthorId,
             Body = model.Body,
             CreationDate = model.CreationDate,
             Title = model.Title

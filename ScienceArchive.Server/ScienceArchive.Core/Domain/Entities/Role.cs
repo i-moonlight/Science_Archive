@@ -17,14 +17,14 @@ public class Role : BaseEntity
     public required string Name { get; set; }
 
     /// <summary>
-    /// Role description
-    /// </summary>
-    public required string Description { get; set; }
-
-    /// <summary>
     /// Role claims. List of permissions
     /// of a user to perform some
     /// actions in the system
     /// </summary>
     public required List<Claim> Claims { get; init; }
+
+    /// <summary>
+    /// Role description
+    /// </summary>
+    public string? Description { get; set; }
 }
