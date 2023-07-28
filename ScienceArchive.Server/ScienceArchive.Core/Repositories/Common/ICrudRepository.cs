@@ -3,15 +3,16 @@
 /// <summary>
 /// Base functionality of a CRUD repository
 /// </summary>
-/// <typeparam name="TEntity"></typeparam>
-public interface ICrudRepository<TEntity>
+/// <typeparam name="TId">Identifier of an entity</typeparam>
+/// <typeparam name="TEntity">Type of an entity</typeparam>
+public interface ICrudRepository<TId, TEntity>
 {
     /// <summary>
     /// Get entity by ID
     /// </summary>
     /// <param name="id">ID of the entity to find</param>
     /// <returns>Entity with specified ID</returns>
-    Task<TEntity> GetById(Guid id);
+    Task<TEntity> GetById(TId id);
 
     /// <summary>
     /// Get all existing entities
@@ -32,12 +33,12 @@ public interface ICrudRepository<TEntity>
     /// <param name="id">ID of the entity to update</param>
     /// <param name="newValue">Entity data to update</param>
     /// <returns>Updated entity</returns>
-    Task<TEntity> Update(Guid id, TEntity newValue);
+    Task<TEntity> Update(TId id, TEntity newValue);
 
     /// <summary>
     /// Delete existing entity
     /// </summary>
     /// <param name="id">ID of the entity to delete</param>
     /// <returns>Deleted entity ID</returns>
-    Task<Guid> Delete(Guid id);
+    Task<Guid> Delete(TId id);
 }

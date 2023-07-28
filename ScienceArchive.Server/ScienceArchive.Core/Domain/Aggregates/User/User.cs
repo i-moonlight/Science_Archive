@@ -1,22 +1,28 @@
-﻿using System;
+﻿using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Domain.Common;
 using ScienceArchive.Core.Domain.Utils;
 
-namespace ScienceArchive.Core.Domain.Entities;
+namespace ScienceArchive.Core.Domain.Aggregates.User;
 
 /// <summary>
 /// User entity
 /// </summary>
-public class User : BaseEntity
+public class User : Entity<UserId>
 {
     private string _name = string.Empty;
     private string _email = string.Empty;
     private string _login = string.Empty;
 
-    public User(Guid? id = null, string? passwordSalt = null) : base(id)
+    public User(UserId? id = null) : base(id ?? UserId.CreateNew())
     {
     }
 
+    /// <summary>
+    /// Set of user roles identifiers
+    /// </summary>
+    public required List<RoleId> RoleIds { get; set; }
+    
     /// <summary>
     /// Name of the user
     /// </summary>
@@ -59,24 +65,19 @@ public class User : BaseEntity
         get => _login;
         set => _login = value.Trim();
     }
+    
+    /// <summary>
+    /// User password
+    /// </summary>
+    public required UserPassword Password { get; set; }
 
     /// <summary>
-    ///	Hash of the salted user password
+    /// Does user have a password
     /// </summary>
-    public string Password { get; set; } = string.Empty;
+    public bool HasOwnPassword => string.IsNullOrWhiteSpace(Password.Value);
 
     /// <summary>
-    /// Salt for password
+    /// Does user have a password salt
     /// </summary>
-    public string PasswordSalt { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Has user a password
-    /// </summary>
-    public bool HasOwnPassword => string.IsNullOrWhiteSpace(Password);
-
-    /// <summary>
-    /// Has user a password salt
-    /// </summary>
-    public bool HasOwnPasswordSalt => string.IsNullOrWhiteSpace(PasswordSalt);
+    public bool HasOwnPasswordSalt => string.IsNullOrWhiteSpace(Password.Salt);
 }

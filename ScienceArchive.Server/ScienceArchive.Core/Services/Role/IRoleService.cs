@@ -1,10 +1,11 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.Role;
 using ScienceArchive.Core.Services.RoleContracts;
 
 namespace ScienceArchive.Core.Services;
 
 /// <summary>
-/// Base functionality of role service
+/// Contains a set of business-logic methods
+/// to interact with roles
 /// </summary>
 public interface IRoleService
 {

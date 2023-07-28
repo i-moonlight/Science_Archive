@@ -30,10 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
-    <Folder Include="Domain\Entities\" />
-    <Folder Include="Domain\Common\" />
     <Folder Include="Domain\ValueObjects\" />
-    <Folder Include="Services\" />
     <Folder Include="Services\Article\" />
     <Folder Include="Services\Auth\" />
     <Folder Include="Services\News\" />
@@ -46,6 +43,5 @@
     <Folder Include="Services\Role\Contracts\" />
     <Folder Include="Services\User\Contracts\" />
     <Folder Include="Services\System\" />
-    <Folder Include="Domain\Utils\" />
   </ItemGroup>
 </Project>

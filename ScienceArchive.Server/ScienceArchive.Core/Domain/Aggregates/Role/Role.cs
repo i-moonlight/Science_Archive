@@ -1,13 +1,14 @@
-﻿using ScienceArchive.Core.Domain.Common;
+﻿using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
+using ScienceArchive.Core.Domain.Common;
 
-namespace ScienceArchive.Core.Domain.Entities;
+namespace ScienceArchive.Core.Domain.Aggregates.Role;
 
 /// <summary>
 /// Role entity
 /// </summary>
-public class Role : BaseEntity
+public class Role : Entity<RoleId>
 {
-    public Role(Guid? id = null) : base(id)
+    public Role(RoleId? id = null) : base(id ?? RoleId.CreateNew())
     {
     }
 
@@ -21,7 +22,7 @@ public class Role : BaseEntity
     /// of a user to perform some
     /// actions in the system
     /// </summary>
-    public required List<Claim> Claims { get; init; }
+    public required List<RoleClaim> Claims { get; init; }
 
     /// <summary>
     /// Role description

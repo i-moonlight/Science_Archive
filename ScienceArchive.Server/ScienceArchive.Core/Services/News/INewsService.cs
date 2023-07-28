@@ -1,10 +1,11 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.News;
 using ScienceArchive.Core.Services.NewsContracts;
 
 namespace ScienceArchive.Core.Services;
 
 /// <summary>
-/// Functionality of news service
+/// Contains a set of business-logic methods
+/// to interact with news
 /// </summary>
 public interface INewsService
 {

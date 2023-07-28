@@ -1,4 +1,5 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
 
 namespace ScienceArchive.Core.Services.NewsContracts;
 
@@ -7,4 +8,4 @@ namespace ScienceArchive.Core.Services.NewsContracts;
 /// </summary>
 /// <param name="Id">News ID to update</param>
 /// <param name="News">News</param>
-public record UpdateNewsContract(Guid Id, News News);
+public record UpdateNewsContract(NewsId Id, News News);

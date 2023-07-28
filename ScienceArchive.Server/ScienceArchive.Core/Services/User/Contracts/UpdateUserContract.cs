@@ -1,4 +1,5 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.User;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 
 namespace ScienceArchive.Core.Services.UserContracts;
 
@@ -7,4 +8,4 @@ namespace ScienceArchive.Core.Services.UserContracts;
 /// </summary>
 /// <param name="Id">User ID to update</param>
 /// <param name="User">New user</param>
-public record UpdateUserContract(Guid Id, User User);
+public record UpdateUserContract(UserId Id, User User);

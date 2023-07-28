@@ -1,10 +1,11 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Services.UserContracts;
 
 namespace ScienceArchive.Core.Services;
 
 /// <summary>
-/// Represents user service
+/// Contains a set of business-logic methods
+/// to interact with users
 /// </summary>
 public interface IUserService
 {

@@ -1,4 +1,4 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.User;
 
 namespace ScienceArchive.Core.Services.UserContracts;
 
