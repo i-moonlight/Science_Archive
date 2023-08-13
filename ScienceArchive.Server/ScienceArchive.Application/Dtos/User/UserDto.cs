@@ -11,6 +11,11 @@ public record UserDto
     public string? Id { get; set; }
 
     /// <summary>
+    /// List of user roles identifiers
+    /// </summary>
+    public required List<string> RolesIds { get; set; }
+    
+    /// <summary>
     /// User name
     /// </summary>
     public required string Name { get; set; }

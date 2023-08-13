@@ -1,11 +1,11 @@
-﻿using ScienceArchive.Core.Domain.Entities;
-using ScienceArchive.BusinessLogic.Interfaces;
-using ScienceArchive.Core.Services.UserContracts;
+﻿using ScienceArchive.BusinessLogic.Interfaces;
+using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Repositories;
+using ScienceArchive.Core.Services.UserContracts;
 
 namespace ScienceArchive.BusinessLogic.UserUseCases;
 
-public class UpdateUserUseCase : IUseCase<User, UpdateUserContract>
+internal class UpdateUserUseCase : IUseCase<User, UpdateUserContract>
 {
     private readonly IUserRepository _userRepository;
 

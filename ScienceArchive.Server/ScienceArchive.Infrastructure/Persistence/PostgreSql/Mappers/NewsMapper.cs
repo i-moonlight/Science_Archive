@@ -1,4 +1,6 @@
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
@@ -10,22 +12,29 @@ public class NewsMapper : IPersistenceMapper<News, NewsModel>
 	{
 		return new()
 		{
-			Id = entity.Id,
+			Id = entity.Id.Value,
 			Title = entity.Title,
 			Body = entity.Body,
-			AuthorId = entity.AuthorId,
-			CreationDate = entity.CreationDate
+			AuthorId = entity.Metadata.AuthorId.Value,
+			CreationDate = entity.Metadata.CreationDate,
+			LastUpdatedDate = entity.Metadata.LastUpdatedDate
 		};
 	}
 
-	public News MapToEntity(NewsModel model, Guid? id = null)
+	public News MapToEntity(NewsModel model)
 	{
-		return new(id)
+		var newsId = NewsId.CreateFromGuid(model.Id);
+		
+		return new(newsId)
 		{
 			Body = model.Body,
 			Title = model.Title,
-			AuthorId = model.AuthorId,
-			CreationDate = model.CreationDate
+			Metadata = new NewsMetadata
+			{
+				AuthorId = UserId.CreateFromGuid(model.AuthorId),
+				CreationDate = model.CreationDate,
+				LastUpdatedDate = model.LastUpdatedDate
+			}
 		};
 	}
 }

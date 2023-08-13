@@ -5,4 +5,4 @@
 /// </summary>
 /// <param name="Id">Identifier of the news</param>
 /// <param name="News">New news data to update</param>
-public record UpdateNewsRequestDto(Guid Id, NewsDto News);
+public record UpdateNewsRequestDto(string Id, NewsDto News);

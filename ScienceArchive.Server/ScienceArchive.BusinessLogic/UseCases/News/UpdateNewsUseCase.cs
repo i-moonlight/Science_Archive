@@ -1,11 +1,11 @@
 ﻿using ScienceArchive.BusinessLogic.Interfaces;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.News;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services.NewsContracts;
 
 namespace ScienceArchive.BusinessLogic.NewsUseCases;
 
-public class UpdateNewsUseCase : IUseCase<News, UpdateNewsContract>
+internal class UpdateNewsUseCase : IUseCase<News, UpdateNewsContract>
 {
     private readonly INewsRepository _newsRepository;
 

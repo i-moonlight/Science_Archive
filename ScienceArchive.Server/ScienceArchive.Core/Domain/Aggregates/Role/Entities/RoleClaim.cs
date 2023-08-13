@@ -6,8 +6,12 @@ namespace ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 /// Represents permission of
 /// doing some actions in the system
 /// </summary>
-public class RoleClaim : ValueObject
+public class RoleClaim : Entity<RoleClaimId>
 {
+	public RoleClaim(RoleClaimId id) : base(id)
+	{
+	}
+	
 	/// <summary>
 	/// Claim value
 	/// </summary>
@@ -21,5 +25,5 @@ public class RoleClaim : ValueObject
 	/// <summary>
 	/// Claim description
 	/// </summary>
-	public string? Description { get; set; }	
+	public string? Description { get; set; }
 }

@@ -6,7 +6,7 @@ namespace ScienceArchive.BusinessLogic.Utils;
 /// <summary>
 /// Generator of different strings
 /// </summary>
-public static class StringGenerator
+internal static class StringGenerator
 {
     /// <summary>
     /// Generate new salt. Primary for passwords

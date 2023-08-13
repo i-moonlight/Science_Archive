@@ -5,4 +5,4 @@
 /// </summary>
 /// <param name="User">User to create</param>
 /// <param name="Password">User password</param>
-public record class CreateUserRequestDto(UserDto User, string Password);
+public record CreateUserRequestDto(UserDto User, string Password);

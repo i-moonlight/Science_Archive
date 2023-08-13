@@ -1,12 +1,12 @@
-﻿using ScienceArchive.Core.Domain.Entities;
-using ScienceArchive.BusinessLogic.Interfaces;
+﻿using ScienceArchive.BusinessLogic.Interfaces;
 using ScienceArchive.BusinessLogic.Utils;
-using ScienceArchive.Core.Services.UserContracts;
+using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Repositories;
+using ScienceArchive.Core.Services.UserContracts;
 
 namespace ScienceArchive.BusinessLogic.UserUseCases;
 
-public class CreateUserUseCase : IUseCase<User, CreateUserContract>
+internal class CreateUserUseCase : IUseCase<User, CreateUserContract>
 {
     private readonly IUserRepository _userRepository;
 
@@ -19,8 +19,8 @@ public class CreateUserUseCase : IUseCase<User, CreateUserContract>
     {
         var userToCreate = contract.User;
 
-        userToCreate.PasswordSalt = StringGenerator.CreateSalt();
-        userToCreate.Password = StringGenerator.HashPassword(userToCreate.Password, userToCreate.PasswordSalt);
+        userToCreate.Password.Salt = StringGenerator.CreateSalt();
+        userToCreate.Password.Value = StringGenerator.HashPassword(userToCreate.Password.Value, userToCreate.Password.Salt);
 
         var users = await _userRepository.GetAll();
 

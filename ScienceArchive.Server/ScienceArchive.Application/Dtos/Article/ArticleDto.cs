@@ -9,6 +9,11 @@ public record ArticleDto
     /// Article ID
     /// </summary>
     public string? Id { get; set; }
+    
+    /// <summary>
+    /// Identifier of the category of article
+    /// </summary>
+    public required string CategoryId { get; set; }
 
     /// <summary>
     /// Article's title
@@ -18,20 +23,20 @@ public record ArticleDto
     /// <summary>
     /// Author of an article
     /// </summary>
-    public required string AuthorId { get; set; }
+    public required List<string> AuthorsIds { get; set; }
+
+    /// <summary>
+    /// Path to a document linked to article
+    /// </summary>
+    public required List<string> DocumentsPaths { get; set; }
 
     /// <summary>
     /// Date when article was created
     /// </summary>
-    public required DateTime CreationDate { get; set; }
+    public DateTime? CreationDate { get; set; }
 
     /// <summary>
     /// Article description
     /// </summary>
     public string? Description { get; set; }
-
-    /// <summary>
-    /// Path to a document linked to article
-    /// </summary>
-    public string? DocumentPath { get; set; }
 }

@@ -13,7 +13,7 @@ public record NewsDto
     /// <summary>
     /// Author ID
     /// </summary>
-    public required Guid AuthorId { get; set; }
+    public required string AuthorId { get; set; }
 
     /// <summary>
     /// News title
@@ -28,5 +28,10 @@ public record NewsDto
     /// <summary>
     /// Date when news was created
     /// </summary>
-    public required DateTime CreationDate { get; set; }
+    public DateTime? CreationDate { get; set; }
+    
+    /// <summary>
+    /// Date when news were last updated
+    /// </summary>
+    public DateTime? LastUpdatedDate { get; set; }
 }

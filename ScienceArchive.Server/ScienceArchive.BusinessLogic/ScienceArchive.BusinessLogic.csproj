@@ -13,8 +13,6 @@
     <None Remove="Utils\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="UseCases\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Utils\" />
   </ItemGroup>

@@ -5,4 +5,4 @@
 /// </summary>
 /// <param name="Id">Identifier of the role to update</param>
 /// <param name="Role">New role data to update</param>
-public record UpdateRoleRequestDto(Guid Id, RoleDto Role);
+public record UpdateRoleRequestDto(string Id, RoleDto Role);

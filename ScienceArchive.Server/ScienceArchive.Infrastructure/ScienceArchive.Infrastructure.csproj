@@ -17,8 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Persistence\PostgreSql\" />
-    <Folder Include="Persistence\PostgreSql\Models\" />
-    <Folder Include="Persistence\PostgreSql\Repositories\" />
     <Folder Include="Persistence\Options\" />
     <Folder Include="Persistence\Interfaces\" />
   </ItemGroup>

@@ -1,5 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.Article;
+using ScienceArchive.Core.Domain.Aggregates.Category;
+using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.Role;
+using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.Options;
@@ -19,6 +24,7 @@ public static class PersistenceRegistry
     public static IServiceCollection RegisterRepositories(this IServiceCollection services)
     {
         _ = services.AddTransient<IArticleRepository, PostgresArticleRepository>();
+        _ = services.AddTransient<ICategoryRepository, PostgresCategoryRepository>();
         _ = services.AddTransient<INewsRepository, PostgresNewsRepository>();
         _ = services.AddTransient<IRoleRepository, PostgresRoleRepository>();
         _ = services.AddTransient<IUserRepository, PostgresUserRepository>();
@@ -29,7 +35,8 @@ public static class PersistenceRegistry
     public static IServiceCollection RegisterPersistenceMappers(this IServiceCollection services)
     {
         _ = services.AddTransient<IPersistenceMapper<Article, ArticleModel>, ArticleMapper>();
-        _ = services.AddTransient<IPersistenceMapper<Claim, ClaimModel>, ClaimMapper>();
+        _ = services.AddTransient<IPersistenceMapper<Category, CategoryModel>, CategoryMapper>();
+        _ = services.AddTransient<IPersistenceMapper<RoleClaim, ClaimModel>, ClaimMapper>();
         _ = services.AddTransient<IPersistenceMapper<News, NewsModel>, NewsMapper>();
         _ = services.AddTransient<IPersistenceMapper<Role, RoleModel>, RoleMapper>();
         _ = services.AddTransient<IPersistenceMapper<User, UserModel>, UserMapper>();

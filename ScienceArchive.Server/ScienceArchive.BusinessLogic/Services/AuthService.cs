@@ -1,10 +1,10 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.AuthContracts;
 
 namespace ScienceArchive.BusinessLogic.Services;
 
-public class AuthService : BaseService, IAuthService
+internal class AuthService : BaseService, IAuthService
 {
     public AuthService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 

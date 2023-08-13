@@ -1,4 +1,5 @@
 ﻿using ScienceArchive.Core.Domain.Aggregates.User;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Services.UserContracts;
 
 namespace ScienceArchive.Core.Services;
@@ -35,5 +36,5 @@ public interface IUserService
     /// </summary>
     /// <param name="contract">Contract to delete user</param>
     /// <returns>Deleted user ID</returns>
-    Task<Guid> Delete(DeleteUserContract contract);
+    Task<UserId> Delete(DeleteUserContract contract);
 }

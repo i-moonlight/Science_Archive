@@ -1,25 +1,28 @@
-using ScienceArchive.Core.Domain.Entities;
+using System.Security.Claims;
+using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Mappers;
 
-public class ClaimMapper : IPersistenceMapper<Claim, ClaimModel>
+public class ClaimMapper : IPersistenceMapper<RoleClaim, ClaimModel>
 {
-	public ClaimModel MapToModel(Claim entity)
+	public ClaimModel MapToModel(RoleClaim entity)
 	{
 		return new()
 		{
-			Id = entity.Id,
+			Id = entity.Id.Value,
 			Value = entity.Value,
 			Description = entity.Description,
 			Name = entity.Name
 		};
 	}
 
-	public Claim MapToEntity(ClaimModel model, Guid? id = null)
+	public RoleClaim MapToEntity(ClaimModel model)
 	{
-		return new(id)
+		var claimId = RoleClaimId.CreateFromGuid(model.Id);
+		
+		return new(claimId)
 		{
 			Value = model.Value,
 			Description = model.Description,

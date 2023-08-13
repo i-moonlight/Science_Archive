@@ -1,11 +1,11 @@
 ﻿using ScienceArchive.BusinessLogic.Interfaces;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.Role;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services.RoleContracts;
 
 namespace ScienceArchive.BusinessLogic.RoleUseCases;
 
-public class CreateRoleUseCase : IUseCase<Role, CreateRoleContract>
+internal class CreateRoleUseCase : IUseCase<Role, CreateRoleContract>
 {
     private readonly IRoleRepository _roleRepository;
 

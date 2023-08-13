@@ -1,12 +1,12 @@
 ﻿using ScienceArchive.Application.Dtos.Claim;
 using ScienceArchive.Application.Interfaces;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
-public class ClaimMapper : IApplicationMapper<Claim, ClaimDto>
+public class ClaimMapper : IApplicationMapper<RoleClaim, ClaimDto>
 {
-    public ClaimDto MapToDto(Claim entity)
+    public ClaimDto MapToDto(RoleClaim entity)
     {
         return new()
         {
@@ -17,11 +17,9 @@ public class ClaimMapper : IApplicationMapper<Claim, ClaimDto>
         };
     }
 
-    public Claim MapToEntity(ClaimDto dto, string? id = null)
+    public RoleClaim MapToEntity(ClaimDto dto)
     {
-        Guid? claimId = id is not null
-            ? new Guid(id)
-            : null;
+        var claimId = RoleClaimId.CreateFromString(dto.Id);
 
         return new(claimId)
         {

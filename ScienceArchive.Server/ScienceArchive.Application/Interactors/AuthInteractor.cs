@@ -3,7 +3,7 @@ using ScienceArchive.Application.Dtos.Auth.Request;
 using ScienceArchive.Application.Dtos.Auth.Response;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.AuthContracts;
 using ScienceArchive.Core.Services.UserContracts;
@@ -39,7 +39,7 @@ public class AuthInteractor : IAuthInteractor
     public async Task<SignUpResponseDto> SignUp(SignUpRequestDto dto)
     {
         var userToCreate = _userMapper.MapToEntity(dto.User);
-        userToCreate.Password = dto.Password;
+        userToCreate.Password.Value = dto.Password;
         
         var contract = new CreateUserContract(userToCreate);
         var createdUser = await _userService.Create(contract);

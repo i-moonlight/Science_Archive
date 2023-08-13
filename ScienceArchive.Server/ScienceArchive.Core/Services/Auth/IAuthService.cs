@@ -1,4 +1,5 @@
-﻿using ScienceArchive.Core.Services.AuthContracts;
+﻿using ScienceArchive.Core.Domain.Aggregates.User;
+using ScienceArchive.Core.Services.AuthContracts;
 
 namespace ScienceArchive.Core.Services;
 
@@ -13,5 +14,5 @@ public interface IAuthService
     /// </summary>
     /// <param name="contract">Contract to login user</param>
     /// <returns>Found by credentials user</returns>
-    Task<Domain.Aggregates.User.User> Login(LoginContract contract);
+    Task<User> Login(LoginContract contract);
 }

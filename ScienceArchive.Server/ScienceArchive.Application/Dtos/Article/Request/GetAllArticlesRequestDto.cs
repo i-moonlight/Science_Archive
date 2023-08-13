@@ -3,4 +3,4 @@
 /// <summary>
 /// Request contract to get all articles
 /// </summary>
-public record GetAllArticlesRequestDto();
+public record GetAllArticlesRequestDto;

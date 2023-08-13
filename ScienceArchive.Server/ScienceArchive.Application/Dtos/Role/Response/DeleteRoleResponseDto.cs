@@ -4,4 +4,4 @@
 /// Response contract of role deletion
 /// </summary>
 /// <param name="Id">Identifier of the role to delete</param>
-public record DeleteRoleResponseDto(Guid Id);
+public record DeleteRoleResponseDto(string Id);

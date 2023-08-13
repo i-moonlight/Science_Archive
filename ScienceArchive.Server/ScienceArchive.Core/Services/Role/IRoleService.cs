@@ -1,4 +1,5 @@
 ﻿using ScienceArchive.Core.Domain.Aggregates.Role;
+using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Core.Services.RoleContracts;
 
 namespace ScienceArchive.Core.Services;
@@ -35,5 +36,5 @@ public interface IRoleService
     /// </summary>
     /// <param name="contract">Contract to delete role</param>
     /// <returns>Deleted role ID</returns>
-    Task<Guid> Delete(DeleteRoleContract contract);
+    Task<RoleId> Delete(DeleteRoleContract contract);
 }

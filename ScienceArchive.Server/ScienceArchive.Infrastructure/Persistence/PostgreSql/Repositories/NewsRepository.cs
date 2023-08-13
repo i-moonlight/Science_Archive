@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Dapper;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Exceptions;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
@@ -35,7 +36,7 @@ public class PostgresNewsRepository : INewsRepository
         return news.Select(n => _mapper.MapToEntity(n)).ToList();
     }
 
-    public async Task<News> GetById(Guid id)
+    public async Task<News> GetById(NewsId id)
     {
         var parameters = new DynamicParameters();
         parameters.Add("Id", id);
@@ -56,7 +57,7 @@ public class PostgresNewsRepository : INewsRepository
     public async Task<News> Create(News newValue)
     {
         var newsToCreate = _mapper.MapToModel(newValue);
-        var parameters = new DynamicParameters(newValue);
+        var parameters = new DynamicParameters(newsToCreate);
 
         var createdNews = await _connection.QueryFirstOrDefaultAsync<NewsModel>(
             "SELECT * FROM func_create_news(@Id, @Title, @Body, @AuthorId, @CreationDate)",
@@ -71,7 +72,7 @@ public class PostgresNewsRepository : INewsRepository
         return _mapper.MapToEntity(createdNews);
     }
 
-    public async Task<Guid> Delete(Guid id)
+    public async Task<NewsId> Delete(NewsId id)
     {
         var parameters = new DynamicParameters();
         parameters.Add("Id", id);
@@ -86,10 +87,10 @@ public class PostgresNewsRepository : INewsRepository
             throw new PersistenceException("News was not deleted");
         }
 
-        return deletedNewsId;
+        return NewsId.CreateFromGuid(deletedNewsId);
     }
 
-    public async Task<News> Update(Guid id, News newValue)
+    public async Task<News> Update(NewsId id, News newValue)
     {
         var newsToUpdate = _mapper.MapToModel(newValue);
         var parameters = new DynamicParameters(newsToUpdate);

@@ -1,10 +1,11 @@
 ﻿using ScienceArchive.BusinessLogic.Interfaces;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services.UserContracts;
 
 namespace ScienceArchive.BusinessLogic.UserUseCases;
 
-public class DeleteUserUseCase : IUseCase<Guid, DeleteUserContract>
+internal class DeleteUserUseCase : IUseCase<UserId, DeleteUserContract>
 {
     private readonly IUserRepository _userRepository;
 
@@ -12,8 +13,8 @@ public class DeleteUserUseCase : IUseCase<Guid, DeleteUserContract>
     {
         _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
     }
-    public async Task<Guid> Execute(DeleteUserContract contract)
+    public async Task<UserId> Execute(DeleteUserContract contract)
     {
-        return await _userRepository.Delete(contract.UserId);
+        return await _userRepository.Delete(contract.Id);
     }
 }

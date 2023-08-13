@@ -26,4 +26,9 @@ public record NewsModel
 	/// Date when news were created
 	/// </summary>
 	public required DateTime CreationDate { get; set; }
+	
+	/// <summary>
+	/// Date when news were updated last time
+	/// </summary>
+	public required DateTime? LastUpdatedDate { get; set; }
 }

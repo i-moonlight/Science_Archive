@@ -4,7 +4,7 @@ using ScienceArchive.Core.Services.SystemContracts;
 
 namespace ScienceArchive.BusinessLogic.Services;
 
-public class SystemService : BaseService, ISystemService
+internal class SystemService : BaseService, ISystemService
 {
     public SystemService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 

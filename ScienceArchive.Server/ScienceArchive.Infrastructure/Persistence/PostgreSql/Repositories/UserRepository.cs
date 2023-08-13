@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Dapper;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.User;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Exceptions;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
@@ -23,7 +24,7 @@ public class PostgresUserRepository : IUserRepository
     }
 
     /// <inheritdoc/>
-    public async Task<User> GetById(Guid userId)
+    public async Task<User> GetById(UserId userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("Id", userId);
@@ -90,7 +91,7 @@ public class PostgresUserRepository : IUserRepository
     }
 
     /// <inheritdoc/>
-    public async Task<User> Update(Guid userId, User newUser)
+    public async Task<User> Update(UserId userId, User newUser)
     {
         var userToUpdate = _mapper.MapToModel(newUser);
         var parameters = new DynamicParameters(userToUpdate);
@@ -111,7 +112,7 @@ public class PostgresUserRepository : IUserRepository
     }
 
     /// <inheritdoc/>
-    public async Task<Guid> Delete(Guid userId)
+    public async Task<UserId> Delete(UserId userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("Id", userId);
@@ -127,6 +128,6 @@ public class PostgresUserRepository : IUserRepository
             throw new PersistenceException("User was not deleted!");
         }
 
-        return deletedUserId;
+        return UserId.CreateFromGuid(deletedUserId);
     }
 }

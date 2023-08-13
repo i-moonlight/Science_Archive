@@ -21,7 +21,7 @@ public class User : Entity<UserId>
     /// <summary>
     /// Set of user roles identifiers
     /// </summary>
-    public required List<RoleId> RoleIds { get; set; }
+    public required List<RoleId> RolesIds { get; set; }
     
     /// <summary>
     /// Name of the user

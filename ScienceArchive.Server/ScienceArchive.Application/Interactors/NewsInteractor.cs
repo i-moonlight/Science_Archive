@@ -3,7 +3,8 @@ using ScienceArchive.Application.Dtos.News.Request;
 using ScienceArchive.Application.Dtos.News.Response;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.NewsContracts;
 
@@ -42,7 +43,7 @@ namespace ScienceArchive.Application.Interactors
         /// <inheritdoc/>
         public async Task<UpdateNewsResponseDto> UpdateNews(UpdateNewsRequestDto dto)
         {
-            var contract = new UpdateNewsContract(dto.Id, _newsMapper.MapToEntity(dto.News));
+            var contract = new UpdateNewsContract(NewsId.CreateFromString(dto.Id), _newsMapper.MapToEntity(dto.News));
             var updatedNews = await _newsService.Update(contract);
 
             return new(_newsMapper.MapToDto(updatedNews));
@@ -51,10 +52,10 @@ namespace ScienceArchive.Application.Interactors
         /// <inheritdoc/>
         public async Task<DeleteNewsResponseDto> DeleteNews(DeleteNewsRequestDto dto)
         {
-            var contract = new DeleteNewsContract(dto.Id);
+            var contract = new DeleteNewsContract(NewsId.CreateFromString(dto.Id));
             var deletedNewsId = await _newsService.Delete(contract);
 
-            return new(deletedNewsId);
+            return new(deletedNewsId.ToString());
         }
     }
 }

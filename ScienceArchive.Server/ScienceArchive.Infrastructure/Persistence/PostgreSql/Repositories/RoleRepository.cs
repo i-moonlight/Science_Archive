@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Dapper;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.Role;
+using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Exceptions;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
@@ -36,7 +37,7 @@ public class PostgresRoleRepository : IRoleRepository
     }
 
     /// <inheritdoc/>
-    public async Task<Role> GetById(Guid id)
+    public async Task<Role> GetById(RoleId id)
     {
         var parameters = new DynamicParameters();
         parameters.Add("Id", id);
@@ -74,7 +75,7 @@ public class PostgresRoleRepository : IRoleRepository
     }
 
     /// <inheritdoc/>
-    public async Task<Guid> Delete(Guid id)
+    public async Task<RoleId> Delete(RoleId id)
     {
         var parameters = new DynamicParameters();
         parameters.Add("Id", id);
@@ -89,11 +90,11 @@ public class PostgresRoleRepository : IRoleRepository
             throw new PersistenceException("Role was not deleted!");
         }
 
-        return deletedRoleId;
+        return RoleId.CreateFromGuid(deletedRoleId);
     }
         
     /// <inheritdoc/>
-    public async Task<Role> Update(Guid id, Role newValue)
+    public async Task<Role> Update(RoleId id, Role newValue)
     {
         var roleToUpdate = _mapper.MapToModel(newValue);
         var parameters = new DynamicParameters(roleToUpdate);

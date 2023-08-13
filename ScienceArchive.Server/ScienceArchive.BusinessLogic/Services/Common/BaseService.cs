@@ -5,7 +5,7 @@ namespace ScienceArchive.BusinessLogic.Services;
 /// <summary>
 /// Base service functionality
 /// </summary>
-public abstract class BaseService
+internal abstract class BaseService
 {
     private readonly IServiceProvider _serviceProvider;
 
@@ -16,21 +16,21 @@ public abstract class BaseService
 
     /// <summary>
     /// Execute operation (Use Case)
-    /// with specified contract DTO
+    /// with specified contract
     /// </summary>
     /// <typeparam name="TResult">Response type</typeparam>
-    /// <typeparam name="TDto">Request type</typeparam>
+    /// <typeparam name="TContract">Request type</typeparam>
     /// <param name="contract">Contract to perform operation</param>
     /// <returns>Use Case execution result</returns>
     /// <exception cref="NullReferenceException">
     /// Thrown if cannot get necessary
     /// use case to process operation
     /// </exception>
-    protected async Task<TResult> ExecuteUseCase<TResult, TDto>(TDto contract)
+    protected async Task<TResult> ExecuteUseCase<TResult, TContract>(TContract contract)
     {
-        var useCaseType = typeof(IUseCase<TResult, TDto>);
+        var useCaseType = typeof(IUseCase<TResult, TContract>);
 
-        if (_serviceProvider.GetService(useCaseType) is not IUseCase<TResult, TDto> useCase)
+        if (_serviceProvider.GetService(useCaseType) is not IUseCase<TResult, TContract> useCase)
         {
             throw new NullReferenceException("Cannot get use case for processing the operation!");
         }

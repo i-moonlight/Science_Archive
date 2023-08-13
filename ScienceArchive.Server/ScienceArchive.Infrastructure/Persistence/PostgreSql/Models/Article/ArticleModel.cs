@@ -8,6 +8,11 @@ public record ArticleModel
 	public required Guid Id { get; set; }
 	
 	/// <summary>
+	/// Category of an article
+	/// </summary>
+	public required Guid CategoryId { get; set; }
+	
+	/// <summary>
 	/// Article title
 	/// </summary>
 	public required string Title { get; set; }
@@ -15,7 +20,7 @@ public record ArticleModel
 	/// <summary>
 	/// Article author
 	/// </summary>
-	public required Guid AuthorId { get; set; }
+	public required List<Guid> AuthorsIds { get; set; }
 	
 	/// <summary>
 	/// Date when article was created
@@ -23,12 +28,12 @@ public record ArticleModel
 	public required DateTime CreationDate { get; set; }
 	
 	/// <summary>
+	/// Linked documents to articles
+	/// </summary>
+	public required List<ArticleDocumentModel> Documents { get; set; }
+	
+	/// <summary>
 	/// Article description
 	/// </summary>
 	public string? Description { get; set; }
-	
-	/// <summary>
-	/// Article document path
-	/// </summary>
-	public string? DocumentPath { get; set; }
 }

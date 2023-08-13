@@ -1,6 +1,8 @@
 ﻿using ScienceArchive.Application.Dtos.News;
 using ScienceArchive.Application.Interfaces;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
@@ -11,25 +13,30 @@ public class NewsMapper : IApplicationMapper<News, NewsDto>
         return new()
         {
             Id = entity.Id.ToString(),
-            AuthorId = entity.AuthorId,
             Body = entity.Body,
-            CreationDate = entity.CreationDate,
-            Title = entity.Title
+            Title = entity.Title,
+            CreationDate = entity.Metadata.CreationDate,
+            AuthorId = entity.Metadata.AuthorId.ToString(),
+            LastUpdatedDate = entity.Metadata.LastUpdatedDate
         };
     }
 
-    public News MapToEntity(NewsDto model, string? id = null)
+    public News MapToEntity(NewsDto model)
     {
-        Guid? newsId = id is not null
-            ? new Guid(id)
-            : null;
+        var newsId = model.Id is not null
+            ? NewsId.CreateFromString(model.Id)
+            : NewsId.CreateNew();
 
         return new(newsId)
         {
-            AuthorId = model.AuthorId,
             Body = model.Body,
-            CreationDate = model.CreationDate,
-            Title = model.Title
+            Title = model.Title,
+            Metadata = new NewsMetadata
+            {
+                AuthorId = UserId.CreateFromString(model.AuthorId),
+                CreationDate = model.CreationDate.GetValueOrDefault(DateTime.Now),
+                LastUpdatedDate = model.LastUpdatedDate,
+            }
         };
     }
 }

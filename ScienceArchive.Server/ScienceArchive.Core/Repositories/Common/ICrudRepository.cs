@@ -40,5 +40,5 @@ public interface ICrudRepository<TId, TEntity>
     /// </summary>
     /// <param name="id">ID of the entity to delete</param>
     /// <returns>Deleted entity ID</returns>
-    Task<Guid> Delete(TId id);
+    Task<TId> Delete(TId id);
 }

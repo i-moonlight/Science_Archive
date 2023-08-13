@@ -1,4 +1,6 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
@@ -8,35 +10,36 @@ public class UserMapper : IPersistenceMapper<User, UserModel>
 {
     public UserModel MapToModel(User user)
     {
-        if (string.IsNullOrWhiteSpace(user.PasswordSalt))
+        var rolesIds = user.RolesIds.Select(r => r.Value).ToList();
+        
+        return new()
         {
-            throw new NullReferenceException("Password salt is invalid!");
-        }
-
-        var userModel = new UserModel
-        {
-            Id = user.Id,
+            Id = user.Id.Value,
+            RolesIds = rolesIds,
             Email = user.Email,
             Login = user.Login,
             Name = user.Name,
-            Password = user.Password,
-            PasswordSalt = user.PasswordSalt,
+            Password = user.Password.Value,
+            PasswordSalt = user.Password.Salt
         };
-
-        return userModel;
     }
 
-    public User MapToEntity(UserModel userModel, Guid? id = null)
+    public User MapToEntity(UserModel model)
     {
-        var user = new User(userModel.Id, userModel.PasswordSalt)
+        var userId = UserId.CreateFromGuid(model.Id);
+        var rolesIds = model.RolesIds.Select(RoleId.CreateFromGuid).ToList();
+        
+        return new(userId)
         {
-            Email = userModel.Email,
-            Login = userModel.Login,
-            Name = userModel.Name,
-            Password = userModel.Password ?? "",
-            PasswordSalt = userModel.PasswordSalt ?? "",
+            RolesIds = rolesIds, 
+            Email = model.Email,
+            Login = model.Login,
+            Name = model.Name,
+            Password = new UserPassword
+            {
+                Value = model.Password ?? "",
+                Salt = model.PasswordSalt ?? "", 
+            }
         };
-
-        return user;
     }
 }

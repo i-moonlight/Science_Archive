@@ -8,7 +8,11 @@ using ScienceArchive.Application.Interactors;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Application.Mappers;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.Article;
+using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.Role;
+using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User;
 
 namespace ScienceArchive.Application;
 
@@ -39,7 +43,7 @@ public static class ApplicationRegistry
     public static IServiceCollection RegisterApplicationMappers(this IServiceCollection services)
     {
         _ = services.AddTransient<IApplicationMapper<Article, ArticleDto>, ArticleMapper>();
-        _ = services.AddTransient<IApplicationMapper<Claim, ClaimDto>, ClaimMapper>();
+        _ = services.AddTransient<IApplicationMapper<RoleClaim, ClaimDto>, ClaimMapper>();
         _ = services.AddTransient<IApplicationMapper<News, NewsDto>, NewsMapper>();
         _ = services.AddTransient<IApplicationMapper<Role, RoleDto>, RoleMapper>();
         _ = services.AddTransient<IApplicationMapper<User, UserDto>, UserMapper>();

@@ -1,11 +1,11 @@
 ﻿using ScienceArchive.Core.Repositories;
 using ScienceArchive.BusinessLogic.Interfaces;
+using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Services.UserContracts;
-using ScienceArchive.Core.Domain.Entities;
 
 namespace ScienceArchive.BusinessLogic.UserUseCases;
 
-public class GetAllUsersUseCase : IUseCase<List<User>, GetAllUsersContract>
+internal class GetAllUsersUseCase : IUseCase<List<User>, GetAllUsersContract>
 {
     private readonly IUserRepository _userRepository;
 

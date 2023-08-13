@@ -3,9 +3,14 @@
 public record UserModel
 {
 	/// <summary>
-	/// ID of the user to update
+	/// ID of the user
 	/// </summary>
 	public required Guid Id { get; set; }
+
+	/// <summary>
+	/// List of roles of user 
+	/// </summary>
+	public required List<Guid> RolesIds { get; set; }
 
 	/// <summary>
 	/// User name

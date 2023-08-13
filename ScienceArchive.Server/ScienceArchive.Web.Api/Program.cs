@@ -44,7 +44,6 @@ builder.Services.RegisterPersistenceConnections(connectionOptions);
 builder.Services.RegisterPersistenceMappers();
 builder.Services.RegisterRepositories();
 
-
 // Register application layer services
 builder.Services.RegisterApplicationMappers();
 builder.Services.RegisterInteractors();

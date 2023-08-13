@@ -1,10 +1,11 @@
 ﻿using ScienceArchive.BusinessLogic.Interfaces;
+using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services.NewsContracts;
 
 namespace ScienceArchive.BusinessLogic.NewsUseCases;
 
-public class DeleteNewsUseCase : IUseCase<Guid, DeleteNewsContract>
+internal class DeleteNewsUseCase : IUseCase<NewsId, DeleteNewsContract>
 {
     private readonly INewsRepository _newsRepository;
 
@@ -13,8 +14,8 @@ public class DeleteNewsUseCase : IUseCase<Guid, DeleteNewsContract>
         _newsRepository = newsRepository ?? throw new ArgumentNullException(nameof(newsRepository));
     }
 
-    public async Task<Guid> Execute(DeleteNewsContract contract)
+    public async Task<NewsId> Execute(DeleteNewsContract contract)
     {
-        return await _newsRepository.Delete(contract.NewsId);
+        return await _newsRepository.Delete(contract.Id);
     }
 }

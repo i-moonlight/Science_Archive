@@ -4,4 +4,4 @@
 /// Request contract to delete news
 /// </summary>
 /// <param name="Id">Identifier of the news to delete</param>
-public record DeleteNewsRequestDto(Guid Id);
+public record DeleteNewsRequestDto(string Id);

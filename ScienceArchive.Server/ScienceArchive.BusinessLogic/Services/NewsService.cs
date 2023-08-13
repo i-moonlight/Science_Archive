@@ -1,10 +1,11 @@
-﻿using ScienceArchive.Core.Domain.Entities;
+﻿using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.NewsContracts;
 
 namespace ScienceArchive.BusinessLogic.Services;
 
-public class NewsService : BaseService, INewsService
+internal class NewsService : BaseService, INewsService
 {
     public NewsService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
@@ -15,9 +16,9 @@ public class NewsService : BaseService, INewsService
     }
 
     /// <inheritdoc/>
-    public async Task<Guid> Delete(DeleteNewsContract contract)
+    public async Task<NewsId> Delete(DeleteNewsContract contract)
     {
-        return await ExecuteUseCase<Guid, DeleteNewsContract>(contract);
+        return await ExecuteUseCase<NewsId, DeleteNewsContract>(contract);
     }
 
     /// <inheritdoc/>

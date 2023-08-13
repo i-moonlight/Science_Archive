@@ -3,7 +3,8 @@ using ScienceArchive.Application.Dtos.Article.Request;
 using ScienceArchive.Application.Dtos.Article.Response;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.Article;
+using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.ArticleContracts;
 
@@ -42,15 +43,19 @@ public class ArticleInteractor : IArticleInteractor
     /// <inheritdoc/>
     public async Task<DeleteArticleResponseDto> DeleteArticle(DeleteArticleRequestDto dto)
     {
-        var contract = new DeleteArticleContract(dto.Id);
+        var contract = new DeleteArticleContract(ArticleId.CreateFromString(dto.Id));
         var deletedArticleId = await _articleService.Delete(contract);
-        return new(deletedArticleId);
+        
+        return new(deletedArticleId.ToString());
     }
 
     /// <inheritdoc/>
     public async Task<UpdateArticleResponseDto> UpdateArticle(UpdateArticleRequestDto dto)
     {
-        var contract = new UpdateArticleContract(dto.Id, _articleMapper.MapToEntity(dto.NewArticle));
+        var contract = new UpdateArticleContract(
+            ArticleId.CreateFromString(dto.Id), 
+            _articleMapper.MapToEntity(dto.NewArticle));
+        
         var updatedArticle = await _articleService.Update(contract);
         return new(_articleMapper.MapToDto(updatedArticle));
     }

@@ -1,12 +1,12 @@
 ﻿using ScienceArchive.BusinessLogic.Interfaces;
 using ScienceArchive.BusinessLogic.Utils;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services.AuthContracts;
 
 namespace ScienceArchive.BusinessLogic.UseCases.Auth;
 
-public class LoginUseCase : IUseCase<User, LoginContract>
+internal class LoginUseCase : IUseCase<User, LoginContract>
 {
     private readonly IUserRepository _userRepository;
 
@@ -27,7 +27,7 @@ public class LoginUseCase : IUseCase<User, LoginContract>
     {
         User? foundUser = null;
 
-        if (String.IsNullOrWhiteSpace(login) || String.IsNullOrWhiteSpace(password))
+        if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
         {
             throw new Exception("Login or password are empty!");
         }
@@ -41,9 +41,9 @@ public class LoginUseCase : IUseCase<User, LoginContract>
         }
 
 
-        var passwordHash = StringGenerator.HashPassword(password, foundUser.PasswordSalt);
+        var passwordHash = StringGenerator.HashPassword(password, foundUser.Password.Salt);
 
-        if (passwordHash != foundUser.Password)
+        if (passwordHash != foundUser.Password.Value)
         {
             throw new Exception("Wrong login or password!");
         }

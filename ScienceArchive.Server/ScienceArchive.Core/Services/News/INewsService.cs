@@ -1,4 +1,5 @@
 ﻿using ScienceArchive.Core.Domain.Aggregates.News;
+using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
 using ScienceArchive.Core.Services.NewsContracts;
 
 namespace ScienceArchive.Core.Services;
@@ -34,5 +35,5 @@ public interface INewsService
     /// </summary>
     /// <param name="contract">Contract to delete news</param>
     /// <returns>Deleted news ID</returns>
-    Task<Guid> Delete(DeleteNewsContract contract);
+    Task<NewsId> Delete(DeleteNewsContract contract);
 }

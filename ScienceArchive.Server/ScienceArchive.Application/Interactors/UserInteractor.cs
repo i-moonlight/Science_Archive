@@ -3,7 +3,8 @@ using ScienceArchive.Application.Dtos.User.Request;
 using ScienceArchive.Application.Dtos.User.Response;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
-using ScienceArchive.Core.Domain.Entities;
+using ScienceArchive.Core.Domain.Aggregates.User;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.UserContracts;
 
@@ -47,16 +48,16 @@ namespace ScienceArchive.Application.Interactors
         /// <inheritdoc/>
         public async Task<DeleteUserResponseDto> DeleteUser(DeleteUserRequestDto dto)
         {
-            var contract = new DeleteUserContract(dto.Id);
+            var contract = new DeleteUserContract(UserId.CreateFromString(dto.Id));
             var deletedUserId = await _userService.Delete(contract);
 
-            return new(deletedUserId);
+            return new(deletedUserId.ToString());
         }
 
         /// <inheritdoc/>
         public async Task<UpdateUserResponseDto> UpdateUser(UpdateUserRequestDto dto)
         {
-            var contract = new UpdateUserContract(dto.UserId, _userMapper.MapToEntity(dto.User));
+            var contract = new UpdateUserContract(UserId.CreateFromString(dto.Id), _userMapper.MapToEntity(dto.User));
             var updatedUser = await _userService.Update(contract);
 
             return new(_userMapper.MapToDto(updatedUser));

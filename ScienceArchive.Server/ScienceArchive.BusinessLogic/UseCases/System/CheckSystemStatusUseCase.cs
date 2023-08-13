@@ -4,7 +4,7 @@ using ScienceArchive.Core.Services.SystemContracts;
 
 namespace ScienceArchive.BusinessLogic.UseCases.System;
 
-public class CheckSystemStatusUseCase : IUseCase<SystemStatus, CheckSystemStatusContract>
+internal class CheckSystemStatusUseCase : IUseCase<SystemStatus, CheckSystemStatusContract>
 {
     public Task<SystemStatus> Execute(CheckSystemStatusContract contract)
     {
