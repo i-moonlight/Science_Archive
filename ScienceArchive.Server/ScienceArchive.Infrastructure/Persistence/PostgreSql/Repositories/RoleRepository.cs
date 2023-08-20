@@ -37,10 +37,10 @@ public class PostgresRoleRepository : IRoleRepository
     }
 
     /// <inheritdoc/>
-    public async Task<Role> GetById(RoleId id)
+    public async Task<Role?> GetById(RoleId id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("Id", id);
+        parameters.Add("Id", id.Value);
 
         var role = await _connection.QuerySingleOrDefaultAsync<RoleModel>(
             "SELECT * FROM func_get_role_by_id(@Id)",
@@ -62,7 +62,7 @@ public class PostgresRoleRepository : IRoleRepository
         var parameters = new DynamicParameters(roleToCreate);
 
         var createdRole = await _connection.QuerySingleOrDefaultAsync<RoleModel>(
-            "SELECT * FROM func_create_role(@Id, @Name, @Description, @Claims)",
+            "SELECT * FROM func_create_role(@Id, @Name, @Description, @ClaimsIds)",
             parameters,
             commandType: CommandType.Text);
 
@@ -78,7 +78,7 @@ public class PostgresRoleRepository : IRoleRepository
     public async Task<RoleId> Delete(RoleId id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("Id", id);
+        parameters.Add("Id", id.Value);
 
         var deletedRoleId = await _connection.QuerySingleOrDefaultAsync<Guid>(
             "SELECT * FROM func_delete_role(@Id)",
@@ -98,10 +98,10 @@ public class PostgresRoleRepository : IRoleRepository
     {
         var roleToUpdate = _mapper.MapToModel(newValue);
         var parameters = new DynamicParameters(roleToUpdate);
-        parameters.Add("Id", id);
+        parameters.Add("Id", id.Value);
 
         var updatedRole = await _connection.QuerySingleOrDefaultAsync<RoleModel>(
-            "SELECT * FROM func_update_role(@Id, @Name, @Description, @Claims)",
+            "SELECT * FROM func_update_role(@Id, @Name, @Description, @ClaimsIds)",
             parameters,
             commandType: CommandType.Text);
 

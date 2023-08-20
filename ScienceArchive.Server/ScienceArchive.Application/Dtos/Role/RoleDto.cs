@@ -22,7 +22,7 @@ public record RoleDto
     /// of a user to perform some
     /// actions in the system
     /// </summary>
-    public required List<ClaimDto> Claims { get; init; }
+    public required List<string> ClaimsIds { get; init; }
 
     /// <summary>
     /// Role description

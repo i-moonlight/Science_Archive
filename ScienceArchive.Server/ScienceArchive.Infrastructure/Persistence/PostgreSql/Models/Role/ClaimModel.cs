@@ -1,4 +1,6 @@
-﻿namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 public record ClaimModel
 {

@@ -12,7 +12,7 @@ public interface ICrudRepository<TId, TEntity>
     /// </summary>
     /// <param name="id">ID of the entity to find</param>
     /// <returns>Entity with specified ID</returns>
-    Task<TEntity> GetById(TId id);
+    Task<TEntity?> GetById(TId id);
 
     /// <summary>
     /// Get all existing entities

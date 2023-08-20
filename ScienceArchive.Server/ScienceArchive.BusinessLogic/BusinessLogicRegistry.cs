@@ -57,6 +57,7 @@ public static class BusinessLogicRegistry
     public static IServiceCollection RegisterDomainUseCases(this IServiceCollection services)
     {
         // Article use cases
+        _ = services.AddTransient<IUseCase<Article?, GetArticleByIdContract>, GetArticleByIdUseCase>();
         _ = services.AddTransient<IUseCase<List<Article>, GetAllArticlesContract>, GetAllArticlesUseCase>();
         _ = services.AddTransient<IUseCase<Article, CreateArticleContract>, CreateArticleUseCase>();
         _ = services.AddTransient<IUseCase<Article, UpdateArticleContract>, UpdateArticleUseCase>();
@@ -71,6 +72,7 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<Category, UpdateCategoryContract>, UpdateCategoryUseCase>();
         
         // News use cases
+        _ = services.AddTransient<IUseCase<News?, GetNewsByIdContract>, GetNewsByIdUseCase>();
         _ = services.AddTransient<IUseCase<List<News>, GetAllNewsContract>, GetAllNewsUseCase>();
         _ = services.AddTransient<IUseCase<News, CreateNewsContract>, CreateNewsUseCase>();
         _ = services.AddTransient<IUseCase<News, UpdateNewsContract>, UpdateNewsUseCase>();
@@ -86,6 +88,7 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<SystemStatus, CheckSystemStatusContract>, CheckSystemStatusUseCase>();
 
         // User use cases
+        _ = services.AddTransient<IUseCase<User?, GetUserByIdContract>, GetUserByIdUseCase>();
         _ = services.AddTransient<IUseCase<List<User>, GetAllUsersContract>, GetAllUsersUseCase>();
         _ = services.AddTransient<IUseCase<User, CreateUserContract>, CreateUserUseCase>();
         _ = services.AddTransient<IUseCase<User, UpdateUserContract>, UpdateUserUseCase>();

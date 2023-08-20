@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS "articles" (
   PRIMARY KEY ("id")
 );
 
-CREATE INDEX IF NOT EXISTS idx_users_auth_login
-  ON "users_auth" ("login");
+CREATE INDEX IF NOT EXISTS idx_articles_title
+  ON "articles" ("title");

@@ -15,7 +15,7 @@ public record RoleModel
 	/// <summary>
 	/// Role claims
 	/// </summary>
-	public required List<ClaimModel> Claims { get; set; }
+	public required List<Guid> ClaimsIds { get; set; }
 
 	/// <summary>
 	/// Role description

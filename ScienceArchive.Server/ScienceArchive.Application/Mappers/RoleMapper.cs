@@ -17,20 +17,20 @@ public class RoleMapper : IApplicationMapper<Role, RoleDto>
 
     public RoleDto MapToDto(Role entity)
     {
-        var claimDtos = entity.Claims.Select((claim) => _claimMapper.MapToDto(claim)).ToList();
+        var claimsIds = entity.ClaimsIds.Select((claimId) => claimId.ToString()).ToList();
 
         return new()
         {
             Id = entity.Id.ToString(),
             Name = entity.Name,
             Description = entity.Description,
-            Claims = claimDtos
+            ClaimsIds = claimsIds
         };
     }
 
     public Role MapToEntity(RoleDto model)
     {
-        var claims = model.Claims.Select((claimDto) => _claimMapper.MapToEntity(claimDto)).ToList();
+        var claimsIds = model.ClaimsIds.Select(RoleClaimId.CreateFromString).ToList();
 
         var roleId = model.Id is not null
             ? RoleId.CreateFromString(model.Id)
@@ -40,7 +40,7 @@ public class RoleMapper : IApplicationMapper<Role, RoleDto>
         {
             Name = model.Name,
             Description = model.Description,
-            Claims = claims
+            ClaimsIds = claimsIds
         };
     }
 }

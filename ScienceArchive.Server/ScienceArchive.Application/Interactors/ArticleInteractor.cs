@@ -54,7 +54,7 @@ public class ArticleInteractor : IArticleInteractor
     {
         var contract = new UpdateArticleContract(
             ArticleId.CreateFromString(dto.Id), 
-            _articleMapper.MapToEntity(dto.NewArticle));
+            _articleMapper.MapToEntity(dto.Article));
         
         var updatedArticle = await _articleService.Update(contract);
         return new(_articleMapper.MapToDto(updatedArticle));

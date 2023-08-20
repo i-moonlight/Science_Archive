@@ -3,6 +3,7 @@ using ScienceArchive.BusinessLogic;
 using ScienceArchive.Infrastructure.Persistence;
 using ScienceArchive.Infrastructure.Persistence.Options;
 using ScienceArchive.Web.Api.Auth;
+using ScienceArchive.Web.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 string dbConnectionString;
@@ -59,9 +60,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// Register middlewares
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();

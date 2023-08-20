@@ -1,23 +1,14 @@
-﻿using ScienceArchive.Application.Dtos;
-using ScienceArchive.Application.Dtos.Article;
+﻿using ScienceArchive.Application.Dtos.Article;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Core.Domain.Aggregates.Article;
 using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.Category.ValueObjects;
-using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
 public class ArticleMapper : IApplicationMapper<Article, ArticleDto>
 {
-    private readonly IApplicationMapper<User, UserDto> _userMapper;
-
-    public ArticleMapper(IApplicationMapper<User, UserDto> userMapper)
-    {
-        _userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
-    }
-
     public ArticleDto MapToDto(Article entity)
     {
         var authorsIds = entity.AuthorsIds.Select(a => a.ToString()).ToList();

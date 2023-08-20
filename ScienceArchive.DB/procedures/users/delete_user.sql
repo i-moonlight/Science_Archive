@@ -4,6 +4,9 @@ CREATE OR REPLACE PROCEDURE "proc_delete_user"(
 LANGUAGE plpgsql
 AS $$
 BEGIN
+  DELETE FROM "articles_authors" as aa
+  WHERE aa."author_id" = "p_id";
+  
   DELETE FROM "users_roles" as ur
   WHERE ur."user_id" = "p_id";
 

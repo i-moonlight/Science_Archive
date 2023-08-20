@@ -5,11 +5,6 @@ RETURNS UUID
 LANGUAGE plpgsql
 AS $$
 BEGIN
-
-  CALL "proc_delete_user"(
-   "p_id"
-  );
-
+  CALL "proc_delete_user"("p_id");
   RETURN "p_id";
-
 END;$$

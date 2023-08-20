@@ -22,7 +22,7 @@ public class Role : Entity<RoleId>
     /// of a user to perform some
     /// actions in the system
     /// </summary>
-    public required List<RoleClaim> Claims { get; init; }
+    public required List<RoleClaimId> ClaimsIds { get; init; }
 
     /// <summary>
     /// Role description

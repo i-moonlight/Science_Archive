@@ -11,6 +11,13 @@ namespace ScienceArchive.Core.Services;
 public interface IArticleService
 {
     /// <summary>
+    /// Get article with specified ID
+    /// </summary>
+    /// <param name="contract">Contract to get article with specified id</param>
+    /// <returns>Found article if it exists, otherwise, null</returns>
+    Task<Article?> GetById(GetArticleByIdContract contract);
+    
+    /// <summary>
     /// Get all articles
     /// </summary>
     /// <param name="contract">Contract to get all articles</param>

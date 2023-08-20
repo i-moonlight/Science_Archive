@@ -24,20 +24,15 @@ public class PostgresUserRepository : IUserRepository
     }
 
     /// <inheritdoc/>
-    public async Task<User> GetById(UserId userId)
+    public async Task<User?> GetById(UserId id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("Id", userId);
+        parameters.Add("Id", id.Value);
 
         var user = await _connection.QuerySingleOrDefaultAsync<UserModel>(
             "SELECT * FROM func_get_user_by_id(@Id)", 
             parameters, 
             commandType: CommandType.StoredProcedure);
-
-        if (user is null)
-        {
-            throw new EntityNotFoundException<User>($"User with ID {userId.ToString()} was not found!");
-        }
 
         return _mapper.MapToEntity(user);
     }
@@ -78,7 +73,7 @@ public class PostgresUserRepository : IUserRepository
         var parameters = new DynamicParameters(userToCreate);
 
         var createdUser = await _connection.QuerySingleOrDefaultAsync<UserModel>(
-            "SELECT * FROM func_create_user(@Id, @Name, @Email, @Login, @Password, @PasswordSalt)",
+            "SELECT * FROM func_create_user(@Id, @Name, @Email, @Login, @Password, @PasswordSalt, @RolesIds)",
             parameters,
             commandType: CommandType.Text);
 
@@ -91,14 +86,14 @@ public class PostgresUserRepository : IUserRepository
     }
 
     /// <inheritdoc/>
-    public async Task<User> Update(UserId userId, User newUser)
+    public async Task<User> Update(UserId id, User newUser)
     {
         var userToUpdate = _mapper.MapToModel(newUser);
         var parameters = new DynamicParameters(userToUpdate);
-        parameters.Add("Id", userId);
+        parameters.Add("Id", id.Value);
 
         var updatedUser = await _connection.QuerySingleOrDefaultAsync<UserModel>(
-            "SELECT * FROM func_update_user(@Id, @Name, @Email, @Login, @Password, @PasswordSalt)",
+            "SELECT * FROM func_update_user(@Id, @Name, @Email, @Login, @Password, @PasswordSalt, @RolesIds)",
             parameters,
             commandType: CommandType.Text
         );
@@ -112,10 +107,10 @@ public class PostgresUserRepository : IUserRepository
     }
 
     /// <inheritdoc/>
-    public async Task<UserId> Delete(UserId userId)
+    public async Task<UserId> Delete(UserId id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("Id", userId);
+        parameters.Add("Id", id.Value);
 
         var deletedUserId = await _connection.QuerySingleOrDefaultAsync<Guid>(
             "SELECT * FROM func_delete_user(@Id)",

@@ -7,7 +7,7 @@ namespace ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
 /// </summary>
 public sealed class ArticleId : GuidEntityId<ArticleId>
 {
-	private ArticleId(Guid value) : base(value)
+	public ArticleId(Guid value) : base(value)
 	{
 	}
 }

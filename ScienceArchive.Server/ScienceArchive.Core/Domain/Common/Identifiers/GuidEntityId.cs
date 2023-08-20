@@ -70,7 +70,7 @@ public abstract class GuidEntityId<T> : EntityId<Guid>
 		}
 		catch (Exception ex)
 		{
-			throw new InvalidEntityIdException($"Cannot create new instance of ${nameof(T)}", ex);
+			throw new InvalidEntityIdException($"Cannot create new instance of ${typeof(T).Name}", ex);
 		}
 	}
 

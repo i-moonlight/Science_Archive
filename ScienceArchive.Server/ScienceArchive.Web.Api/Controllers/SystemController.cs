@@ -19,19 +19,10 @@ public class SystemController : Controller
     public async Task<IActionResult> CheckStatus()
     {
         var emptyRequest = new CheckSystemStatusRequestDto();
+        
+        var result = await _systemInteractor.CheckSystemStatus(emptyRequest);
+        var response = new SuccessResponse(result);
 
-        try
-        {
-            var result = await _systemInteractor.CheckSystemStatus(emptyRequest);
-            var response = new SuccessResponse(result);
-
-            return Json(response);
-        }
-        catch (Exception ex)
-        {
-            var response = new ErrorResponse(ex.Message);
-
-            return Json(response);
-        }
+        return Json(response);
     }
 }

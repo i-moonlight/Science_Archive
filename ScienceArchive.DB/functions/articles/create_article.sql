@@ -1,42 +1,35 @@
 CREATE OR REPLACE FUNCTION "func_create_article" (
-  "p_id"                UUID,
-  "p_title"             VARCHAR(255),
-  "p_user_id"           UUID,
-  "p_created_timestamp" TIMESTAMP WITH TIME ZONE,
-  "p_description"       TEXT,
-  "p_document_path"     VARCHAR(255)
+  "p_id"                 UUID,
+  "p_category_id"        UUID,
+  "p_title"              VARCHAR(255),
+  "p_description"        TEXT,
+  "p_creation_date"      TIMESTAMP WITH TIME ZONE,
+  "p_authors_ids"        UUID[],
+  "p_documents"          JSONB
 )
 RETURNS TABLE (
-  "id"            UUID,
-  "title"         VARCHAR(255),
-  "author"        users,
-  "creation_date" TIMESTAMP WITH TIME ZONE,
-  "description"   TEXT,
-  "document_path" VARCHAR(255)
+  "id"                UUID,
+  "categoryId"        UUID,
+  "title"             VARCHAR(255),
+  "description"       TEXT,
+  "creationDate"      TIMESTAMP WITH TIME ZONE,
+  "authorsIds"        UUID[],
+  "documents"         JSONB
 )
 LANGUAGE plpgsql
 AS $$
-BEGIN
+BEGIN 
   CALL "proc_create_article" (
     "p_id",
+    "p_category_id",
+    "p_authors_ids",
     "p_title",
-    "p_user_id",
-    "p_created_timestamp",
+    "p_creation_date",
     "p_description",
-    "p_document_path"
+    "p_documents"
   );
   
-  RETURN QUERY 
-  SELECT
-    a."id",
-    a."title",
-    ROW(u.*) as "author",
-    ac."created_timestamp" as "creation_date",
-    a."description",
-    ad."document_path"
-  FROM "articles" AS a 
-    INNER JOIN "articles_creation" AS ac on ac."article_id" = a."id"
-    INNER JOIN "users" AS u ON u."id" = ac."author_id"
-    LEFT JOIN "articles_documents" AS ad on ad."article_id" = a."id"
-  WHERE a."id" = "p_id";
+  RETURN QUERY
+    SELECT *
+    FROM func_get_article_by_id("p_id");
 END;$$

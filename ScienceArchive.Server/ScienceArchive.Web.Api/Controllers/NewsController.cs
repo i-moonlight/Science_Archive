@@ -20,16 +20,38 @@ public class NewsController : Controller
     {
         var emptyRequest = new GetAllNewsRequestDto();
 
-        try
-        {
-            var result = await _newsInteractor.GetAllNews(emptyRequest);
-            var response = new SuccessResponse(result);
-            return Json(response);
-        }
-        catch (Exception ex)
-        {
-            var response = new ErrorResponse(ex.Message);
-            return Json(response);
-        }
+        var result = await _newsInteractor.GetAllNews(emptyRequest);
+        var response = new SuccessResponse(result);
+        
+        return Json(response);
+    }
+
+    [HttpPost("create")]
+    public async Task<IActionResult> Create([FromBody] CreateNewsRequestDto dto)
+    {
+        var result = await _newsInteractor.CreateNews(dto);
+        var response = new SuccessResponse(result);
+
+        return Json(response);
+    }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> Update([FromBody] UpdateNewsRequestDto dto)
+    {
+        var result = await _newsInteractor.UpdateNews(dto);
+        var response = new SuccessResponse(result);
+
+        return Json(response);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var dto = new DeleteNewsRequestDto(id);
+
+        var result = await _newsInteractor.DeleteNews(dto);
+        var response = new SuccessResponse(result);
+
+        return Json(response);
     }
 }

@@ -1,5 +1,6 @@
-﻿using System.Data;
-using Dapper;
+﻿using Dapper;
+using System.Data;
+using System.Text.Json;
 using ScienceArchive.Core.Domain.Aggregates.Article;
 using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
 using ScienceArchive.Core.Repositories;
@@ -35,33 +36,32 @@ public class PostgresArticleRepository : IArticleRepository
         return articles.Select(article => _mapper.MapToEntity(article)).ToList();
     }
 
-    public async Task<Article> GetById(ArticleId id)
+    public async Task<Article?> GetById(ArticleId id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("Id", id);
+        parameters.Add("Id", id.Value);
 
         var article = await _connection.QueryFirstOrDefaultAsync<ArticleModel>(
             "SELECT * FROM func_get_article_by_id(@Id)",
             parameters,
             commandType: CommandType.Text);
 
-        if (article is null)
-        {
-            throw new EntityNotFoundException<ArticleModel>("Cannot find article");
-        }
-
-        return _mapper.MapToEntity(article);
+        return article is not null
+            ? _mapper.MapToEntity(article)
+            : null;
     }
 
     public async Task<Article> Create(Article newValue)
     {
         var articleToCreate = _mapper.MapToModel(newValue);
         var parameters = new DynamicParameters(articleToCreate);
+        parameters.Add("Documents", JsonSerializer.Serialize(articleToCreate.Documents));
 
         var createdArticle = await _connection.QueryFirstOrDefaultAsync<ArticleModel>(
-            "SELECT * FROM func_create_article(@Id, @Title, @UserId, @CreationDate, @Description, @DocumentPath)",
+            "SELECT * FROM func_create_article(:Id, :CategoryId, :Title, :Description, :CreationDate, :AuthorsIds, :Documents::jsonb)",
             parameters,
             commandType: CommandType.Text);
+        
 
         if (createdArticle is null)
         {
@@ -71,10 +71,30 @@ public class PostgresArticleRepository : IArticleRepository
         return _mapper.MapToEntity(createdArticle);
     }
 
+    public async Task<Article> Update(ArticleId id, Article newValue)
+    {
+        var articleToUpdate = _mapper.MapToModel(newValue);
+        var parameters = new DynamicParameters(articleToUpdate);
+        parameters.Add("Id", id.Value);
+        parameters.Add("Documents", JsonSerializer.Serialize(articleToUpdate.Documents));
+
+        var updatedArticle = await _connection.QueryFirstOrDefaultAsync<ArticleModel>(
+            "SELECT * FROM func_update_article(:Id, :CategoryId, :Title, :Description, :AuthorsIds, :Documents::jsonb)",
+            parameters,
+            commandType: CommandType.Text);
+
+        if (updatedArticle is null)
+        {
+            throw new PersistenceException("Article was not updated!");
+        }
+
+        return _mapper.MapToEntity(updatedArticle);
+    }
+    
     public async Task<ArticleId> Delete(ArticleId id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("Id", id);
+        parameters.Add("Id", id.Value);
 
         var deletedArticleId = await _connection.QueryFirstOrDefaultAsync<Guid>(
             "SELECT * FROM func_delete_article(@Id)",
@@ -87,24 +107,5 @@ public class PostgresArticleRepository : IArticleRepository
         }
             
         return ArticleId.CreateFromGuid(deletedArticleId);
-    }
-
-    public async Task<Article> Update(ArticleId id, Article newValue)
-    {
-        var articleToUpdate = _mapper.MapToModel(newValue);
-        var parameters = new DynamicParameters(articleToUpdate);
-        parameters.Add("Id", id);
-
-        var updatedArticle = await _connection.QueryFirstOrDefaultAsync<ArticleModel>(
-            "SELECT * FROM func_update_article(@Id, @Title, @Description, @DocumentPath)",
-            parameters,
-            commandType: CommandType.Text);
-
-        if (updatedArticle is null)
-        {
-            throw new PersistenceException("Article was not updated!");
-        }
-
-        return _mapper.MapToEntity(updatedArticle);
     }
 }

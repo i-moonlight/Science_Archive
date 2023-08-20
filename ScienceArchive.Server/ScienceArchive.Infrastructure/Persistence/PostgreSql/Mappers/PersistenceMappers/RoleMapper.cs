@@ -3,7 +3,7 @@ using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Mappers;
+namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
 public class RoleMapper : IPersistenceMapper<Role, RoleModel>
 {
@@ -16,27 +16,27 @@ public class RoleMapper : IPersistenceMapper<Role, RoleModel>
 
 	public RoleModel MapToModel(Role entity)
 	{
-		var claims = entity.Claims.Select(claim => _claimMapper.MapToModel(claim)).ToList(); 
+		var claimsIds = entity.ClaimsIds.Select(claimId => claimId.Value).ToList(); 
 			
 		return new()
 		{
 			Id = entity.Id.Value,
 			Name = entity.Name,
 			Description = entity.Description,
-			Claims = claims
+			ClaimsIds = claimsIds
 		};
 	}
 
 	public Role MapToEntity(RoleModel model)
 	{
 		var roleId = RoleId.CreateFromGuid(model.Id);
-		var claims = model.Claims.Select(claim => _claimMapper.MapToEntity(claim)).ToList();
+		var claimsIds = model.ClaimsIds.Select(RoleClaimId.CreateFromGuid).ToList();
 
 		return new(roleId)
 		{
 			Name = model.Name,
 			Description = model.Description,
-			Claims = claims
+			ClaimsIds = claimsIds
 		};
 	}
 }

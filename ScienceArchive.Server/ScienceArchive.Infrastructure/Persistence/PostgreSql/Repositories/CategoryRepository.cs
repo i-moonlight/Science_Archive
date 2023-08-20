@@ -6,7 +6,7 @@ namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 
 public class PostgresCategoryRepository : ICategoryRepository
 {
-	public Task<Category> GetById(CategoryId id)
+	public Task<Category?> GetById(CategoryId id)
 	{
 		throw new NotImplementedException();
 	}

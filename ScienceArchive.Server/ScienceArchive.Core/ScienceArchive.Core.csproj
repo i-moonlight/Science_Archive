@@ -37,11 +37,8 @@
     <Folder Include="Services\News\" />
     <Folder Include="Services\Role\" />
     <Folder Include="Services\User\" />
-    <Folder Include="Services\Article\Contracts\" />
     <Folder Include="Services\Auth\Contracts\" />
-    <Folder Include="Services\News\Contracts\" />
     <Folder Include="Services\Role\Contracts\" />
-    <Folder Include="Services\User\Contracts\" />
     <Folder Include="Services\System\" />
   </ItemGroup>
 </Project>

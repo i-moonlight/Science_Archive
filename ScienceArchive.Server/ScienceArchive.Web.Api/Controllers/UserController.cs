@@ -19,19 +19,30 @@ public class UserController : Controller
     public async Task<IActionResult> GetAll()
     {
         var emptyRequest = new GetAllUsersRequestDto();
+        
+        var result = await _userInteractor.GetAllUsers(emptyRequest);
+        var response = new SuccessResponse(result);
 
-        try
-        {
-            var result = await _userInteractor.GetAllUsers(emptyRequest);
-            var response = new SuccessResponse(result);
+        return Json(response);
+    }
 
-            return Json(response);
-        }
-        catch (Exception ex)
-        {
-            var response = new ErrorResponse(ex.Message);
+    [HttpPost("update")]
+    public async Task<IActionResult> Update([FromBody] UpdateUserRequestDto dto)
+    {
+        var result = await _userInteractor.UpdateUser(dto);
+        var response = new SuccessResponse(result);
 
-            return Json(response);
-        }
+        return Json(response);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var dto = new DeleteUserRequestDto(id);
+
+        var result = await _userInteractor.DeleteUser(dto);
+        var response = new SuccessResponse(result);
+
+        return Json(response);
     }
 }

@@ -20,16 +20,37 @@ public class RoleController : Controller
     {
         var emptyRequest = new GetAllRolesRequestDto();
 
-        try
-        {
-            var result = await _roleInteractor.GetAllRoles(emptyRequest);
-            var response = new SuccessResponse(result);
-            return Json(response);
-        }
-        catch (Exception ex)
-        {
-            var response = new ErrorResponse(ex.Message);
-            return Json(response);
-        }
+        var result = await _roleInteractor.GetAllRoles(emptyRequest);
+        var response = new SuccessResponse(result);
+        return Json(response);
+    }
+    
+    [HttpPost("create")]
+    public async Task<IActionResult> Create([FromBody] CreateRoleRequestDto dto)
+    {
+        var result = await _roleInteractor.CreateRole(dto);
+        var response = new SuccessResponse(result);
+
+        return Json(response);
+    }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> Update([FromBody] UpdateRoleRequestDto dto)
+    {
+        var result = await _roleInteractor.UpdateRole(dto);
+        var response = new SuccessResponse(result);
+
+        return Json(response);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var dto = new DeleteRoleRequestDto(id);
+
+        var result = await _roleInteractor.DeleteRole(dto);
+        var response = new SuccessResponse(result);
+
+        return Json(response);
     }
 }

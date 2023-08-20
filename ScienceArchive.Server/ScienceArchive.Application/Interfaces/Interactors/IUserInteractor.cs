@@ -16,13 +16,6 @@ public interface IUserInteractor
     Task<GetAllUsersResponseDto> GetAllUsers(GetAllUsersRequestDto dto);
 
     /// <summary>
-    /// Create new user
-    /// </summary>
-    /// <param name="dto">DTO contract to create new user</param>
-    /// <returns>Response DTO</returns>
-    Task<CreateUserResponseDto> CreateUser(CreateUserRequestDto dto);
-
-    /// <summary>
     /// Update existing user
     /// </summary>
     /// <param name="dto">DTO contract to update user</param>

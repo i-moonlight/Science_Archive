@@ -11,6 +11,13 @@ namespace ScienceArchive.Core.Services;
 public interface INewsService
 {
     /// <summary>
+    /// Get news with specified ID
+    /// </summary>
+    /// <param name="contract">Contract to get news with specified id</param>
+    /// <returns>Found news if it exists, otherwise, null</returns>
+    Task<News?> GetById(GetNewsByIdContract contract);
+    
+    /// <summary>
     /// Get all news
     /// </summary>
     /// <returns>All news</returns>

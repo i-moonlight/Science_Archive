@@ -16,17 +16,17 @@ public record ArticleModel
 	/// Article title
 	/// </summary>
 	public required string Title { get; set; }
-	
+
 	/// <summary>
 	/// Article author
 	/// </summary>
 	public required List<Guid> AuthorsIds { get; set; }
-	
+
 	/// <summary>
 	/// Date when article was created
 	/// </summary>
 	public required DateTime CreationDate { get; set; }
-	
+
 	/// <summary>
 	/// Linked documents to articles
 	/// </summary>

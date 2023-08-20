@@ -2,7 +2,6 @@
 
 CREATE TABLE IF NOT EXISTS "articles_creation" (
   "article_id"        UUID                     NOT NULL,
-  "author_id"         UUID                     NOT NULL,
   "created_timestamp" TIMESTAMP WITH TIME ZONE NOT NULL,
   
   PRIMARY KEY ("article_id"),

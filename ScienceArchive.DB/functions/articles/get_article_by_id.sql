@@ -2,12 +2,13 @@ CREATE OR REPLACE FUNCTION "func_get_article_by_id" (
   "p_id" UUID
 )
 RETURNS TABLE (
-  "id"            UUID,
-  "title"         VARCHAR(255),
-  "author"        users,
-  "creation_date" TIMESTAMP WITH TIME ZONE,
-  "description"   TEXT,
-  "document_path" VARCHAR(255)
+  "id"                UUID,
+  "categoryId"        UUID,
+  "title"             VARCHAR(255),
+  "description"       TEXT,
+  "creationDate"      TIMESTAMP WITH TIME ZONE,
+  "authorsIds"        UUID[],
+  "documents"         JSONB
 )
 LANGUAGE plpgsql
 AS $$
@@ -15,14 +16,26 @@ BEGIN
   RETURN QUERY
     SELECT
       a."id",
+      ac."category_id",
       a."title",
-      ROW(u.*) as "author",
-      ac."created_timestamp" as "creation_date",
       a."description",
-      ad."document_path"
+      acr."created_timestamp" AS "creationDate",
+      (
+        SELECT
+          array_agg(ac."author_id")
+        FROM "articles_authors" as ac
+        WHERE ac."article_id" = a."id"
+      ) as "authorsIds",
+      (
+        SELECT
+          jsonb_agg(
+            json_build_object('document_path', ad."document_path")
+          )
+        FROM "articles_documents" AS ad
+        WHERE ad."article_id" = a."id"
+      ) as "documents"
     FROM "articles" AS a
-           INNER JOIN "articles_creation" AS ac on ac."article_id" = a."id"
-           INNER JOIN "users" AS u ON u."id" = ac."author_id"
-           LEFT JOIN "articles_documents" AS ad on ad."article_id" = a."id"
+           INNER JOIN "articles_categories" AS ac  ON ac."article_id"  = a."id"
+           INNER JOIN "articles_creation"   AS acr ON acr."article_id" = a."id"
     WHERE a."id" = "p_id";
 END;$$

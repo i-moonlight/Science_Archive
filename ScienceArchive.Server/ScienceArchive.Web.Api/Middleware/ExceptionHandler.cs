@@ -1,34 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+﻿using System.Text.Json;
+using ScienceArchive.Web.Api.Responses;
 
 namespace ScienceArchive.Web.Api.Middleware;
 
-// You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-public class ExceptionHandler
+public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public ExceptionHandler(RequestDelegate next)
+    public ExceptionHandlerMiddleware(RequestDelegate next)
     {
         _next = next;
     }
 
-    public Task Invoke(HttpContext httpContext)
+    public async Task Invoke(HttpContext httpContext)
     {
+        try
+        {
+            await _next(httpContext);
+        }
+        catch (Exception ex)
+        {
+            var response = new ErrorResponse(ex.Message);
+            var body = JsonSerializer.Serialize(response);
 
-        return _next(httpContext);
-    }
-}
-
-// Extension method used to add the middleware to the HTTP request pipeline.
-public static class ExceptionHandlerExtensions
-{
-    public static IApplicationBuilder UseMiddlewareClassTemplate(this IApplicationBuilder builder)
-    {
-        return builder.UseMiddleware<ExceptionHandler>();
+            httpContext.Response.ContentType = "application/json";
+            await httpContext.Response.WriteAsync(body);
+        }
     }
 }

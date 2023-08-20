@@ -36,10 +36,10 @@ public class PostgresNewsRepository : INewsRepository
         return news.Select(n => _mapper.MapToEntity(n)).ToList();
     }
 
-    public async Task<News> GetById(NewsId id)
+    public async Task<News?> GetById(NewsId id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("Id", id);
+        parameters.Add("Id", id.Value);
 
         var news = await _connection.QueryFirstOrDefaultAsync<NewsModel>(
             "SELECT * FROM func_get_news_by_id(@Id)",
@@ -75,7 +75,7 @@ public class PostgresNewsRepository : INewsRepository
     public async Task<NewsId> Delete(NewsId id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("Id", id);
+        parameters.Add("Id", id.Value);
 
         var deletedNewsId = await _connection.QueryFirstOrDefaultAsync<Guid>(
             "SELECT * FROM func_delete_news(@Id)",
@@ -94,7 +94,7 @@ public class PostgresNewsRepository : INewsRepository
     {
         var newsToUpdate = _mapper.MapToModel(newValue);
         var parameters = new DynamicParameters(newsToUpdate);
-        parameters.Add("Id", id);
+        parameters.Add("Id", id.Value);
 
         var updatedNews = await _connection.QueryFirstOrDefaultAsync<NewsModel>(
             "SELECT * FROM func_update_news(@Id, @Title, @Body)",

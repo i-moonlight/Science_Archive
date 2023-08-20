@@ -34,18 +34,6 @@ namespace ScienceArchive.Application.Interactors
         }
 
         /// <inheritdoc/>
-        public async Task<CreateUserResponseDto> CreateUser(CreateUserRequestDto dto)
-        {
-            var userToCreate = _userMapper.MapToEntity(dto.User);
-            var createUserContract = new CreateUserContract(userToCreate);
-
-            var createdUser = await _userService.Create(createUserContract);
-            var createdUserDto = _userMapper.MapToDto(createdUser);
-
-            return new(createdUserDto);
-        }
-
-        /// <inheritdoc/>
         public async Task<DeleteUserResponseDto> DeleteUser(DeleteUserRequestDto dto)
         {
             var contract = new DeleteUserContract(UserId.CreateFromString(dto.Id));

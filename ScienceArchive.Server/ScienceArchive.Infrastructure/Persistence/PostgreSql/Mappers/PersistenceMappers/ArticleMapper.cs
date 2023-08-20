@@ -5,7 +5,7 @@ using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Mappers;
+namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
 public class ArticleMapper : IPersistenceMapper<Article, ArticleModel>
 {

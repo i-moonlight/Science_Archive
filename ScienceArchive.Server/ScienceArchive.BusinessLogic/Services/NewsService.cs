@@ -10,6 +10,18 @@ internal class NewsService : BaseService, INewsService
     public NewsService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
     /// <inheritdoc/>
+    public async Task<News?> GetById(GetNewsByIdContract contract)
+    {
+        return await ExecuteUseCase<News?, GetNewsByIdContract>(contract);
+    }
+    
+    /// <inheritdoc/>
+    public async Task<List<News>> GetAll(GetAllNewsContract contract)
+    {
+        return await ExecuteUseCase<List<News>, GetAllNewsContract>(contract);
+    }
+    
+    /// <inheritdoc/>
     public async Task<News> Create(CreateNewsContract contract)
     {
         return await ExecuteUseCase<News, CreateNewsContract>(contract);
@@ -21,11 +33,6 @@ internal class NewsService : BaseService, INewsService
         return await ExecuteUseCase<NewsId, DeleteNewsContract>(contract);
     }
 
-    /// <inheritdoc/>
-    public async Task<List<News>> GetAll(GetAllNewsContract contract)
-    {
-        return await ExecuteUseCase<List<News>, GetAllNewsContract>(contract);
-    }
 
     /// <inheritdoc/>
     public async Task<News> Update(UpdateNewsContract contract)

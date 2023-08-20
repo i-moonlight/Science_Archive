@@ -2,9 +2,9 @@ using ScienceArchive.Core.Domain.Common.Identifiers;
 
 namespace ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 
-public class UserId : GuidEntityId<UserId>
+public sealed class UserId : GuidEntityId<UserId>
 {
-	private UserId(Guid value) : base(value)
+	public UserId(Guid value) : base(value)
 	{
 	}
 }

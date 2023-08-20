@@ -21,40 +21,24 @@ public class AuthController : Controller
     [HttpPost("sign-in")]
     public async Task<IActionResult> SignIn([FromBody] LoginRequestDto request)
     {
-        try
-        {
-            var result = await _authInteractor.Login(request);
-            var token = _authManager.GenerateToken(result.User);
+        var result = await _authInteractor.Login(request);
+        var token = _authManager.GenerateToken(result.User);
 
-            var response = new SuccessResponse(new
-            {
-                user = result.User,
-                token,
-            });
-
-            return Json(response);
-        }
-        catch (Exception e)
+        var response = new SuccessResponse(new
         {
-            var response = new ErrorResponse(e.Message);
-            return Json(response);
-        }
+            user = result.User,
+            token,
+        });
+
+        return Json(response);
     }
 
     [HttpPost("sign-up")]
     public async Task<IActionResult> SignUp([FromBody] SignUpRequestDto request)
     {
-        try
-        {
-            var result = await _authInteractor.SignUp(request);
-            var response = new SuccessResponse(result);
+        var result = await _authInteractor.SignUp(request);
+        var response = new SuccessResponse(result);
 
-            return Json(response);
-        }
-        catch (Exception e)
-        {
-            var response = new ErrorResponse(e.Message);
-            return Json(response);
-        }
+        return Json(response);
     }
 }

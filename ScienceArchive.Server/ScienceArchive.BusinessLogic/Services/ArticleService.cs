@@ -10,6 +10,12 @@ internal class ArticleService : BaseService, IArticleService
     public ArticleService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
     /// <inheritdoc/>
+    public async Task<Article?> GetById(GetArticleByIdContract contract)
+    {
+        return await ExecuteUseCase<Article?, GetArticleByIdContract>(contract);
+    }
+    
+    /// <inheritdoc/>
     public async Task<List<Article>> GetAll(GetAllArticlesContract contract)
     {
         return await ExecuteUseCase<List<Article>, GetAllArticlesContract>(contract);

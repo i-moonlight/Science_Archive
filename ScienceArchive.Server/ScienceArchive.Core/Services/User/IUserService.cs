@@ -11,6 +11,13 @@ namespace ScienceArchive.Core.Services;
 public interface IUserService
 {
     /// <summary>
+    /// Get user with specified ID
+    /// </summary>
+    /// <param name="contract">Contract to get user with specified id</param>
+    /// <returns>Found user if it exists, otherwise, null</returns>
+    Task<User?> GetById(GetUserByIdContract contract);
+    
+    /// <summary>
     /// Get all existing users
     /// </summary>
     /// <param name="contract">Contract to get all users</param>
