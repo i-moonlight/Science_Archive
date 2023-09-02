@@ -16,6 +16,13 @@ public interface INewsInteractor
     Task<GetAllNewsResponseDto> GetAllNews(GetAllNewsRequestDto dto);
 
     /// <summary>
+    /// Get news by ID
+    /// </summary>
+    /// <param name="dto">DTO contract to get news by its ID</param>
+    /// <returns>Response DTO</returns>
+    Task<GetNewsByIdResponseDto> GetNewsById(GetNewsByIdRequestDto dto);
+
+    /// <summary>
     /// Create news
     /// </summary>
     /// <param name="dto">DTO contract to create news</param>

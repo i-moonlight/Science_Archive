@@ -31,11 +31,6 @@
     <None Remove="Interactors\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dtos\Category\Request\" />
-    <Folder Include="Dtos\Category\Response\" />
-    <Folder Include="Interactors\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ScienceArchive.Application.Dtos;
 using ScienceArchive.Application.Dtos.Article;
+using ScienceArchive.Application.Dtos.Category;
 using ScienceArchive.Application.Dtos.Claim;
 using ScienceArchive.Application.Dtos.News;
 using ScienceArchive.Application.Dtos.Role;
@@ -9,6 +10,7 @@ using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Application.Mappers;
 using ScienceArchive.Core.Domain.Aggregates.Article;
+using ScienceArchive.Core.Domain.Aggregates.Category;
 using ScienceArchive.Core.Domain.Aggregates.News;
 using ScienceArchive.Core.Domain.Aggregates.Role;
 using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
@@ -26,6 +28,7 @@ public static class ApplicationRegistry
     public static IServiceCollection RegisterInteractors(this IServiceCollection services)
     {
         _ = services.AddSingleton<IArticleInteractor, ArticleInteractor>();
+        _ = services.AddSingleton<ICategoryInteractor, CategoryInteractor>();
         _ = services.AddSingleton<IAuthInteractor, AuthInteractor>();
         _ = services.AddSingleton<INewsInteractor, NewsInteractor>();
         _ = services.AddSingleton<IRoleInteractor, RoleInteractor>();
@@ -43,10 +46,12 @@ public static class ApplicationRegistry
     public static IServiceCollection RegisterApplicationMappers(this IServiceCollection services)
     {
         _ = services.AddTransient<IApplicationMapper<Article, ArticleDto>, ArticleMapper>();
+        _ = services.AddTransient<IApplicationMapper<Category, CategoryDto>, CategoryMapper>();
         _ = services.AddTransient<IApplicationMapper<RoleClaim, ClaimDto>, ClaimMapper>();
         _ = services.AddTransient<IApplicationMapper<News, NewsDto>, NewsMapper>();
         _ = services.AddTransient<IApplicationMapper<Role, RoleDto>, RoleMapper>();
         _ = services.AddTransient<IApplicationMapper<User, UserDto>, UserMapper>();
+        _ = services.AddTransient<IApplicationMapper<Author, AuthorDto>, AuthorMapper>();
 
         return services;
     }

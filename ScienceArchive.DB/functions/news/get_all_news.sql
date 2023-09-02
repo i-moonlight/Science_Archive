@@ -4,7 +4,7 @@ RETURNS TABLE (
   "authorId"          UUID,
   "title"             VARCHAR(255),
   "body"              TEXT,
-  "creationDate"      TIMESTAMP WITH TIME ZONE
+  "creationDate"      TIMESTAMP
 )
 LANGUAGE plpgsql
 AS $$

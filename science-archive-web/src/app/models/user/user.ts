@@ -16,4 +16,9 @@ export interface User {
    * Login of user
    */
   login: string;
+
+  /**
+   * List of identifiers of roles
+   */
+  rolesIds: string[];
 }

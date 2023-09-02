@@ -21,7 +21,6 @@
     <None Remove="Middleware\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Responses\" />
     <Folder Include="Auth\" />
     <Folder Include="Middleware\" />

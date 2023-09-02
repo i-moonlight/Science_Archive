@@ -2,8 +2,8 @@ import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-import { Response } from "@models/operations/response";
-import CheckSystemStatusResponse from "@models/operations/system/responses/check-system-status.response";
+import { Response } from "@models/common/response";
+import CheckSystemStatusResponse from "@models/system/responses/check-system-status.response";
 
 @Injectable({
   providedIn: "root",

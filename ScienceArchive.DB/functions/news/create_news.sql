@@ -3,14 +3,14 @@ CREATE OR REPLACE FUNCTION "func_create_news" (
   "p_title"             VARCHAR(255),
   "p_body"              TEXT,
   "p_user_id"           UUID,
-  "p_created_timestamp" TIMESTAMP WITH TIME ZONE
+  "p_created_timestamp" TIMESTAMP
 )
 RETURNS TABLE (
   "id"                UUID,
   "authorId"          UUID,
   "title"             VARCHAR(255),
   "body"              TEXT,
-  "creationDate"      TIMESTAMP WITH TIME ZONE
+  "creationDate"      TIMESTAMP
 )
 LANGUAGE plpgsql
 AS $$

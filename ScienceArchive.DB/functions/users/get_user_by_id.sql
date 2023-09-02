@@ -1,8 +1,7 @@
 CREATE OR REPLACE FUNCTION "func_get_user_by_id" (
   "p_id" UUID
 )
-RETURNS TABLE
-(
+RETURNS TABLE (
   "id"            UUID,
   "name"          VARCHAR(100),
   "email"         VARCHAR(50),

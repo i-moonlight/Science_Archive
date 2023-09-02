@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION "func_create_article" (
   "p_category_id"        UUID,
   "p_title"              VARCHAR(255),
   "p_description"        TEXT,
-  "p_creation_date"      TIMESTAMP WITH TIME ZONE,
+  "p_creation_date"      TIMESTAMP,
   "p_authors_ids"        UUID[],
   "p_documents"          JSONB
 )
@@ -12,7 +12,7 @@ RETURNS TABLE (
   "categoryId"        UUID,
   "title"             VARCHAR(255),
   "description"       TEXT,
-  "creationDate"      TIMESTAMP WITH TIME ZONE,
+  "creationDate"      TIMESTAMP,
   "authorsIds"        UUID[],
   "documents"         JSONB
 )

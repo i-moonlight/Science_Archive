@@ -18,6 +18,7 @@ using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Domain.ValueObjects;
+using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.ArticleContracts;
 using ScienceArchive.Core.Services.AuthContracts;
@@ -62,6 +63,7 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<Article, CreateArticleContract>, CreateArticleUseCase>();
         _ = services.AddTransient<IUseCase<Article, UpdateArticleContract>, UpdateArticleUseCase>();
         _ = services.AddTransient<IUseCase<ArticleId, DeleteArticleContract>, DeleteArticleUseCase>();
+        _ = services.AddTransient<IUseCase<List<Article>, GetArticlesByCategoryIdContract>, GetArticlesByCategoryIdUseCase>();
 
         // Auth use cases
         _ = services.AddTransient<IUseCase<User, LoginContract>, LoginUseCase>();
@@ -93,6 +95,7 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<User, CreateUserContract>, CreateUserUseCase>();
         _ = services.AddTransient<IUseCase<User, UpdateUserContract>, UpdateUserUseCase>();
         _ = services.AddTransient<IUseCase<UserId, DeleteUserContract>, DeleteUserUseCase>();
+        _ = services.AddTransient<IUseCase<List<Author>, GetAllAuthorsContract>, GetAllAuthorsUseCase>();
 
         return services;
     }

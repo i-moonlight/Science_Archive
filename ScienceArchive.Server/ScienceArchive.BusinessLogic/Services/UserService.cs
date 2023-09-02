@@ -20,7 +20,13 @@ internal class UserService : BaseService, IUserService
     {
         return await ExecuteUseCase<List<User>, GetAllUsersContract>(contract);
     }
-    
+
+    /// <inheritdoc/>
+    public async Task<List<Author>> GetAllAuthors(GetAllAuthorsContract contract)
+    {
+        return await ExecuteUseCase<List<Author>, GetAllAuthorsContract>(contract);
+    }
+
     /// <inheritdoc/>
     public async Task<User> Create(CreateUserContract contract)
     {

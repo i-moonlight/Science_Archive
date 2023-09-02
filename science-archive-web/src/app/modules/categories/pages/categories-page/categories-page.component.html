@@ -1,0 +1,13 @@
+<div class="categories-container">
+  <div *ngIf="isLoading; else categoriesList">
+    <p>Loading...</p>
+  </div>
+
+  <ng-template #categoriesList>
+    <p *ngIf="categories.length === 0">There is no categories available yet</p>
+    <app-category-card
+      *ngFor="let category of categories"
+      [category]="category"
+    ></app-category-card>
+  </ng-template>
+</div>

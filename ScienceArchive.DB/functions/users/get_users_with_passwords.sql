@@ -17,9 +17,9 @@ BEGIN
       u."id",
       u."name",
       u."email",
-      ua."password",
-      ua."password_salt",
       ua."login",
+      ua."password",
+      ua."password_salt" as "passwordSalt",
       (
         SELECT
           array_agg(ur."role_id")

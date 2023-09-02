@@ -16,6 +16,13 @@ public interface IArticleService
     /// <param name="contract">Contract to get article with specified id</param>
     /// <returns>Found article if it exists, otherwise, null</returns>
     Task<Article?> GetById(GetArticleByIdContract contract);
+
+    /// <summary>
+    /// Get articles by category ID
+    /// </summary>
+    /// <param name="contract">Contract to get articles by category ID</param>
+    /// <returns>Articles with specified category ID</returns>
+    Task<List<Article>> GetByCategoryId(GetArticlesByCategoryIdContract contract);
     
     /// <summary>
     /// Get all articles

@@ -22,4 +22,14 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="EntitiesTests\" />
+    <None Remove="ExceptionsTests\" />
+    <None Remove="UtilsTests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EntitiesTests\" />
+    <Folder Include="ExceptionsTests\" />
+    <Folder Include="UtilsTests\" />
+  </ItemGroup>
 </Project>

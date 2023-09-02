@@ -14,4 +14,10 @@ public interface IUserRepository : ICrudRepository<UserId, User>
     /// </summary>
     /// <returns>Users entities with passwords</returns>
     Task<List<User>> GetAllUsersWithPasswords();
+
+    /// <summary>
+    /// Get users which are authors of any article
+    /// </summary>
+    /// <returns>All users which have written any article</returns>
+    Task<List<Author>> GetAllAuthors();
 }

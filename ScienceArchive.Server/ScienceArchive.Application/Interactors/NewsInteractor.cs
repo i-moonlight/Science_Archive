@@ -32,6 +32,19 @@ namespace ScienceArchive.Application.Interactors
         }
 
         /// <inheritdoc/>
+        public async Task<GetNewsByIdResponseDto> GetNewsById(GetNewsByIdRequestDto dto)
+        {
+            var contract = new GetNewsByIdContract(NewsId.CreateFromString(dto.Id));
+            var news = await _newsService.GetById(contract);
+
+            var newsDto = news is not null
+                ? _newsMapper.MapToDto(news)
+                : null;
+
+            return new(newsDto);
+        }
+
+        /// <inheritdoc/>
         public async Task<CreateNewsResponseDto> CreateNews(CreateNewsRequestDto dto)
         {
             var contract = new CreateNewsContract(_newsMapper.MapToEntity(dto.News));

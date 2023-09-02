@@ -1,0 +1,13 @@
+<div class="news-container">
+  <div *ngIf="isLoading; else newsList">
+    <p>Loading...</p>
+  </div>
+
+  <ng-template #newsList>
+    <p *ngIf="news.length === 0">There is no news available yet</p>
+    <app-news-card
+      *ngFor="let singleNews of news"
+      [news]="singleNews"
+    ></app-news-card>
+  </ng-template>
+</div>

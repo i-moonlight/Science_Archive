@@ -25,6 +25,13 @@ public interface IUserService
     Task<List<User>> GetAll(GetAllUsersContract contract);
 
     /// <summary>
+    /// Get all existing users which are authors of any article
+    /// </summary>
+    /// <param name="contract">Contract to get all authors</param>
+    /// <returns>All existing authors</returns>
+    Task<List<Author>> GetAllAuthors(GetAllAuthorsContract contract);
+
+    /// <summary>
     /// Create new user
     /// </summary>
     /// <param name="contract">Contract to create user</param>

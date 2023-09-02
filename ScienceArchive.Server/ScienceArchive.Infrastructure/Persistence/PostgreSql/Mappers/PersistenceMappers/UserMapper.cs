@@ -27,7 +27,9 @@ public class UserMapper : IPersistenceMapper<User, UserModel>
     public User MapToEntity(UserModel model)
     {
         var userId = UserId.CreateFromGuid(model.Id);
-        var rolesIds = model.RolesIds.Select(RoleId.CreateFromGuid).ToList();
+        var rolesIds = model.RolesIds is not null
+            ? model.RolesIds.Select(RoleId.CreateFromGuid).ToList()
+            : new List<RoleId>();
         
         return new(userId)
         {

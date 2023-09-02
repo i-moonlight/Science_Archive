@@ -8,11 +8,6 @@ public record UserModel
 	public required Guid Id { get; set; }
 
 	/// <summary>
-	/// List of roles of user 
-	/// </summary>
-	public required List<Guid> RolesIds { get; set; }
-
-	/// <summary>
 	/// User name
 	/// </summary>
 	public required string Name { get; set; }
@@ -26,6 +21,11 @@ public record UserModel
 	/// User auth login
 	/// </summary>
 	public required string Login { get; set; }
+
+	/// <summary>
+	/// List of roles of user 
+	/// </summary>
+	public List<Guid>? RolesIds { get; set; }
 
 	/// <summary>
 	/// User password

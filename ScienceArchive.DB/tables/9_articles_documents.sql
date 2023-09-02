@@ -1,7 +1,7 @@
 -- Documents linked to articles
 
 CREATE TABLE IF NOT EXISTS "articles_documents" (
-  "article_id"    UUID NOT NULL,
+  "article_id"    UUID         NOT NULL,
   "document_path" VARCHAR(255) NOT NULL,
   
   PRIMARY KEY ("article_id", "document_path"),

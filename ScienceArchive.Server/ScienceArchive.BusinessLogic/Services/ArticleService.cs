@@ -14,7 +14,12 @@ internal class ArticleService : BaseService, IArticleService
     {
         return await ExecuteUseCase<Article?, GetArticleByIdContract>(contract);
     }
-    
+
+    public async Task<List<Article>> GetByCategoryId(GetArticlesByCategoryIdContract contract)
+    {
+        return await ExecuteUseCase<List<Article>, GetArticlesByCategoryIdContract>(contract);
+    }
+
     /// <inheritdoc/>
     public async Task<List<Article>> GetAll(GetAllArticlesContract contract)
     {

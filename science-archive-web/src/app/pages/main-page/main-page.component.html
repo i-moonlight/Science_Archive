@@ -2,35 +2,74 @@
   <div class="top-logo-wrapper">
     <h1>Science Archive</h1>
   </div>
-  <div class="top-menu">
+  <div class="top-menu" [ngClass]="{'open': isMobileMenuOpen}">
     <div class="top-menu-elements-wrapper">
-      <div class="top-menu-element">
-        Articles
-      </div>
-      <div class="top-menu-element">
-        Authors
-      </div>
-      <div class="top-menu-element">
-        Categories
-      </div>
-      <div class="top-menu-element">
-        News
-      </div>
+      <a
+        class="mobile-menu-toggle"
+        (click)="onToggleMenu()"
+      >
+      </a>
+      <nav>
+        <span
+          (click)="onCloseMenu()"
+          class="top-menu-element"
+          routerLink="/main/articles"
+        >
+          Articles
+        </span>
+        <span
+          (click)="onCloseMenu()"
+          class="top-menu-element"
+          routerLink="/main/categories"
+        >
+          Categories
+        </span>
+        <span
+          (click)="onCloseMenu()"
+          class="top-menu-element"
+          routerLink="/main/authors"
+        >
+          Authors
+        </span>
+        <span
+          (click)="onCloseMenu()"
+          class="top-menu-element"
+          routerLink="/main/news"
+        >
+          News
+        </span>
+      </nav>
     </div>
     <div
       *ngIf='isAuthorized; else notAuthorizedBlock'
       class='top-menu-auth'
-      (click)='onSignOut()'
+      (click)='onOpenDrawer()'
     >
       {{login}}
     </div>
     <ng-template #notAuthorizedBlock>
       <div
         class="top-menu-auth"
-        (click)='onSignIn()'
+        routerLink="/auth"
       >
         Sign in
       </div>
     </ng-template>
   </div>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+
+<app-side-drawer
+  [title]="login"
+  [isOpen]="isShowAccountDrawer"
+  (onClose)="onCloseDrawer()"
+>
+  <div class="account-actions">
+    <span class="account-action">My Profile</span>
+    <span class="account-action">My Articles</span>
+    <span class="account-action">Settings</span>
+    <span class="account-action sign-out-action" (click)="onSignOut()">Sign Out</span>
+  </div>
+</app-side-drawer>

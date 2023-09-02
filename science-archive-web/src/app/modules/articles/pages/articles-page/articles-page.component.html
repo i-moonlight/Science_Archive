@@ -1,0 +1,13 @@
+<div class="articles-container">
+  <div *ngIf="isLoading; else articlesList">
+    <p>Loading...</p>
+  </div>
+
+  <ng-template #articlesList>
+    <p *ngIf="articles.length === 0">There is no articles available yet</p>
+    <app-article-card
+      *ngFor="let article of articles"
+      [article]="article"
+    ></app-article-card>
+  </ng-template>
+</div>

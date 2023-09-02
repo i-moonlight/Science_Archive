@@ -3,7 +3,7 @@ CREATE OR REPLACE PROCEDURE "proc_create_news" (
   "p_title"             VARCHAR(255),
   "p_body"              TEXT,
   "p_author_id"         UUID,
-  "p_creation_date"     TIMESTAMP WITH TIME ZONE
+  "p_creation_date"     TIMESTAMP
 )
 LANGUAGE plpgsql
 AS $$

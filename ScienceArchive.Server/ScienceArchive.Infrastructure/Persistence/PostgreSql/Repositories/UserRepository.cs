@@ -12,14 +12,17 @@ namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 public class PostgresUserRepository : IUserRepository
 {
     private readonly IDbConnection _connection;
-    private readonly IPersistenceMapper<User, UserModel> _mapper;
+    private readonly IPersistenceMapper<User, UserModel> _userMapper;
+    private readonly IPersistenceMapper<Author, AuthorModel> _authorMapper;
 
     public PostgresUserRepository(
         PostgresContext dbContext,
-        IPersistenceMapper<User, UserModel> mapper)
+        IPersistenceMapper<User, UserModel> userMapper,
+        IPersistenceMapper<Author, AuthorModel> authorMapper)
     {
         var context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        _userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
+        _authorMapper = authorMapper ?? throw new ArgumentNullException(nameof(authorMapper));
         _connection = context.CreateConnection();
     }
 
@@ -32,9 +35,9 @@ public class PostgresUserRepository : IUserRepository
         var user = await _connection.QuerySingleOrDefaultAsync<UserModel>(
             "SELECT * FROM func_get_user_by_id(@Id)", 
             parameters, 
-            commandType: CommandType.StoredProcedure);
+            commandType: CommandType.Text);
 
-        return _mapper.MapToEntity(user);
+        return _userMapper.MapToEntity(user);
     }
 
     /// <inheritdoc/>
@@ -49,9 +52,10 @@ public class PostgresUserRepository : IUserRepository
             throw new EntityNotFoundException<User[]>("Database returned NULL!");
         }
 
-        return users.Select(user => _mapper.MapToEntity(user)).ToList();
+        return users.Select(user => _userMapper.MapToEntity(user)).ToList();
     }
 
+    /// <inheritdoc/>
     public async Task<List<User>> GetAllUsersWithPasswords()
     {
         var users = await _connection.QueryAsync<UserModel>(
@@ -63,13 +67,28 @@ public class PostgresUserRepository : IUserRepository
             throw new EntityNotFoundException<User[]>("Database returned NULL!");
         }
 
-        return users.Select(user => _mapper.MapToEntity(user)).ToList();
+        return users.Select(user => _userMapper.MapToEntity(user)).ToList();
+    }
+
+    /// <inheritdoc/>
+    public async Task<List<Author>> GetAllAuthors()
+    {
+        var users = await _connection.QueryAsync<AuthorModel>(
+            "SELECT * FROM func_get_all_authors()",
+            commandType: CommandType.Text);
+
+        if (users is null)
+        {
+            throw new EntityNotFoundException<User[]>("Database returned NULL!");
+        }
+
+        return users.Select(_authorMapper.MapToEntity).ToList();
     }
 
     /// <inheritdoc/>
     public async Task<User> Create(User newUser)
     {
-        var userToCreate = _mapper.MapToModel(newUser);
+        var userToCreate = _userMapper.MapToModel(newUser);
         var parameters = new DynamicParameters(userToCreate);
 
         var createdUser = await _connection.QuerySingleOrDefaultAsync<UserModel>(
@@ -82,13 +101,13 @@ public class PostgresUserRepository : IUserRepository
             throw new PersistenceException("New user was not created!");
         }
 
-        return _mapper.MapToEntity(createdUser);
+        return _userMapper.MapToEntity(createdUser);
     }
 
     /// <inheritdoc/>
     public async Task<User> Update(UserId id, User newUser)
     {
-        var userToUpdate = _mapper.MapToModel(newUser);
+        var userToUpdate = _userMapper.MapToModel(newUser);
         var parameters = new DynamicParameters(userToUpdate);
         parameters.Add("Id", id.Value);
 
@@ -103,7 +122,7 @@ public class PostgresUserRepository : IUserRepository
             throw new PersistenceException("New user was not updated!");
         }
 
-        return _mapper.MapToEntity(updatedUser);
+        return _userMapper.MapToEntity(updatedUser);
     }
 
     /// <inheritdoc/>

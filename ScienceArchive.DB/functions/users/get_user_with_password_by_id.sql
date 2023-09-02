@@ -19,9 +19,9 @@ SELECT
     u."id",
     u."name",
     u."email",
+    ua."login",
     ua."password",
     ua."password_salt",
-    ua."login",
     (
         SELECT
             array_agg(ur."role_id")

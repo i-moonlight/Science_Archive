@@ -16,6 +16,20 @@ public interface IUserInteractor
     Task<GetAllUsersResponseDto> GetAllUsers(GetAllUsersRequestDto dto);
 
     /// <summary>
+    /// Get all users which have written any article
+    /// </summary>
+    /// <param name="dto">DTO contract to get all authors</param>
+    /// <returns>Response DTO</returns>
+    Task<GetAllAuthorsResponseDto> GetAllAuthors(GetAllAuthorsRequestDto dto);
+
+    /// <summary>
+    /// Get user by ID
+    /// </summary>
+    /// <param name="dto">DTO contract to get user by its ID</param>
+    /// <returns>Response DTO</returns>
+    Task<GetUserByIdResponseDto> GetUserById(GetUserByIdRequestDto dto);
+
+    /// <summary>
     /// Update existing user
     /// </summary>
     /// <param name="dto">DTO contract to update user</param>

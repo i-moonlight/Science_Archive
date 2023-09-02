@@ -2,20 +2,35 @@
   background-color: #1B57CFFF;
   padding: 5px;
   color: #FFFFFF;
+  height: 50px;
+  line-height: 50px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  margin-left: 10px;
+  font-size: 2em;
+}
+
+.mobile-menu-toggle:before {
+  content: '☰';
 }
 
 .top-menu {
+  position: sticky;
+  top: 0;
+  background-color: #FFFFFF;
   display: flex;
   height: 50px;
   box-shadow: 0 5px 10px 2px #9b9b9b4a;
   flex-direction: row;
   justify-content: space-between;
+  transition: .3s;
 
   &-elements-wrapper {
     display: flex;
     flex-direction: row;
     line-height: 50px;
-    width: 80%;
   }
 
   &-element {
@@ -46,30 +61,80 @@
   }
 }
 
-@media screen and (max-width: 480px) {
-  .top-menu {
+.main-content {
+  margin-left: 50px;
+  padding-bottom: 10px;
+  padding-top: 50px;
+  width: 70%;
+}
+
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.account-action {
+  cursor: pointer;
+  color: #565656;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  transition: 300ms;
+
+  &:hover {
+    color: #1e1e1e;
+  }
+
+  &.sign-out-action {
+    color: #ff0000;
+    margin-top: 30px;
+
+    &:hover {
+      color: #860000;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-menu-toggle {
     display: block;
-    box-shadow: none;
+    cursor: pointer;
+  }
 
-    &-elements-wrapper {
-      display: inline-block;
-    }
+  nav {
+    display: none;
+    flex-direction: column;
+  }
 
-    &-element {
-      width: 100%;
-      border-bottom: 1px solid #c2c2c2;
-      color: #414141;
-      padding-left: 25px;
-      padding-right: 25px;
-      text-align: left;
-      transition: .3s;
-    }
+  .top-menu.open {
+    height: auto;
+  }
 
-    &-auth {
-      line-height: 50px;
-      padding-right: 25px;
-      padding-left: 25px;
-      transition: .3s;
-    }
+  .top-menu.open .top-menu-elements-wrapper {
+    flex-direction: column;
+  }
+
+  .top-menu.open .top-menu-elements-wrapper nav {
+    background-color: #ffffff;
+    position: fixed;
+    margin-top: 50px;
+    display: block;
+    box-shadow: 0 5px 10px 2px #9b9b9b4a;
+    border-radius: 5px;
+    width: 300px;
+  }
+
+  .top-menu.open .top-menu-element {
+    width: 90%;
+    display: block;
+    padding-left: 15px;
+    padding-right: 0;
+    text-align: left;
+  }
+
+  .main-content {
+    width: 90%;
+    margin: auto;
   }
 }

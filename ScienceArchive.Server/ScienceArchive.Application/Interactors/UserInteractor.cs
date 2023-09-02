@@ -13,13 +13,16 @@ namespace ScienceArchive.Application.Interactors
     public class UserInteractor : IUserInteractor
     {
         private readonly IApplicationMapper<User, UserDto> _userMapper;
+        private readonly IApplicationMapper<Author, AuthorDto> _authorMapper;
         private readonly IUserService _userService;
 
         public UserInteractor(
             IApplicationMapper<User, UserDto> userMapper,
+            IApplicationMapper<Author, AuthorDto> authorMapper,
             IUserService userService)
         {
             _userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
+            _authorMapper = authorMapper ?? throw new ArgumentNullException(nameof(authorMapper));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
@@ -31,6 +34,27 @@ namespace ScienceArchive.Application.Interactors
 
             var usersDtos = users.Select((user) => _userMapper.MapToDto(user)).ToList();
             return new(usersDtos);
+        }
+
+        public async Task<GetAllAuthorsResponseDto> GetAllAuthors(GetAllAuthorsRequestDto dto)
+        {
+            var emptyContract = new GetAllAuthorsContract();
+            var authors = await _userService.GetAllAuthors(emptyContract);
+
+            var authorsDtos = authors.Select(_authorMapper.MapToDto).ToList();
+            return new(authorsDtos);
+        }
+
+        public async Task<GetUserByIdResponseDto> GetUserById(GetUserByIdRequestDto dto)
+        {
+            var contract = new GetUserByIdContract(UserId.CreateFromString(dto.Id));
+            var user = await _userService.GetById(contract);
+
+            var userDto = user is not null
+                ? _userMapper.MapToDto(user)
+                : null;
+
+            return new(userDto);
         }
 
         /// <inheritdoc/>

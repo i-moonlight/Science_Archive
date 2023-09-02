@@ -1,0 +1,10 @@
+<div class="card-container">
+  <h2>{{article!.title}}</h2>
+  <span class="author-name">{{article!.authorId}}</span>
+  <p class="article-description">{{article!.description}}</p>
+  <app-read-more-button
+    [routerLink]="'/main/articles/' + article!.id"
+  >
+    Read more
+  </app-read-more-button>
+</div>

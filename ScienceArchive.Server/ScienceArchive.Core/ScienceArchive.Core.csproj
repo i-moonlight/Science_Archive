@@ -30,7 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />
-    <Folder Include="Domain\ValueObjects\" />
     <Folder Include="Services\Article\" />
     <Folder Include="Services\Auth\" />
     <Folder Include="Services\News\" />

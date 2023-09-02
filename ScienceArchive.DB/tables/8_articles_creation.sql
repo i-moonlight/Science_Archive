@@ -1,8 +1,8 @@
 -- Articles creation data
 
 CREATE TABLE IF NOT EXISTS "articles_creation" (
-  "article_id"        UUID                     NOT NULL,
-  "created_timestamp" TIMESTAMP WITH TIME ZONE NOT NULL,
+  "article_id"        UUID      NOT NULL,
+  "created_timestamp" TIMESTAMP NOT NULL,
   
   PRIMARY KEY ("article_id"),
   

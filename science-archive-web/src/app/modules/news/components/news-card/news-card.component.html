@@ -1,0 +1,16 @@
+<div class="card-container">
+  <div class="news-header">
+    <h2>{{news.title}}</h2>
+    <p class="news-creation-date">
+      {{news.creationDate.toDateString()}}
+    </p>
+  </div>
+  <p class="news-body">
+    {{news.body}}
+  </p>
+  <app-read-more-button
+    [routerLink]="'main/news/' + news.id"
+  >
+    Read more
+  </app-read-more-button>
+</div>

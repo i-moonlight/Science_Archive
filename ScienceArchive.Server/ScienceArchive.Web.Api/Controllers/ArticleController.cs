@@ -6,7 +6,7 @@ using ScienceArchive.Web.Api.Responses;
 namespace ScienceArchive.Web.Api.Controllers;
 
 [Route("api/articles")]
-public class ArticleController : Controller
+public class ArticleController : ControllerBase
 {
     private readonly IArticleInteractor _articleInteractor;
 
@@ -14,43 +14,56 @@ public class ArticleController : Controller
     {
         _articleInteractor = articleInteractor ?? throw new ArgumentNullException(nameof(articleInteractor));
     }
+    
+    [HttpGet("by-category/{categoryId}")]
+    public async Task<Response> GetByCategoryId(string categoryId)
+    {
+        if (categoryId is null)
+        {
+            throw new ArgumentNullException(nameof(categoryId));
+        }
+        
+        var dto = new GetArticlesByCategoryIdRequestDto(categoryId);
+        var result = await _articleInteractor.GetArticlesByCategoryId(dto);
+        return new SuccessResponse(result);
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<Response> GetById(string id)
+    {
+        var dto = new GetArticleByIdRequestDto(id);
+        var result = await _articleInteractor.GetArticleById(dto);
+        return new SuccessResponse(result);
+    }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<Response> GetAll()
     {
         var emptyRequest = new GetAllArticlesRequestDto();
 
         var result = await _articleInteractor.GetAllArticles(emptyRequest);
-        var response = new SuccessResponse(result);
-        
-        return Json(response);
+        return new SuccessResponse(result);
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody] CreateArticleRequestDto dto)
+    public async Task<Response> Create([FromBody] CreateArticleRequestDto dto)
     {
         var result = await _articleInteractor.CreateArticle(dto);
-        var response = new SuccessResponse(result);
-        
-        return Json(response);
+        return new SuccessResponse(result);
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> Update([FromBody] UpdateArticleRequestDto dto)
+    public async Task<Response> Update([FromBody] UpdateArticleRequestDto dto)
     {
         var result = await _articleInteractor.UpdateArticle(dto);
-        var response = new SuccessResponse(result);
-
-        return Json(response);
+        return new SuccessResponse(result);
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<Response> Delete(string id)
     {
         var dto = new DeleteArticleRequestDto(id);
         var result = await _articleInteractor.DeleteArticle(dto);
-        var response = new SuccessResponse(result);
-        
-        return Json(response);
+        return new SuccessResponse(result);
     }
 }

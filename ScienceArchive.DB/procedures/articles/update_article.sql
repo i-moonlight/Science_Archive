@@ -48,7 +48,7 @@ BEGIN
 
   INSERT INTO "articles_categories" (
     "article_id",
-    "category_id"
+    "subcategory_id"
   )
   SELECT
     "p_id",

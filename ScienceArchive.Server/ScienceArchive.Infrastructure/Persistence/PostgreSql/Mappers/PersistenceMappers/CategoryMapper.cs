@@ -7,9 +7,16 @@ namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
 public class CategoryMapper : IPersistenceMapper<Category, CategoryModel>
 {
+	private readonly IPersistenceMapper<Category, SubcategoryModel> _subcategoryMapper;
+	
+	public CategoryMapper(IPersistenceMapper<Category, SubcategoryModel> subcategoryMapper)
+	{
+		_subcategoryMapper = subcategoryMapper ?? throw new ArgumentNullException(nameof(subcategoryMapper));
+	}
+	
 	public CategoryModel MapToModel(Category entity)
 	{
-		var subcategories = entity.Subcategories?.Select(MapToModel).ToList();
+		var subcategories = entity.Subcategories?.Select(_subcategoryMapper.MapToModel).ToList();
 
 		return new()
 		{
@@ -22,7 +29,7 @@ public class CategoryMapper : IPersistenceMapper<Category, CategoryModel>
 	public Category MapToEntity(CategoryModel model)
 	{
 		var categoryId = CategoryId.CreateFromGuid(model.Id);
-		var subcategories = model.Subcategories?.Select(MapToEntity).ToList();
+		var subcategories = model.Subcategories?.Select(_subcategoryMapper.MapToEntity).ToList();
 
 		return new(categoryId)
 		{

@@ -15,6 +15,16 @@ public class NewsController : Controller
         _newsInteractor = newsInteractor ?? throw new ArgumentNullException(nameof(newsInteractor));
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(string id)
+    {
+        var dto = new GetNewsByIdRequestDto(id);
+        var result = await _newsInteractor.GetNewsById(dto);
+        var response = new SuccessResponse(result);
+
+        return Json(response);
+    }
+    
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

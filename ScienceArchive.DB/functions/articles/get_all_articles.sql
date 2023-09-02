@@ -4,7 +4,7 @@ RETURNS TABLE (
   "categoryId"        UUID,
   "title"             VARCHAR(255),
   "description"       TEXT,
-  "creationDate"      TIMESTAMP WITH TIME ZONE,
+  "creationDate"      TIMESTAMP,
   "authorsIds"        UUID[],
   "documents"         JSONB
 )
@@ -14,7 +14,7 @@ BEGIN
   RETURN QUERY
     SELECT
       a."id",
-      ac."category_id",
+      ac."subcategory_id",
       a."title",
       a."description",
       acr."created_timestamp" AS "creationDate",
