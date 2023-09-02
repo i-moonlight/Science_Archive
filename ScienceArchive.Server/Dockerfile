@@ -24,4 +24,4 @@ ENV SCIENCE_ARCHIVE_JWT_KEY=$SCIENCE_ARCHIVE_JWT_KEY
 
 ENV ASPNETCORE_URLS=http://+:5000
 
-ENTRYPOINT ["dotnet", "ScienceArchive.Api.dll"]
+ENTRYPOINT ["dotnet", "ScienceArchive.Web.Api.dll"]
