@@ -24,7 +24,7 @@
     ],
     "paths": {
       "@components/*": ["./src/app/components/*"],
-      "@helpers/*": ["./src/app/helpers/*"],
+      "@middleware/*": ["./src/app/middleware/*"],
       "@models/*": ["./src/app/models/*"],
       "@pages/*": ["./src/app/pages/*"],
       "@services/*": ["./src/app/services/*"],

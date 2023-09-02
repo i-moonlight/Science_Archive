@@ -1,33 +1,42 @@
-﻿using System;
-using System.Xml.Linq;
-using ScienceArchive.Core.Dtos;
-using ScienceArchive.Core.Dtos.User;
-using ScienceArchive.Core.Dtos.UserRequest;
-using ScienceArchive.Core.Dtos.UserResponse;
-using ScienceArchive.Core.Entities;
+﻿using ScienceArchive.Application.Dtos;
+using ScienceArchive.Application.Interfaces;
+using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 
-namespace ScienceArchive.Application.Mappers
+namespace ScienceArchive.Application.Mappers;
+
+public class UserMapper : IApplicationMapper<User, UserDto>
 {
-    public class UserMapper
+    public UserDto MapToDto(User user)
     {
-        public static IdentifiedUserDto MapToDto(User user)
+        var rolesIds = user.RolesIds.Select(r => r.ToString()).ToList();
+        
+        return new UserDto
         {
-            return new IdentifiedUserDto(
-                user.Id,
-                user.Name,
-                user.Email,
-                user.Login);
-        }
+            Id = user.Id.ToString(),
+            RolesIds = rolesIds,
+            Name = user.Name,
+            Email = user.Email,
+            Login = user.Login
+        };
+    }
 
-        public static User MapToEntity(UserDto userDto)
+    public User MapToEntity(UserDto model)
+    {
+        var userId = model.Id is not null
+            ? UserId.CreateFromString(model.Id)
+            : UserId.CreateNew();
+
+        var rolesIds = model.RolesIds.Select(RoleId.CreateFromString).ToList();
+        
+        return new User(userId)
         {
-            return new User(Guid.NewGuid())
-            {
-                Name = userDto.Name,
-                Email = userDto.Email,
-                Login = userDto.Login
-            };
-        }
+            Name = model.Name,
+            Email = model.Email,
+            Login = model.Login,
+            RolesIds = rolesIds,
+            Password = new UserPassword()
+        };
     }
 }
-

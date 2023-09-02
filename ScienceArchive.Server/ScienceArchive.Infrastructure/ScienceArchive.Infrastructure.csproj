@@ -8,20 +8,23 @@
 
   <ItemGroup>
     <None Remove="Persistence\" />
-    <None Remove="Persistence\Repositories\" />
-    <None Remove="Persistence\Models\" />
-    <None Remove="Persistence\Mappers\" />
+    <None Remove="Persistence\PostgreSql\" />
+    <None Remove="Persistence\PostgreSql\Mappers\" />
+    <None Remove="Persistence\PostgreSql\Models\" />
+    <None Remove="Persistence\PostgreSql\Repositories\" />
+    <None Remove="Persistence\Options\" />
+    <None Remove="Persistence\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Persistence\" />
-    <Folder Include="Persistence\Repositories\" />
-    <Folder Include="Persistence\Models\" />
-    <Folder Include="Persistence\Mappers\" />
+    <Folder Include="Persistence\Options\" />
+    <Folder Include="Persistence\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Npgsql" Version="7.0.4" />
   </ItemGroup>
 </Project>

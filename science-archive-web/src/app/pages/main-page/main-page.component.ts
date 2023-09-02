@@ -9,6 +9,8 @@ import { LocalStorageService } from "src/app/services/local-storage.service";
 export class MainPageComponent implements OnInit {
   login: string = "";
   isAuthorized: boolean = false;
+  isMobileMenuOpen: boolean = false;
+  isShowAccountDrawer: boolean = false;
 
   constructor(private storageService: LocalStorageService) {}
 
@@ -18,14 +20,32 @@ export class MainPageComponent implements OnInit {
     if (login) {
       this.login = login;
       this.isAuthorized = true;
+    } else {
+      this.login = "";
+      this.isAuthorized = false;
     }
-  }
-
-  onSignIn() {
-    window.location.href = "auth";
   }
 
   onSignOut() {
     this.storageService.clean();
+    this.ngOnInit();
   }
+
+  onToggleMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  onCloseMenu() {
+    this.isMobileMenuOpen = false;
+  }
+
+  onOpenDrawer() {
+    this.isShowAccountDrawer = true;
+  }
+
+  onCloseDrawer() {
+    this.isShowAccountDrawer = false;
+  }
+
+  protected readonly ontoggle = ontoggle;
 }

@@ -7,39 +7,37 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Entities\" />
-    <None Remove="Interfaces\" />
-    <None Remove="Interfaces\Repositories\" />
-    <None Remove="Interfaces\Services\" />
-    <None Remove="Utils\" />
-    <None Remove="Contracts\" />
     <None Remove="Contracts\User\" />
-    <None Remove="Dtos\User\Request\" />
-    <None Remove="Dtos\User\Response\" />
-    <None Remove="Dtos\System\" />
-    <None Remove="Dtos\System\Response\" />
-    <None Remove="Interfaces\UseCases\" />
-    <None Remove="Dtos\System\Request\" />
-    <None Remove="Dtos\Auth\" />
-    <None Remove="Dtos\Auth\Request\" />
-    <None Remove="Dtos\Auth\Response\" />
+    <None Remove="Domain\" />
+    <None Remove="Domain\Entities\" />
+    <None Remove="Domain\Common\" />
+    <None Remove="Exceptions\" />
+    <None Remove="Domain\ValueObjects\" />
+    <None Remove="Services\" />
+    <None Remove="Repositories\" />
+    <None Remove="Services\Article\" />
+    <None Remove="Services\Auth\" />
+    <None Remove="Services\News\" />
+    <None Remove="Services\Role\" />
+    <None Remove="Services\User\" />
+    <None Remove="Services\Article\Contracts\" />
+    <None Remove="Services\Auth\Contracts\" />
+    <None Remove="Services\News\Contracts\" />
+    <None Remove="Services\Role\Contracts\" />
+    <None Remove="Services\User\Contracts\" />
+    <None Remove="Services\System\" />
+    <None Remove="Domain\Utils\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Interfaces\Repositories\" />
-    <Folder Include="Interfaces\Services\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Dtos\User\" />
-    <Folder Include="Dtos\User\Request\" />
-    <Folder Include="Dtos\User\Response\" />
-    <Folder Include="Dtos\System\" />
-    <Folder Include="Dtos\System\Response\" />
-    <Folder Include="Interfaces\UseCases\" />
-    <Folder Include="Dtos\System\Request\" />
-    <Folder Include="Dtos\Auth\" />
-    <Folder Include="Dtos\Auth\Request\" />
-    <Folder Include="Dtos\Auth\Response\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Services\Article\" />
+    <Folder Include="Services\Auth\" />
+    <Folder Include="Services\News\" />
+    <Folder Include="Services\News\" />
+    <Folder Include="Services\Role\" />
+    <Folder Include="Services\User\" />
+    <Folder Include="Services\Auth\Contracts\" />
+    <Folder Include="Services\Role\Contracts\" />
+    <Folder Include="Services\System\" />
   </ItemGroup>
 </Project>

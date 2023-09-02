@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 
-import { SignUpRequest } from "@models/operations/auth/requests/sign-up.request";
+import { SignUpRequest } from "@models/auth/requests/sign-up.request";
 import { AuthService } from "@services/auth.service";
 
 @Component({
@@ -29,6 +29,7 @@ export class SignUpFormComponent {
         name: this.name,
         email: this.email,
         login: this.login,
+        rolesIds: [],
       },
       password: this.password,
     };

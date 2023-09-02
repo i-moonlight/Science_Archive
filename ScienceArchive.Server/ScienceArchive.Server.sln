@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1704.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Api", "ScienceArchive.Api\ScienceArchive.Api.csproj", "{5472851B-1259-4F48-B42E-7CFE5F41F683}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Web.Api", "ScienceArchive.Web.Api\ScienceArchive.Web.Api.csproj", "{5472851B-1259-4F48-B42E-7CFE5F41F683}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Core", "ScienceArchive.Core\ScienceArchive.Core.csproj", "{BB815083-291A-4FF2-8DE3-52C79943196E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Application", "ScienceArchive.Application\ScienceArchive.Application.csproj", "{807F3C2C-D29F-45C9-B8CB-BD343051B50E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DBD2A9F-8201-4149-9DCC-D5313E7CC177}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,6 +14,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Infrastructure", "ScienceArchive.Infrastructure\ScienceArchive.Infrastructure.csproj", "{34A85BE8-6D58-4E05-91B4-D13D26E5693B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2765A120-228A-49BA-8780-6640C39A331D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Core.Tests", "ScienceArchive.Core.Tests\ScienceArchive.Core.Tests.csproj", "{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.Application", "ScienceArchive.Application\ScienceArchive.Application.csproj", "{DC8B7D82-1823-445D-A41F-0CCCE7FC04D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScienceArchive.BusinessLogic", "ScienceArchive.BusinessLogic\ScienceArchive.BusinessLogic.csproj", "{BDD3B50F-0F20-42DD-B08A-B3F93D84952B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,19 +37,30 @@ Global
 		{BB815083-291A-4FF2-8DE3-52C79943196E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB815083-291A-4FF2-8DE3-52C79943196E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB815083-291A-4FF2-8DE3-52C79943196E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{807F3C2C-D29F-45C9-B8CB-BD343051B50E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{807F3C2C-D29F-45C9-B8CB-BD343051B50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{807F3C2C-D29F-45C9-B8CB-BD343051B50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{807F3C2C-D29F-45C9-B8CB-BD343051B50E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34A85BE8-6D58-4E05-91B4-D13D26E5693B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{34A85BE8-6D58-4E05-91B4-D13D26E5693B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A85BE8-6D58-4E05-91B4-D13D26E5693B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A85BE8-6D58-4E05-91B4-D13D26E5693B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC8B7D82-1823-445D-A41F-0CCCE7FC04D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC8B7D82-1823-445D-A41F-0CCCE7FC04D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC8B7D82-1823-445D-A41F-0CCCE7FC04D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC8B7D82-1823-445D-A41F-0CCCE7FC04D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDD3B50F-0F20-42DD-B08A-B3F93D84952B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDD3B50F-0F20-42DD-B08A-B3F93D84952B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDD3B50F-0F20-42DD-B08A-B3F93D84952B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDD3B50F-0F20-42DD-B08A-B3F93D84952B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94121A3E-CA09-4579-8399-CBF761D3BCFF}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{84974A5F-83EB-46B9-9CD7-0C99F2AFAA88} = {2765A120-228A-49BA-8780-6640C39A331D}
 	EndGlobalSection
 EndGlobal

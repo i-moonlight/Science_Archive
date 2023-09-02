@@ -1,0 +1,17 @@
+.card-container {
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 1px 10px 1px #9b9b9b4a;
+  border-radius: 10px;
+}
+
+.articles-data {
+  display: flex;
+  flex-direction: row;
+}
+
+.toggle-articles-text {
+  margin-left: 10px;
+  color: #1b57cf;
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from "@angular/core";
-import { SignInRequest } from "@models/operations/auth/requests/sign-in.request";
+import { SignInRequest } from "@models/auth/requests/sign-in.request";
 import { AuthService } from "@services/auth.service";
 import { LocalStorageService } from "@services/local-storage.service";
 
@@ -28,18 +28,19 @@ export class SignInFormComponent {
 
     this.authService.signIn(request).subscribe({
       next: (response) => {
-        if (response.success) {
-          if (!response.data) {
-            console.error("Cannot get valid auth token from server!");
-            return;
-          }
-
-          this.storageService.saveToken(response.data.token);
-          this.storageService.saveLogin(response.data.user.login);
-          window.location.href = "/main";
-        } else {
+        if (!response.success) {
           alert(response.error);
+          return;
         }
+
+        if (!response.data) {
+          console.error("Cannot get valid auth token from server!");
+          return;
+        }
+
+        this.storageService.saveToken(response.data.token);
+        this.storageService.saveLogin(response.data.user.login);
+        window.location.href = "/main";
       },
     });
   }

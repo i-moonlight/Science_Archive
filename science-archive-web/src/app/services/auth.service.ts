@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { SignInRequest } from "@models/operations/auth/requests/sign-in.request";
-import { SignUpRequest } from "@models/operations/auth/requests/sign-up.request";
-import { Response } from "@models/operations/response";
-import { SignUpResponse } from "@models/operations/auth/responses/sign-up.response";
-import { SignInResponse } from "@models/operations/auth/responses/sign-in.response";
+import { SignInRequest } from "@models/auth/requests/sign-in.request";
+import { SignUpRequest } from "@models/auth/requests/sign-up.request";
+import { Response } from "@models/common/response";
+import { SignUpResponse } from "@models/auth/responses/sign-up.response";
+import { SignInResponse } from "@models/auth/responses/sign-in.response";
 
 @Injectable({
   providedIn: "root",

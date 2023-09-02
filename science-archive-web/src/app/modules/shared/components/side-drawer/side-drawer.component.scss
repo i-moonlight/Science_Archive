@@ -1,0 +1,48 @@
+.drawer-overlay {
+  display: none;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.drawer-overlay.active {
+  display: block;
+}
+
+.drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  max-width: 90%;
+  height: 100%;
+  transition: all 300ms;
+  background-color: #ffffff;
+  border-radius: 10px 0 0 10px;
+  box-shadow: 0 5px 10px 2px #9b9b9b4a;
+  padding: 15px;
+}
+
+.close-button {
+  background-color: transparent;
+  color: #919191;
+  border: none;
+  font-weight: bold;
+  font-size: 25px;
+  cursor: pointer;
+
+  &:hover {
+    color: #3b3b3b;
+  }
+}
+
+.header {
+  margin-top: 30px;
+}
+
+.body {
+  overflow: scroll;
+}

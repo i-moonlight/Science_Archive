@@ -1,0 +1,13 @@
+<div class="authors-container">
+  <div *ngIf="isLoading; else authorsList">
+    <p>Loading...</p>
+  </div>
+
+  <ng-template #authorsList>
+    <p *ngIf="authors.length === 0">There is no authors yet</p>
+    <app-author-card
+      *ngFor="let author of authors"
+      [authorUser]="author"
+    ></app-author-card>
+  </ng-template>
+</div>

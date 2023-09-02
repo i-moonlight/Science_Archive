@@ -1,0 +1,17 @@
+.card-container {
+  background-color: #818181;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  width: auto;
+  margin: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #696969;
+  }
+}
+
+.subcategory-name {
+  font-weight: 600;
+}
