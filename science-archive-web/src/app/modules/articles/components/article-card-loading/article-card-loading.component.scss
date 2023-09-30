@@ -1,0 +1,37 @@
+.card-container {
+  display: flex;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 10px 1px #9b9b9b4a;
+  height: 150px;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .row-placeholder {
+    background-color: #bbbbbb;
+    height: 20px;
+    animation: colorChange 2s infinite alternate ease-in-out;
+  }
+
+  .long {
+    width: 80%;
+  }
+
+  .short {
+    width: 50%;
+  }
+
+  .semi {
+    width: 65%;
+  }
+
+  @keyframes colorChange {
+    0% {
+      background-color: #d5d5d5;
+    }
+    100% {
+      background-color: #adadad;
+    }
+  }
+}

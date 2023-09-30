@@ -19,9 +19,7 @@ export class AuthPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.systemService.checkSystemStatus().subscribe({
-      next: (response) => {
-        this.isServerWorking = response.success && !!response.data?.isWorking;
-      },
+      next: (response) => (this.isServerWorking = response.isWorking),
       error: () => {
         this.isServerWorking = false;
       },

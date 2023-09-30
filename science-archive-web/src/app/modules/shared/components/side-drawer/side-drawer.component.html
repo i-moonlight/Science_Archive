@@ -1,13 +1,14 @@
 <div class="drawer-overlay" [ngClass]="{'active': isOpen}" (click)="onInternalClose()">
   <div
     class="drawer"
+    (click)="onDrawerClick($event)"
     [style.right.px]="isOpen ? 0 : -430"
   >
     <button class="close-button" (click)="onInternalClose()">X</button>
     <div class="header">
       <h2>{{title}}</h2>
     </div>
-    <div class="body">
+    <div class="drawer-body">
       <ng-content></ng-content>
     </div>
   </div>

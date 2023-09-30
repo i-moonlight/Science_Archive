@@ -1,7 +1,8 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
+import { IdentifiedUser } from "@models/user/identified-user";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class LocalStorageService {
   constructor() {}
@@ -21,16 +22,20 @@ export class LocalStorageService {
 
   public isLoggedIn(): boolean {
     const token = this.getToken();
-
     return !!token;
   }
 
-  public getLogin(): string | null {
-    return localStorage.getItem("login");
+  public saveCurrentUser(user: IdentifiedUser): void {
+    localStorage.setItem("current_user", JSON.stringify(user));
   }
 
-  public saveLogin(login: string): void {
-    localStorage.removeItem("login");
-    localStorage.setItem("login", login);
+  public getCurrentUser(): IdentifiedUser | null {
+    const userJson = localStorage.getItem("current_user");
+
+    if (userJson) {
+      return JSON.parse(userJson) as IdentifiedUser;
+    }
+
+    return null;
   }
 }

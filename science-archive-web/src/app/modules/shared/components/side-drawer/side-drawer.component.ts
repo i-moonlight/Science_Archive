@@ -14,4 +14,8 @@ export class SideDrawerComponent {
     this.isOpen = false;
     this.onClose.emit();
   }
+
+  onDrawerClick(event: Event) {
+    event.stopPropagation();
+  }
 }

@@ -1,6 +1,9 @@
+<h2 class="page-header">News</h2>
 <div class="news-container">
   <div *ngIf="isLoading; else newsList">
-    <p>Loading...</p>
+    <app-news-card-loading
+      *ngFor="let i of [1,2,3]"
+    />
   </div>
 
   <ng-template #newsList>

@@ -18,13 +18,26 @@ public class ArticleController : ControllerBase
     [HttpGet("by-category/{categoryId}")]
     public async Task<Response> GetByCategoryId(string categoryId)
     {
-        if (categoryId is null)
+        if (string.IsNullOrWhiteSpace(categoryId))
         {
             throw new ArgumentNullException(nameof(categoryId));
         }
         
         var dto = new GetArticlesByCategoryIdRequestDto(categoryId);
         var result = await _articleInteractor.GetArticlesByCategoryId(dto);
+        return new SuccessResponse(result);
+    }
+
+    [HttpGet("by-author/{authorId}")]
+    public async Task<Response> GetByAuthorId(string authorId)
+    {
+        if (string.IsNullOrWhiteSpace(authorId))
+        {
+            throw new ArgumentNullException(nameof(authorId));
+        }
+
+        var dto = new GetArticlesByAuthorIdRequestDto(authorId);
+        var result = await _articleInteractor.GetArticlesByAuthorId(dto);
         return new SuccessResponse(result);
     }
     

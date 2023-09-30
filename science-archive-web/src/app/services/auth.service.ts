@@ -6,18 +6,23 @@ import { SignUpRequest } from "@models/auth/requests/sign-up.request";
 import { Response } from "@models/common/response";
 import { SignUpResponse } from "@models/auth/responses/sign-up.response";
 import { SignInResponse } from "@models/auth/responses/sign-in.response";
+import { ApiService } from "@services/api.service";
 
 @Injectable({
   providedIn: "root",
 })
-export class AuthService {
-  constructor(private httpClient: HttpClient) {}
-
-  signIn(request: SignInRequest): Observable<Response<SignInResponse>> {
-    return this.httpClient.post<Response<SignInResponse>>("/api/auth/sign-in", request);
+export class AuthService extends ApiService {
+  constructor(private httpClient: HttpClient) {
+    super();
   }
 
-  signUp(request: SignUpRequest): Observable<Response<SignUpResponse>> {
-    return this.httpClient.post<Response<SignUpResponse>>("/api/auth/sign-up", request);
+  signIn(request: SignInRequest): Observable<SignInResponse> {
+    const response = this.httpClient.post<Response<SignInResponse>>("/api/auth/sign-in", request);
+    return this.handleResponse(response);
+  }
+
+  signUp(request: SignUpRequest): Observable<SignUpResponse> {
+    const response = this.httpClient.post<Response<SignUpResponse>>("/api/auth/sign-up", request);
+    return this.handleResponse(response);
   }
 }

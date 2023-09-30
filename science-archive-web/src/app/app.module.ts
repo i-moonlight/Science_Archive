@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
@@ -17,6 +17,11 @@ import { ArticlesModule } from "@modules/articles/articles.module";
 import { AuthorsModule } from "@modules/authors/authors.module";
 import { CategoriesModule } from "@modules/categories/categories.module";
 import { NewsModule } from "@modules/news/news.module";
+import { AdminPageComponent } from "@pages/admin-page/admin-page.component";
+import { NgOptimizedImage } from "@angular/common";
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { environment } from "@environments/environment";
+import { AccountModule } from "@modules/account/account.module";
 
 @NgModule({
   imports: [
@@ -24,16 +29,26 @@ import { NewsModule } from "@modules/news/news.module";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgOptimizedImage,
 
     // Other modules
     SharedModule,
     AuthModule,
+    AccountModule,
     ArticlesModule,
     AuthorsModule,
     CategoriesModule,
     NewsModule,
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production,
+      registrationStrategy: "registerWhenStable:30000",
+    }),
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: !isDevMode(),
+      registrationStrategy: "registerWhenStable:30000",
+    }),
   ],
-  declarations: [AppComponent, AccountPageComponent, AuthPageComponent, MainPageComponent],
+  declarations: [AppComponent, AccountPageComponent, AuthPageComponent, MainPageComponent, AdminPageComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthRequestInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })

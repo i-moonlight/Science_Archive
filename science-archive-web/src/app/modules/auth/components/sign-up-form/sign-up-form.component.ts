@@ -36,15 +36,8 @@ export class SignUpFormComponent {
 
     this.authService.signUp(request).subscribe({
       next: (response) => {
-        if (response.success) {
-          alert("You have successfully signed up!");
-          this.changeAuthType();
-        } else {
-          alert(response.error);
-        }
-      },
-      error: (error) => {
-        alert(error);
+        alert("You have successfully signed up!");
+        this.changeAuthType();
       },
     });
   }

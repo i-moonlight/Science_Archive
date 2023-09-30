@@ -23,12 +23,13 @@
       "dom"
     ],
     "paths": {
+      "@environments/*": ["./src/environments/*"],
+
       "@components/*": ["./src/app/components/*"],
       "@middleware/*": ["./src/app/middleware/*"],
       "@models/*": ["./src/app/models/*"],
       "@pages/*": ["./src/app/pages/*"],
       "@services/*": ["./src/app/services/*"],
-
       "@modules/*": ["./src/app/modules/*"],
     }
   },

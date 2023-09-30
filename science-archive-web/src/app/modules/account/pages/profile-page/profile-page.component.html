@@ -1,0 +1,22 @@
+<div class="page-wrapper">
+  <h2>My Profile</h2>
+
+  <div *ngIf="isLoading">
+    Loading...
+  </div>
+
+  <div class="data-wrapper" *ngIf="!isLoading">
+    <app-profile-data-field
+      name="Name"
+      [value]="userData!.name"
+    />
+    <app-profile-data-field
+      name="Login"
+      [value]="userData!.login"
+    />
+    <app-profile-data-field
+      name="Email"
+      [value]="userData!.email"
+    />
+  </div>
+</div>

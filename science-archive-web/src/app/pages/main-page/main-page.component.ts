@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { LocalStorageService } from "src/app/services/local-storage.service";
+import { IdentifiedUser } from "@models/user/identified-user";
 
 @Component({
   selector: "app-main-page",
@@ -7,7 +8,7 @@ import { LocalStorageService } from "src/app/services/local-storage.service";
   styleUrls: ["./main-page.component.scss"],
 })
 export class MainPageComponent implements OnInit {
-  login: string = "";
+  currentUser: IdentifiedUser | null = null;
   isAuthorized: boolean = false;
   isMobileMenuOpen: boolean = false;
   isShowAccountDrawer: boolean = false;
@@ -15,19 +16,21 @@ export class MainPageComponent implements OnInit {
   constructor(private storageService: LocalStorageService) {}
 
   ngOnInit(): void {
-    const login = this.storageService.getLogin();
+    const user = this.storageService.getCurrentUser();
+    const isAuthorized = this.storageService.isLoggedIn();
 
-    if (login) {
-      this.login = login;
+    if (user && isAuthorized) {
+      this.currentUser = user;
       this.isAuthorized = true;
     } else {
-      this.login = "";
+      this.currentUser = null;
       this.isAuthorized = false;
     }
   }
 
   onSignOut() {
     this.storageService.clean();
+    this.isShowAccountDrawer = false;
     this.ngOnInit();
   }
 

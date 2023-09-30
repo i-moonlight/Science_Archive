@@ -1,0 +1,38 @@
+.card-container {
+  margin-bottom: 30px;
+}
+
+.subcategories-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 10px 1px #9b9b9b4a;
+}
+
+.subcategory-placeholder {
+  height: 40px;
+  width: 70px;
+  background-color: #6c6c6c;
+  margin-left: 10px;
+  border-radius: 5px;
+  animation: colorChange 2s infinite alternate ease-in-out;
+}
+
+.header-placeholder {
+  height: 20px;
+  background-color: #6c6c6c;
+  width: 50%;
+  animation: colorChange 2s infinite alternate ease-in-out;
+}
+
+@keyframes colorChange {
+  0% {
+    background-color: #d5d5d5;
+  }
+  100% {
+    background-color: #adadad;
+  }
+}

@@ -22,19 +22,7 @@ export class NewsDetailsPageComponent implements OnInit {
     }
 
     this.newsService.getNewsById(newsId).subscribe({
-      next: (response) => {
-        if (!response.success) {
-          alert(response.error);
-          return;
-        }
-
-        if (!response.data) {
-          alert("Cannot get any data!");
-          return;
-        }
-
-        this.news = response.data!.news;
-      },
+      next: (response) => (this.news = response.news),
     });
   }
 }

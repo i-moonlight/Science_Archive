@@ -1,6 +1,9 @@
+<h2 class="page-header">Articles</h2>
 <div class="articles-container">
   <div *ngIf="isLoading; else articlesList">
-    <p>Loading...</p>
+    <app-article-card-loading
+      *ngFor="let i of [1,2,3]"
+    />
   </div>
 
   <ng-template #articlesList>

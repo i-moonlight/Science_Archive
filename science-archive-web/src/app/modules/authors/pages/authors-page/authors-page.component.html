@@ -1,6 +1,9 @@
+<h2 class="page-header">Authors</h2>
 <div class="authors-container">
   <div *ngIf="isLoading; else authorsList">
-    <p>Loading...</p>
+    <app-author-card-loading
+      *ngFor="let i of [1,2,3]"
+    />
   </div>
 
   <ng-template #authorsList>

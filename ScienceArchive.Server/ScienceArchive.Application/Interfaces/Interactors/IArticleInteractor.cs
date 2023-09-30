@@ -16,6 +16,13 @@ public interface IArticleInteractor
     Task<GetAllArticlesResponseDto> GetAllArticles(GetAllArticlesRequestDto dto);
 
     /// <summary>
+    /// Get articles with specified author ID
+    /// </summary>
+    /// <param name="dto">DTO contract to get articles by author ID</param>
+    /// <returns>Response DTO</returns>
+    Task<GetArticlesByAuthorIdResponseDto> GetArticlesByAuthorId(GetArticlesByAuthorIdRequestDto dto);
+    
+    /// <summary>
     /// Get article by ID
     /// </summary>
     /// <param name="dto">DTO contract to get article by ID</param>

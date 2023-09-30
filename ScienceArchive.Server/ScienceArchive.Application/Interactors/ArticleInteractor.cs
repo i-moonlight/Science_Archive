@@ -6,6 +6,7 @@ using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Core.Domain.Aggregates.Article;
 using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.Category.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.ArticleContracts;
 
@@ -30,6 +31,16 @@ public class ArticleInteractor : IArticleInteractor
         var articlesDtos = articles.Select(article => _articleMapper.MapToDto(article)).ToList();
 
         return new(articlesDtos);
+    }
+
+    /// <inheritdoc/>
+    public async Task<GetArticlesByAuthorIdResponseDto> GetArticlesByAuthorId(GetArticlesByAuthorIdRequestDto dto)
+    {
+        var contract = new GetArticlesByAuthorIdContract(UserId.CreateFromString(dto.AuthorId));
+        var articles = await _articleService.GetByAuthorId(contract);
+
+        var articlesDtos = articles.Select(_articleMapper.MapToDto).ToList();
+        return new GetArticlesByAuthorIdResponseDto(articlesDtos);
     }
 
     /// <inheritdoc/>

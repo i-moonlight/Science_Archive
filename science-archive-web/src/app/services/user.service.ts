@@ -4,18 +4,29 @@ import { Observable } from "rxjs";
 import { Response } from "@models/common/response";
 import { GetAllUsersResponse } from "@models/user/responses/get-all-users.response";
 import { GetAllAuthorsResponse } from "@models/user/responses/get-all-authors.response";
+import { ApiService } from "@services/api.service";
+import { GetUserByIdResponse } from "@models/user/responses/get-user-by-id.response";
 
 @Injectable({
   providedIn: "root",
 })
-export class UserService {
-  constructor(private httpClient: HttpClient) {}
-
-  public getAllUsers(): Observable<Response<GetAllUsersResponse>> {
-    return this.httpClient.get<Response<GetAllUsersResponse>>("/api/users/");
+export class UserService extends ApiService {
+  constructor(private httpClient: HttpClient) {
+    super();
   }
 
-  public getAllAuthors(): Observable<Response<GetAllAuthorsResponse>> {
-    return this.httpClient.get<Response<GetAllAuthorsResponse>>("/api/users/get-authors");
+  public getAllUsers(): Observable<GetAllUsersResponse> {
+    const response = this.httpClient.get<Response<GetAllUsersResponse>>("/api/users/");
+    return this.handleResponse(response);
+  }
+
+  public getAllAuthors(): Observable<GetAllAuthorsResponse> {
+    const response = this.httpClient.get<Response<GetAllAuthorsResponse>>("/api/users/get-authors");
+    return this.handleResponse(response);
+  }
+
+  public getUserById(userId: string): Observable<GetUserByIdResponse> {
+    const response = this.httpClient.get<Response<GetUserByIdResponse>>(`/api/users/${userId}`);
+    return this.handleResponse(response);
   }
 }

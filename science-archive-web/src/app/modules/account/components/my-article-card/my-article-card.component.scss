@@ -1,0 +1,12 @@
+.article-card {
+  box-shadow: 0 1px 10px 1px #9b9b9b4a;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 10px;
+
+  &-description {
+    font-size: 0.85em;
+    color: #6c6c6c;
+    margin-top: 10px;
+  }
+}

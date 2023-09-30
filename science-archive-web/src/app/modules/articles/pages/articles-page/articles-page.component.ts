@@ -28,47 +28,17 @@ export class ArticlesPageComponent implements OnInit {
 
   private getAllArticles() {
     this.articleService.getAllArticles().subscribe({
-      next: (response) => {
-        this.isLoading = false;
-
-        if (!response.success) {
-          alert(response.error);
-          return;
-        }
-
-        if (!response.data) {
-          alert("Cannot get any data!");
-          return;
-        }
-
-        this.articles = response.data!.articles;
-      },
-      error: (err) => {
-        alert(err.message);
-      },
+      complete: () => (this.isLoading = false),
+      next: (response) => (this.articles = response.articles),
+      error: (err) => alert(err.message),
     });
   }
 
   private getArticlesByCategoryId(categoryId: string) {
     this.articleService.getArticlesByCategoryId(categoryId).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-
-        if (!response.success) {
-          alert(response.error);
-          return;
-        }
-
-        if (!response.data) {
-          alert("Cannot get any data!");
-          return;
-        }
-
-        this.articles = response.data!.articles;
-      },
-      error: (err) => {
-        alert(err.message);
-      },
+      complete: () => (this.isLoading = false),
+      next: (response) => (this.articles = response.articles),
+      error: (err) => alert(err.message),
     });
   }
 }

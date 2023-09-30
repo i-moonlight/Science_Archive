@@ -1,6 +1,9 @@
+<h2 class="page-header">Categories</h2>
 <div class="categories-container">
   <div *ngIf="isLoading; else categoriesList">
-    <p>Loading...</p>
+    <app-category-card-loading
+      *ngFor="let i of [1,2,3]"
+    />
   </div>
 
   <ng-template #categoriesList>

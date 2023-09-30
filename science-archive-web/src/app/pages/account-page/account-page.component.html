@@ -1,1 +1,22 @@
-<p>account-page works!</p>
+<div class="page-wrapper">
+  <div class="top-logo-wrapper">
+    <img alt="Back" ngSrc="assets/icons/navigation-back-arrow.svg" class="back-button" routerLink="/main" height="800" width="800" />
+    <h2>Science Archive Account</h2>
+  </div>
+  <div class="page-content">
+    <nav>
+      <h3 class="menu-header">Account</h3>
+      <div class="menu-element" routerLink="/account/profile">
+        <img class="menu-element-icon" ngSrc="/assets/icons/user.svg" alt="" width=20 height=20>
+        <span class="menu-element-text">My Profile</span>
+      </div>
+      <div class="menu-element" routerLink="/account/articles">
+        <img class="menu-element-icon" ngSrc="/assets/icons/book-open.svg" alt="" width=20 height=20>
+        <span class="menu-element-text">My Articles</span>
+      </div>
+    </nav>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

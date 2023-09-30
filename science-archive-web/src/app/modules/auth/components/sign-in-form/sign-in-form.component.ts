@@ -28,18 +28,8 @@ export class SignInFormComponent {
 
     this.authService.signIn(request).subscribe({
       next: (response) => {
-        if (!response.success) {
-          alert(response.error);
-          return;
-        }
-
-        if (!response.data) {
-          console.error("Cannot get valid auth token from server!");
-          return;
-        }
-
-        this.storageService.saveToken(response.data.token);
-        this.storageService.saveLogin(response.data.user.login);
+        this.storageService.saveToken(response.token);
+        this.storageService.saveCurrentUser(response.user);
         window.location.href = "/main";
       },
     });

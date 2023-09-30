@@ -4,6 +4,7 @@ using System.Text.Json;
 using ScienceArchive.Core.Domain.Aggregates.Article;
 using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.Category.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Exceptions;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
@@ -54,7 +55,25 @@ public class PostgresArticleRepository : IArticleRepository
 
         return articles.Select(_mapper.MapToEntity).ToList();
     }
-    
+
+    public async Task<List<Article>> GetByAuthorId(UserId userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("UserId", userId.Value);
+
+        var articles = await _connection.QueryAsync<ArticleModel>(
+            "SELECT * FROM func_get_articles_by_author_id(@UserId)",
+            parameters,
+            commandType: CommandType.Text);
+
+        if (articles is null)
+        {
+            throw new EntityNotFoundException<NewsModel>("Cannot get any article");
+        }
+
+        return articles.Select(_mapper.MapToEntity).ToList();
+    }
+
     public async Task<Article?> GetById(ArticleId id)
     {
         var parameters = new DynamicParameters();

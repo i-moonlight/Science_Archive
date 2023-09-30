@@ -15,20 +15,9 @@ export class NewsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.newsService.getAllNews().subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        if (!response.success) {
-          alert(response.error);
-          return;
-        }
-
-        if (!response.data) {
-          alert("Cannot get any data!");
-          return;
-        }
-
-        this.news = this.processNews(response.data!.news);
-      },
+      complete: () => (this.isLoading = false),
+      next: (response) => (this.news = this.processNews(response.news)),
+      error: (err) => alert(err),
     });
   }
 

@@ -13,28 +13,28 @@
         <span
           (click)="onCloseMenu()"
           class="top-menu-element"
-          routerLink="/main/articles"
+          routerLink="articles"
         >
           Articles
         </span>
         <span
           (click)="onCloseMenu()"
           class="top-menu-element"
-          routerLink="/main/categories"
+          routerLink="categories"
         >
           Categories
         </span>
         <span
           (click)="onCloseMenu()"
           class="top-menu-element"
-          routerLink="/main/authors"
+          routerLink="authors"
         >
           Authors
         </span>
         <span
           (click)="onCloseMenu()"
           class="top-menu-element"
-          routerLink="/main/news"
+          routerLink="news"
         >
           News
         </span>
@@ -45,7 +45,7 @@
       class='top-menu-auth'
       (click)='onOpenDrawer()'
     >
-      {{login}}
+      {{currentUser?.login}}
     </div>
     <ng-template #notAuthorizedBlock>
       <div
@@ -62,14 +62,13 @@
 </div>
 
 <app-side-drawer
-  [title]="login"
+  [title]="currentUser?.login ?? ''"
   [isOpen]="isShowAccountDrawer"
   (onClose)="onCloseDrawer()"
 >
   <div class="account-actions">
-    <span class="account-action">My Profile</span>
-    <span class="account-action">My Articles</span>
-    <span class="account-action">Settings</span>
+    <span class="account-action" routerLink="/account/profile">My Profile</span>
+    <span class="account-action" routerLink="/account/articles">My Articles</span>
     <span class="account-action sign-out-action" (click)="onSignOut()">Sign Out</span>
   </div>
 </app-side-drawer>

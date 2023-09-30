@@ -22,19 +22,7 @@ export class ArticleDetailsPageComponent implements OnInit {
     }
 
     this.articleService.getArticleById(articleId).subscribe({
-      next: async (response) => {
-        if (!response.success) {
-          alert(response.error);
-          return;
-        }
-
-        if (!response.data) {
-          alert("Cannot get any data!");
-          return;
-        }
-
-        this.article = response.data!.article;
-      },
+      next: async (response) => (this.article = response.article),
     });
   }
 }

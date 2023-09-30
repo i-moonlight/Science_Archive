@@ -64,6 +64,7 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<Article, UpdateArticleContract>, UpdateArticleUseCase>();
         _ = services.AddTransient<IUseCase<ArticleId, DeleteArticleContract>, DeleteArticleUseCase>();
         _ = services.AddTransient<IUseCase<List<Article>, GetArticlesByCategoryIdContract>, GetArticlesByCategoryIdUseCase>();
+        _ = services.AddTransient<IUseCase<List<Article>, GetArticlesByAuthorIdContract>, GetArticlesByAuthorIdUseCase>();
 
         // Auth use cases
         _ = services.AddTransient<IUseCase<User, LoginContract>, LoginUseCase>();

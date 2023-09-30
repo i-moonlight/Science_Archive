@@ -18,6 +18,13 @@ public interface IArticleService
     Task<Article?> GetById(GetArticleByIdContract contract);
 
     /// <summary>
+    /// Get articles by author ids
+    /// </summary>
+    /// <param name="contract">Contract to get articles by author ID</param>
+    /// <returns>Articles with specified author ID</returns>
+    Task<List<Article>> GetByAuthorId(GetArticlesByAuthorIdContract contract);
+
+    /// <summary>
     /// Get articles by category ID
     /// </summary>
     /// <param name="contract">Contract to get articles by category ID</param>

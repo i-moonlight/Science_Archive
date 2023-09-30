@@ -1,0 +1,102 @@
+.page-wrapper {
+  height: 100%;
+}
+
+.top-logo-wrapper {
+  display: flex;
+  flex-direction: row;
+  background-color: #1B57CFFF;
+  padding: 5px;
+  color: #FFFFFF;
+  height: 50px;
+  line-height: 50px;
+
+  h2 {
+    margin-left: 10px;
+  }
+}
+
+.back-button {
+  display: block;
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  background-color: #f7f9ff;
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    box-shadow: 0 5px 10px 2px #9b9b9b4a;
+    height: 100%;
+    background-color: #ffffff;
+  }
+}
+
+.menu-header {
+  margin-left: 15px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.menu-element {
+  padding: 15px;
+  border-radius: 5px;
+
+  &-text {
+    margin-left: 10px;
+  }
+
+  &:hover {
+    background-color: #f3f3f3;
+    cursor: pointer;
+  }
+}
+
+.main-content {
+  margin-top: 25px;
+  margin-left: 25px;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .page-content {
+    nav {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+      position: fixed;
+      bottom: 0;
+      height: 75px;
+      width: 100%;
+
+      h3 {
+        display: none;
+      }
+    }
+  }
+
+  .menu-element {
+    flex-direction: column;
+
+    &-text {
+      display: none;
+    }
+
+    &-icon {
+      width: 30px;
+      height: 50px;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
