@@ -4,7 +4,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
-public class ClaimMapper : IPersistenceMapper<RoleClaim, ClaimModel>
+internal class ClaimMapper : IPersistenceMapper<RoleClaim, ClaimModel>
 {
 	public ClaimModel MapToModel(RoleClaim entity)
 	{

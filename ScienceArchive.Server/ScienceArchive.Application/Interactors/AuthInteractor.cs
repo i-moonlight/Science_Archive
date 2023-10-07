@@ -10,7 +10,7 @@ using ScienceArchive.Core.Services.UserContracts;
 
 namespace ScienceArchive.Application.Interactors;
 
-public class AuthInteractor : IAuthInteractor
+internal class AuthInteractor : IAuthInteractor
 {
     private readonly IAuthService _authService;
     private readonly IUserService _userService;

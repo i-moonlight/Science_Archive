@@ -5,7 +5,7 @@ using ScienceArchive.Core.Domain.Aggregates.Category.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
-public class CategoryMapper : IApplicationMapper<Category, CategoryDto>
+internal class CategoryMapper : IApplicationMapper<Category, CategoryDto>
 {
 	public CategoryDto MapToDto(Category entity)
 	{

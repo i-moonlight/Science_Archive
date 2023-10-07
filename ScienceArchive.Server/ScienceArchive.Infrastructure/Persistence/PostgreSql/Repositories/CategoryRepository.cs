@@ -9,7 +9,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 
-public class PostgresCategoryRepository : ICategoryRepository
+internal class PostgresCategoryRepository : ICategoryRepository
 {
 	private readonly IDbConnection _connection;
 	private readonly IPersistenceMapper<Category, CategoryModel> _mapper;

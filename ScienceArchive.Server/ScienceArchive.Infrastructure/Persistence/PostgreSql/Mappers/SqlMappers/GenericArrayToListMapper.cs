@@ -3,7 +3,7 @@ using Dapper;
 
 namespace ScienceArchive.Infrastructure.PostgreSql.SqlMappers;
 
-public class GenericArrayToListMapper<T> : SqlMapper.TypeHandler<List<T>>
+internal class GenericArrayToListMapper<T> : SqlMapper.TypeHandler<List<T>>
 {
 	public override void SetValue(IDbDataParameter parameter, List<T> value)
 	{

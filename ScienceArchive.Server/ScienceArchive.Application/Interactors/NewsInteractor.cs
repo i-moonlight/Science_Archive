@@ -8,68 +8,66 @@ using ScienceArchive.Core.Domain.Aggregates.News.ValueObjects;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.NewsContracts;
 
-namespace ScienceArchive.Application.Interactors
+namespace ScienceArchive.Application.Interactors;
+
+internal class NewsInteractor : INewsInteractor
 {
-    public class NewsInteractor : INewsInteractor
+    private readonly INewsService _newsService;
+    private readonly IApplicationMapper<News, NewsDto> _newsMapper;
+
+    public NewsInteractor(INewsService newsService, IApplicationMapper<News, NewsDto> newsMapper)
     {
-        private readonly INewsService _newsService;
-        private readonly IApplicationMapper<News, NewsDto> _newsMapper;
+        _newsService = newsService ?? throw new ArgumentNullException(nameof(newsService));
+        _newsMapper = newsMapper ?? throw new ArgumentNullException(nameof(newsMapper));
+    }
 
-        public NewsInteractor(INewsService newsService, IApplicationMapper<News, NewsDto> newsMapper)
-        {
-            _newsService = newsService ?? throw new ArgumentNullException(nameof(newsService));
-            _newsMapper = newsMapper ?? throw new ArgumentNullException(nameof(newsMapper));
-        }
+    /// <inheritdoc/>
+    public async Task<GetAllNewsResponseDto> GetAllNews(GetAllNewsRequestDto dto)
+    {
+        var contract = new GetAllNewsContract();
+        var news = await _newsService.GetAll(contract);
+        var newsDtos = news.Select(newsEntity => _newsMapper.MapToDto(newsEntity)).ToList();
 
-        /// <inheritdoc/>
-        public async Task<GetAllNewsResponseDto> GetAllNews(GetAllNewsRequestDto dto)
-        {
-            var contract = new GetAllNewsContract();
-            var news = await _newsService.GetAll(contract);
-            var newsDtos = news.Select(newsEntity => _newsMapper.MapToDto(newsEntity)).ToList();
+        return new(newsDtos);
+    }
 
-            return new(newsDtos);
-        }
+    /// <inheritdoc/>
+    public async Task<GetNewsByIdResponseDto> GetNewsById(GetNewsByIdRequestDto dto)
+    {
+        var contract = new GetNewsByIdContract(NewsId.CreateFromString(dto.Id));
+        var news = await _newsService.GetById(contract);
 
-        /// <inheritdoc/>
-        public async Task<GetNewsByIdResponseDto> GetNewsById(GetNewsByIdRequestDto dto)
-        {
-            var contract = new GetNewsByIdContract(NewsId.CreateFromString(dto.Id));
-            var news = await _newsService.GetById(contract);
+        var newsDto = news is not null
+            ? _newsMapper.MapToDto(news)
+            : null;
 
-            var newsDto = news is not null
-                ? _newsMapper.MapToDto(news)
-                : null;
+        return new(newsDto);
+    }
 
-            return new(newsDto);
-        }
+    /// <inheritdoc/>
+    public async Task<CreateNewsResponseDto> CreateNews(CreateNewsRequestDto dto)
+    {
+        var contract = new CreateNewsContract(_newsMapper.MapToEntity(dto.News));
+        var createdNews = await _newsService.Create(contract);
 
-        /// <inheritdoc/>
-        public async Task<CreateNewsResponseDto> CreateNews(CreateNewsRequestDto dto)
-        {
-            var contract = new CreateNewsContract(_newsMapper.MapToEntity(dto.News));
-            var createdNews = await _newsService.Create(contract);
+        return new(_newsMapper.MapToDto(createdNews));
+    }
 
-            return new(_newsMapper.MapToDto(createdNews));
-        }
+    /// <inheritdoc/>
+    public async Task<UpdateNewsResponseDto> UpdateNews(UpdateNewsRequestDto dto)
+    {
+        var contract = new UpdateNewsContract(NewsId.CreateFromString(dto.Id), _newsMapper.MapToEntity(dto.News));
+        var updatedNews = await _newsService.Update(contract);
 
-        /// <inheritdoc/>
-        public async Task<UpdateNewsResponseDto> UpdateNews(UpdateNewsRequestDto dto)
-        {
-            var contract = new UpdateNewsContract(NewsId.CreateFromString(dto.Id), _newsMapper.MapToEntity(dto.News));
-            var updatedNews = await _newsService.Update(contract);
+        return new(_newsMapper.MapToDto(updatedNews));
+    }
 
-            return new(_newsMapper.MapToDto(updatedNews));
-        }
+    /// <inheritdoc/>
+    public async Task<DeleteNewsResponseDto> DeleteNews(DeleteNewsRequestDto dto)
+    {
+        var contract = new DeleteNewsContract(NewsId.CreateFromString(dto.Id));
+        var deletedNewsId = await _newsService.Delete(contract);
 
-        /// <inheritdoc/>
-        public async Task<DeleteNewsResponseDto> DeleteNews(DeleteNewsRequestDto dto)
-        {
-            var contract = new DeleteNewsContract(NewsId.CreateFromString(dto.Id));
-            var deletedNewsId = await _newsService.Delete(contract);
-
-            return new(deletedNewsId.ToString());
-        }
+        return new(deletedNewsId.ToString());
     }
 }
-

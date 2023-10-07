@@ -6,7 +6,7 @@ namespace ScienceArchive.Infrastructure.Persistence.PostgreSql;
 /// <summary>
 /// Context of connection to PostgreSQL
 /// </summary>
-public class PostgresContext
+internal class PostgresContext
 {
     private readonly string _connectionString;
 

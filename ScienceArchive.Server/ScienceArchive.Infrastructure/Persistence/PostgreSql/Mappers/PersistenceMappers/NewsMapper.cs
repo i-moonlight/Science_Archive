@@ -6,7 +6,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
-public class NewsMapper : IPersistenceMapper<News, NewsModel>
+internal class NewsMapper : IPersistenceMapper<News, NewsModel>
 {
 	public NewsModel MapToModel(News entity)
 	{

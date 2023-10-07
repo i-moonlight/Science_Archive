@@ -1,6 +1,6 @@
 ﻿namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-public record UserModel
+internal record UserModel
 {
 	/// <summary>
 	/// ID of the user

@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TEntity">Entity type</typeparam>
 /// <typeparam name="TModel">Model type</typeparam>
-public interface IPersistenceMapper<TEntity, TModel>
+internal interface IPersistenceMapper<TEntity, TModel>
 {
     /// <summary>
     /// Map entity to model type

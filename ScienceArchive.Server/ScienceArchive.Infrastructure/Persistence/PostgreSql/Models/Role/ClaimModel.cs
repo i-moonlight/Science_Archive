@@ -2,7 +2,7 @@
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-public record ClaimModel
+internal record ClaimModel
 {
 	/// <summary>
 	/// Claim identifier

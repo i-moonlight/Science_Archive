@@ -4,7 +4,7 @@ using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
-public class ClaimMapper : IApplicationMapper<RoleClaim, ClaimDto>
+internal class ClaimMapper : IApplicationMapper<RoleClaim, ClaimDto>
 {
     public ClaimDto MapToDto(RoleClaim entity)
     {

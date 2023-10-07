@@ -6,7 +6,7 @@ using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
-public class NewsMapper : IApplicationMapper<News, NewsDto>
+internal class NewsMapper : IApplicationMapper<News, NewsDto>
 {
     public NewsDto MapToDto(News entity)
     {
