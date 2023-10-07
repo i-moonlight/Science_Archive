@@ -1,11 +1,11 @@
 <div class="card-container">
-  <h2>{{authorUser?.name}}</h2>
+  <h2>{{authorUser.name}}</h2>
   <p class="about-author">
-    {{authorUser?.description}}
+    {{authorUser.description}}
   </p>
   <div class="articles-data">
     <p class="articles-count">
-      Total articles: {{authorUser!.articlesIds.length}}
+      Total articles: {{authorUser.articlesIds.length}}
     </p>
 <!--    TODO: Create list of articles of an author later -->
 <!--    <div *ngIf="isArticlesShown; then hideArticlesSpan else showArticlesSpan"></div>-->

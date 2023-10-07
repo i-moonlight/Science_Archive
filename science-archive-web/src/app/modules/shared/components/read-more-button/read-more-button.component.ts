@@ -8,8 +8,8 @@ import { Router } from "@angular/router";
 })
 export class ReadMoreButtonComponent {
   @Input() title = "Read more";
-  @Input() onClick: (() => void) | null = null;
-  @Input() routerLink: string | null = null;
+  @Input() onClick!: () => void;
+  @Input() routerLink!: string;
 
   constructor(private router: Router) {}
 

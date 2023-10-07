@@ -8,7 +8,7 @@ import { Article } from "@models/article/article";
   styleUrls: ["./author-card.component.scss"],
 })
 export class AuthorCardComponent {
-  @Input() authorUser: AuthorUser | null = null;
+  @Input() authorUser!: AuthorUser;
   articles: Article[] = [];
   isArticlesShown: boolean = false;
 

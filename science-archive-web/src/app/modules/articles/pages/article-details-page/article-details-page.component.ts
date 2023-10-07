@@ -9,7 +9,7 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./article-details-page.component.scss"],
 })
 export class ArticleDetailsPageComponent implements OnInit {
-  article: Article | null = null;
+  article!: Article;
 
   constructor(private readonly articleService: ArticleService, private readonly route: ActivatedRoute) {}
 

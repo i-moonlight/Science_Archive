@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { IdentifiedUser } from "@models/user/identified-user";
-import { AuthorUser } from "@models/user/author-user";
 import { UserService } from "@services/user.service";
 import { LocalStorageService } from "@services/local-storage.service";
 import { Router } from "@angular/router";
@@ -12,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class ProfilePageComponent implements OnInit {
   isLoading = true;
-  userData: IdentifiedUser | null = null;
+  userData!: IdentifiedUser;
 
   constructor(
     private router: Router,

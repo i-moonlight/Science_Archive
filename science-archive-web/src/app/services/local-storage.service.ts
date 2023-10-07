@@ -12,8 +12,8 @@ export class LocalStorageService {
   }
 
   public saveToken(token: string) {
-    localStorage.removeItem("api_token");
-    localStorage.setItem("api_token", token);
+    localStorage.removeItem(LocalStorageKeys.ApiToken);
+    localStorage.setItem(LocalStorageKeys.ApiToken, token);
   }
 
   public getToken(): string | null {
@@ -26,11 +26,11 @@ export class LocalStorageService {
   }
 
   public saveCurrentUser(user: IdentifiedUser): void {
-    localStorage.setItem("current_user", JSON.stringify(user));
+    localStorage.setItem(LocalStorageKeys.CurrentUser, JSON.stringify(user));
   }
 
   public getCurrentUser(): IdentifiedUser | null {
-    const userJson = localStorage.getItem("current_user");
+    const userJson = localStorage.getItem(LocalStorageKeys.CurrentUser);
 
     if (userJson) {
       return JSON.parse(userJson) as IdentifiedUser;
@@ -38,4 +38,9 @@ export class LocalStorageService {
 
     return null;
   }
+}
+
+enum LocalStorageKeys {
+  ApiToken = "api_token",
+  CurrentUser = "current_user",
 }
