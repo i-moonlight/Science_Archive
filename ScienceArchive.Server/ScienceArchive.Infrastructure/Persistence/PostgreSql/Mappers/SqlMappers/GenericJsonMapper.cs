@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace ScienceArchive.Infrastructure.PostgreSql.SqlMappers;
 
-public class GenericJsonMapper<T> : SqlMapper.TypeHandler<T?>
+internal class GenericJsonMapper<T> : SqlMapper.TypeHandler<T?>
 {
 	public override void SetValue(IDbDataParameter parameter, T? value)
 	{

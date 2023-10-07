@@ -6,7 +6,7 @@ using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
-public class RoleMapper : IApplicationMapper<Role, RoleDto>
+internal class RoleMapper : IApplicationMapper<Role, RoleDto>
 {
     private readonly IApplicationMapper<RoleClaim, ClaimDto> _claimMapper;
 

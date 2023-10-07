@@ -5,7 +5,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
-public class RoleMapper : IPersistenceMapper<Role, RoleModel>
+internal class RoleMapper : IPersistenceMapper<Role, RoleModel>
 {
 	private readonly IPersistenceMapper<RoleClaim, ClaimModel> _claimMapper;
 

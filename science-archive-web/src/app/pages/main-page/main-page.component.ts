@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LocalStorageService } from "src/app/services/local-storage.service";
 import { IdentifiedUser } from "@models/user/identified-user";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-main-page",
@@ -9,11 +10,13 @@ import { IdentifiedUser } from "@models/user/identified-user";
 })
 export class MainPageComponent implements OnInit {
   currentUser: IdentifiedUser | null = null;
-  isAuthorized: boolean = false;
-  isMobileMenuOpen: boolean = false;
-  isShowAccountDrawer: boolean = false;
 
-  constructor(private storageService: LocalStorageService) {}
+  isAuthorized = false;
+  isMobileMenuOpen = false;
+  isShowAccountDrawer = false;
+  activePanel!: string;
+
+  constructor(private readonly storageService: LocalStorageService, private readonly route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const user = this.storageService.getCurrentUser();
@@ -23,9 +26,20 @@ export class MainPageComponent implements OnInit {
       this.currentUser = user;
       this.isAuthorized = true;
     } else {
-      this.currentUser = null;
       this.isAuthorized = false;
+      this.currentUser = null;
     }
+
+    const routeSnapshot = this.route.snapshot;
+    const routeSegments = routeSnapshot.url;
+
+    if (routeSegments.length < 2) {
+      this.activePanel = "";
+    } else {
+      this.activePanel = routeSegments[2].path;
+    }
+
+    console.log(this.activePanel);
   }
 
   onSignOut() {

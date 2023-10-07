@@ -1,6 +1,6 @@
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-public record AuthorModel
+internal record AuthorModel
 {
 	/// <summary>
 	/// Id of author

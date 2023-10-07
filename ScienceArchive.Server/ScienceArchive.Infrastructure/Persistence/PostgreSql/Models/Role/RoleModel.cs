@@ -1,6 +1,6 @@
 ﻿namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-public record RoleModel
+internal record RoleModel
 {
 	/// <summary>
 	/// Role identifier

@@ -6,7 +6,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
-public class UserMapper : IPersistenceMapper<User, UserModel>
+internal class UserMapper : IPersistenceMapper<User, UserModel>
 {
     public UserModel MapToModel(User user)
     {

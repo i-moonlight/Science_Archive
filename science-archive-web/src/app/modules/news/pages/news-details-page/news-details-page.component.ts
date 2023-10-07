@@ -9,7 +9,7 @@ import { NewsService } from "@services/news.service";
   styleUrls: ["./news-details-page.component.scss"],
 })
 export class NewsDetailsPageComponent implements OnInit {
-  news: News | null = null;
+  news!: News;
 
   constructor(private route: ActivatedRoute, private newsService: NewsService) {}
 

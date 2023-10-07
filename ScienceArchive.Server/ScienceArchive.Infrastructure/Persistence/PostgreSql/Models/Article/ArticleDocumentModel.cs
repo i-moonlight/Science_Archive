@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-public class ArticleDocumentModel
+internal class ArticleDocumentModel
 {
 	/// <summary>
 	/// Path to a document linked to article

@@ -1,6 +1,6 @@
 ﻿namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-public record NewsModel
+internal record NewsModel
 {
 	/// <summary>
 	/// News identifier

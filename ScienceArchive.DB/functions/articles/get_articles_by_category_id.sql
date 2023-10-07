@@ -18,7 +18,7 @@ BEGIN
       a."id",
       ac."subcategory_id",
       a."title",
-      a."description",
+      CASE WHEN length(a."description") > 700 THEN concat(left(a."description", 700), '...') ELSE a."description" END AS "body",
       acr."created_timestamp" AS "creationDate",
       (
         SELECT

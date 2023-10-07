@@ -8,55 +8,53 @@ using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.RoleContracts;
 
-namespace ScienceArchive.Application.Interactors
+namespace ScienceArchive.Application.Interactors;
+
+internal class RoleInteractor : IRoleInteractor
 {
-    public class RoleInteractor : IRoleInteractor
+    private readonly IRoleService _roleService;
+    private readonly IApplicationMapper<Role, RoleDto> _roleMapper;
+
+    public RoleInteractor(IRoleService roleService, IApplicationMapper<Role, RoleDto> roleMapper)
     {
-        private readonly IRoleService _roleService;
-        private readonly IApplicationMapper<Role, RoleDto> _roleMapper;
+        _roleService = roleService ?? throw new ArgumentNullException(nameof(roleService));
+        _roleMapper = roleMapper ?? throw new ArgumentNullException(nameof(roleMapper));
+    }
 
-        public RoleInteractor(IRoleService roleService, IApplicationMapper<Role, RoleDto> roleMapper)
-        {
-            _roleService = roleService ?? throw new ArgumentNullException(nameof(roleService));
-            _roleMapper = roleMapper ?? throw new ArgumentNullException(nameof(roleMapper));
-        }
+    /// <inheritdoc/>
+    public async Task<CreateRoleResponseDto> CreateRole(CreateRoleRequestDto dto)
+    {
+        var contract = new CreateRoleContract(_roleMapper.MapToEntity(dto.Role));
+        var createdRole = await _roleService.Create(contract);
 
-        /// <inheritdoc/>
-        public async Task<CreateRoleResponseDto> CreateRole(CreateRoleRequestDto dto)
-        {
-            var contract = new CreateRoleContract(_roleMapper.MapToEntity(dto.Role));
-            var createdRole = await _roleService.Create(contract);
+        return new(_roleMapper.MapToDto(createdRole));
+    }
 
-            return new(_roleMapper.MapToDto(createdRole));
-        }
+    /// <inheritdoc/>
+    public async Task<DeleteRoleResponseDto> DeleteRole(DeleteRoleRequestDto dto)
+    {
+        var contract = new DeleteRoleContract(RoleId.CreateFromString(dto.Id));
+        var deletedRoleId = await _roleService.Delete(contract);
 
-        /// <inheritdoc/>
-        public async Task<DeleteRoleResponseDto> DeleteRole(DeleteRoleRequestDto dto)
-        {
-            var contract = new DeleteRoleContract(RoleId.CreateFromString(dto.Id));
-            var deletedRoleId = await _roleService.Delete(contract);
+        return new(deletedRoleId.ToString());
+    }
 
-            return new(deletedRoleId.ToString());
-        }
+    /// <inheritdoc/>
+    public async Task<GetAllRolesResponseDto> GetAllRoles(GetAllRolesRequestDto dto)
+    {
+        var contract = new GetAllRolesContract();
+        var roles = await _roleService.GetAll(contract);
+        var rolesDtos = roles.Select(role => _roleMapper.MapToDto(role)).ToList();
 
-        /// <inheritdoc/>
-        public async Task<GetAllRolesResponseDto> GetAllRoles(GetAllRolesRequestDto dto)
-        {
-            var contract = new GetAllRolesContract();
-            var roles = await _roleService.GetAll(contract);
-            var rolesDtos = roles.Select(role => _roleMapper.MapToDto(role)).ToList();
+        return new(rolesDtos);
+    }
 
-            return new(rolesDtos);
-        }
+    /// <inheritdoc/>
+    public async Task<UpdateRoleResponseDto> UpdateRole(UpdateRoleRequestDto dto)
+    {
+        var contract = new UpdateRoleContract(RoleId.CreateFromString(dto.Id), _roleMapper.MapToEntity(dto.Role));
+        var updatedRole = await _roleService.Update(contract);
 
-        /// <inheritdoc/>
-        public async Task<UpdateRoleResponseDto> UpdateRole(UpdateRoleRequestDto dto)
-        {
-            var contract = new UpdateRoleContract(RoleId.CreateFromString(dto.Id), _roleMapper.MapToEntity(dto.Role));
-            var updatedRole = await _roleService.Update(contract);
-
-            return new(_roleMapper.MapToDto(updatedRole));
-        }
+        return new(_roleMapper.MapToDto(updatedRole));
     }
 }
-

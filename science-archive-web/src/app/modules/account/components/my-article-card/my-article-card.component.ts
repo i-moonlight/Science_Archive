@@ -7,5 +7,5 @@ import { Article } from "@models/article/article";
   styleUrls: ["./my-article-card.component.scss"],
 })
 export class MyArticleCardComponent {
-  @Input() article: Article | null = null;
+  @Input() article!: Article;
 }

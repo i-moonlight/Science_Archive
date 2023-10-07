@@ -1,8 +1,8 @@
 <div class="card-container">
-  <h2>{{category?.name}}</h2>
+  <h2>{{category.name}}</h2>
   <div class="subcategories-container">
     <app-subcategory-card
-      *ngFor="let subcategory of category?.subcategories"
+      *ngFor="let subcategory of category.subcategories"
       [subcategory]="subcategory"
     ></app-subcategory-card>
   </div>

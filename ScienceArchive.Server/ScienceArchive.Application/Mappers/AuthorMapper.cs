@@ -7,7 +7,7 @@ using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
-public class AuthorMapper : IApplicationMapper<Author, AuthorDto>
+internal class AuthorMapper : IApplicationMapper<Author, AuthorDto>
 {
 	public AuthorDto MapToDto(Author author)
 	{

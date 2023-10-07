@@ -1,6 +1,6 @@
 ﻿namespace ScienceArchive.Application.Interfaces;
 
-public interface IApplicationMapper<TEntity, TDto>
+internal interface IApplicationMapper<TEntity, TDto>
 {
     /// <summary>
     /// Map entity to DTO type

@@ -1,6 +1,6 @@
 ﻿namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
-public record ArticleModel
+internal record ArticleModel
 {
 	/// <summary>
 	/// Article identifier

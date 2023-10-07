@@ -9,7 +9,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 
-public class PostgresNewsRepository : INewsRepository
+internal class PostgresNewsRepository : INewsRepository
 {
     private readonly IDbConnection _connection;
     private readonly IPersistenceMapper<News, NewsModel> _mapper;

@@ -9,7 +9,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 
-public class PostgresRoleRepository : IRoleRepository
+internal class PostgresRoleRepository : IRoleRepository
 {
     private readonly IDbConnection _connection;
     private readonly IPersistenceMapper<Role, RoleModel> _mapper;

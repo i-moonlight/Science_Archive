@@ -7,5 +7,5 @@ import { Category } from "@models/category/category";
   styleUrls: ["./category-card.component.scss"],
 })
 export class CategoryCardComponent {
-  @Input() category: Category | null = null;
+  @Input() category!: Category;
 }

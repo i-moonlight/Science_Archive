@@ -7,7 +7,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
-public class AuthorMapper : IPersistenceMapper<Author, AuthorModel>
+internal class AuthorMapper : IPersistenceMapper<Author, AuthorModel>
 {
 	public AuthorModel MapToModel(Author author)
 	{

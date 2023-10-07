@@ -5,7 +5,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.PostgreSql.PersistenceMappers;
 
-public class SubcategoryMapper : IPersistenceMapper<Category, SubcategoryModel>
+internal class SubcategoryMapper : IPersistenceMapper<Category, SubcategoryModel>
 {
 	public SubcategoryModel MapToModel(Category entity)
 	{

@@ -9,7 +9,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 
-public class PostgresUserRepository : IUserRepository
+internal class PostgresUserRepository : IUserRepository
 {
     private readonly IDbConnection _connection;
     private readonly IPersistenceMapper<User, UserModel> _userMapper;

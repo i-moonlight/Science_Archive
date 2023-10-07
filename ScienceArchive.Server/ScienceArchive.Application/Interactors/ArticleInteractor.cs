@@ -12,7 +12,7 @@ using ScienceArchive.Core.Services.ArticleContracts;
 
 namespace ScienceArchive.Application.Interactors;
 
-public class ArticleInteractor : IArticleInteractor
+internal class ArticleInteractor : IArticleInteractor
 {
     private readonly IArticleService _articleService;
     private readonly IApplicationMapper<Article, ArticleDto> _articleMapper;

@@ -12,7 +12,7 @@ using ScienceArchive.Infrastructure.Persistence.PostgreSql.Models;
 
 namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 
-public class PostgresArticleRepository : IArticleRepository
+internal class PostgresArticleRepository : IArticleRepository
 {
     private readonly IDbConnection _connection;
     private readonly IPersistenceMapper<Article, ArticleModel> _mapper;

@@ -7,7 +7,7 @@ using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 
 namespace ScienceArchive.Application.Mappers;
 
-public class ArticleMapper : IApplicationMapper<Article, ArticleDto>
+internal class ArticleMapper : IApplicationMapper<Article, ArticleDto>
 {
     public ArticleDto MapToDto(Article entity)
     {

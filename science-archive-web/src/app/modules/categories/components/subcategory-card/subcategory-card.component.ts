@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./subcategory-card.component.scss"],
 })
 export class SubcategoryCardComponent {
-  @Input() subcategory: Subcategory | null = null;
+  @Input() subcategory!: Subcategory;
 
   constructor(private readonly router: Router) {}
 
