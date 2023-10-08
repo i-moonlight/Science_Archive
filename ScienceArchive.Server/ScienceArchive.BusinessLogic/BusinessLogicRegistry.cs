@@ -33,11 +33,24 @@ namespace ScienceArchive.BusinessLogic;
 public static class BusinessLogicRegistry
 {
     /// <summary>
+    /// Register all required domain services
+    /// </summary>
+    /// <param name="services">Instance of <see cref="IServiceCollection"/></param>
+    /// <returns></returns>
+    public static IServiceCollection RegisterDomainLayer(this IServiceCollection services)
+    {
+        _ = RegisterDomainServices(services);
+        _ = RegisterDomainUseCases(services);
+
+        return services;
+    }
+    
+    /// <summary>
     /// Register domain business logic services
     /// </summary>
     /// <param name="services">System services</param>
     /// <returns>System services with registered business logic services</returns>
-    public static IServiceCollection RegisterDomainServices(this IServiceCollection services)
+    private static IServiceCollection RegisterDomainServices(this IServiceCollection services)
     {
         _ = services.AddSingleton<IArticleService, ArticleService>();
         _ = services.AddSingleton<IAuthService, AuthService>();
@@ -55,7 +68,7 @@ public static class BusinessLogicRegistry
     /// </summary>
     /// <param name="services">System services</param>
     /// <returns>System services with registered business logic use cases</returns>
-    public static IServiceCollection RegisterDomainUseCases(this IServiceCollection services)
+    private static IServiceCollection RegisterDomainUseCases(this IServiceCollection services)
     {
         // Article use cases
         _ = services.AddTransient<IUseCase<Article?, GetArticleByIdContract>, GetArticleByIdUseCase>();

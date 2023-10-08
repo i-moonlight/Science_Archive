@@ -9,6 +9,7 @@ using ScienceArchive.Application.Interactors;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Application.Mappers;
+using ScienceArchive.Application.Options;
 using ScienceArchive.Core.Domain.Aggregates.Article;
 using ScienceArchive.Core.Domain.Aggregates.Category;
 using ScienceArchive.Core.Domain.Aggregates.News;
@@ -21,11 +22,26 @@ namespace ScienceArchive.Application;
 public static class ApplicationRegistry
 {
     /// <summary>
+    /// Register all required application layer services 
+    /// </summary>
+    /// <param name="services">Instance of <see cref="IServiceCollection"/></param>
+    /// <param name="options">Application layer options</param>
+    public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services, ApplicationOptions options)
+    {
+        _ = services.AddSingleton(options);
+        
+        _ = RegisterInteractors(services);
+        _ = RegisterApplicationMappers(services);
+
+        return services;
+    }
+    
+    /// <summary>
     /// Register application layer interactors
     /// </summary>
     /// <param name="services">System services</param>
     /// <returns>System services with registered interactors</returns>
-    public static IServiceCollection RegisterInteractors(this IServiceCollection services)
+    private static IServiceCollection RegisterInteractors(this IServiceCollection services)
     {
         _ = services.AddSingleton<IArticleInteractor, ArticleInteractor>();
         _ = services.AddSingleton<ICategoryInteractor, CategoryInteractor>();
@@ -43,7 +59,7 @@ public static class ApplicationRegistry
     /// </summary>
     /// <param name="services">System services</param>
     /// <returns>System services with registered application layer mappers</returns>
-    public static IServiceCollection RegisterApplicationMappers(this IServiceCollection services)
+    private static IServiceCollection RegisterApplicationMappers(this IServiceCollection services)
     {
         _ = services.AddTransient<IApplicationMapper<Article, ArticleDto>, ArticleMapper>();
         _ = services.AddTransient<IApplicationMapper<Category, CategoryDto>, CategoryMapper>();

@@ -20,10 +20,23 @@ namespace ScienceArchive.Infrastructure.Persistence;
 public static class PersistenceRegistry
 {
     /// <summary>
+    /// Register all required persistence services
+    /// </summary>
+    /// <param name="services">Instance of <see cref="IServiceCollection"/></param>
+    public static IServiceCollection RegisterPersistenceLayer(this IServiceCollection services, ConnectionOptions connectionOptions)
+    {
+        _ = RegisterRepositories(services);
+        _ = RegisterPersistenceMappers(services);
+        _ = RegisterPersistenceConnections(services, connectionOptions);
+
+        return services;
+    }
+    
+    /// <summary>
     /// Register repositories implementations
     /// </summary>
     /// <param name="services">Application services</param>
-    public static IServiceCollection RegisterRepositories(this IServiceCollection services)
+    private static IServiceCollection RegisterRepositories(this IServiceCollection services)
     {
         _ = services.AddTransient<IArticleRepository, PostgresArticleRepository>();
         _ = services.AddTransient<ICategoryRepository, PostgresCategoryRepository>();
@@ -34,7 +47,7 @@ public static class PersistenceRegistry
         return services;
     }
 
-    public static IServiceCollection RegisterPersistenceMappers(this IServiceCollection services)
+    private static IServiceCollection RegisterPersistenceMappers(this IServiceCollection services)
     {
         // Register mappers from entities to models and vice versa
         _ = services.AddTransient<IPersistenceMapper<Article, ArticleModel>, ArticleMapper>();
@@ -59,7 +72,7 @@ public static class PersistenceRegistry
     /// </summary>
     /// <param name="services">Application services</param>
     /// <param name="connectionOptions">Database connection options</param>
-    public static IServiceCollection RegisterPersistenceConnections(this IServiceCollection services, ConnectionOptions connectionOptions)
+    private static IServiceCollection RegisterPersistenceConnections(this IServiceCollection services, ConnectionOptions connectionOptions)
     {
         if (connectionOptions.PostgresConnectionString is null)
         {

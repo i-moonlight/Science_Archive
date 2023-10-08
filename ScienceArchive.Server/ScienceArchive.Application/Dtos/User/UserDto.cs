@@ -16,6 +16,11 @@ public record UserDto
     public required List<string> RolesIds { get; set; }
     
     /// <summary>
+    /// Is this user administrator
+    /// </summary>
+    public required bool IsAdmin { get; set; }
+    
+    /// <summary>
     /// User name
     /// </summary>
     public required string Name { get; set; }

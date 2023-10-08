@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using ScienceArchive.Application.Dtos;
@@ -31,8 +32,7 @@ public class AuthManager
         }
         else
         {
-            jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY") ?? 
-                     throw new NullReferenceException("JWT key was not present!");
+            jwtKey = Environment.GetEnvironmentVariable("SCIENCE_ARCHIVE_JWT_KEY") ?? throw new NullReferenceException("JWT key was not present!");
         }
 
         if (user.Id is null)
@@ -44,19 +44,19 @@ public class AuthManager
         {
             new JwtClaim(JwtRegisteredClaimNames.Sub, jwtSub),
             new JwtClaim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new JwtClaim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-            new JwtClaim("UserId", user.Id.ToString()),
+            new JwtClaim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
+            new JwtClaim("UserId", user.Id)
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
         var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        
         var token = new JwtSecurityToken(
             jwtIssuer,
             jwtAudience,
             claims,
             expires: DateTime.UtcNow.AddMinutes(10),
-            signingCredentials: signIn
-        );
+            signingCredentials: signIn);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }

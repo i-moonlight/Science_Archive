@@ -16,6 +16,7 @@ internal class UserMapper : IApplicationMapper<User, UserDto>
         {
             Id = user.Id.ToString(),
             RolesIds = rolesIds,
+            IsAdmin = false,
             Name = user.Name,
             Email = user.Email,
             Login = user.Login

@@ -1,53 +1,25 @@
 ﻿using ScienceArchive.Application;
 using ScienceArchive.BusinessLogic;
 using ScienceArchive.Infrastructure.Persistence;
-using ScienceArchive.Infrastructure.Persistence.Options;
 using ScienceArchive.Web.Api.Auth;
 using ScienceArchive.Web.Api.Middleware;
 
+using ConfigurationManager = ScienceArchive.Web.Api.Configuration.ConfigurationManager;
+
 var builder = WebApplication.CreateBuilder(args);
-string dbConnectionString;
 
-if (builder.Environment.IsDevelopment())
-{
-    dbConnectionString =
-        builder.Configuration.GetConnectionString("PostgreSQL") ??
-        throw new NullReferenceException("Cannot get DB connection string from config file!");
-}
-else
-{
-    dbConnectionString =
-        Environment.GetEnvironmentVariable("POSTGRESQL_CONNECTION_STRING") ??
-        throw new NullReferenceException("Cannot get DB connection string from environment!");
-}
-
-if (dbConnectionString is null)
-{
-    throw new NullReferenceException("Cannot get connection string!");
-}
-
-var connectionOptions = new ConnectionOptions()
-{
-    PostgresConnectionString = dbConnectionString,
-};
+var connectionOptions = ConfigurationManager.GetConnectionOptions(builder);
+var applicationOptions = ConfigurationManager.GetApplicationOptions(builder);
 
 // Register built-in services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register core domain layer services
-builder.Services.RegisterDomainServices();
-builder.Services.RegisterDomainUseCases();
-
-// Register infrastructure layer services
-builder.Services.RegisterPersistenceConnections(connectionOptions);
-builder.Services.RegisterPersistenceMappers();
-builder.Services.RegisterRepositories();
-
-// Register application layer services
-builder.Services.RegisterApplicationMappers();
-builder.Services.RegisterInteractors();
+// Register application-specific services
+builder.Services.RegisterDomainLayer();
+builder.Services.RegisterPersistenceLayer(connectionOptions);
+builder.Services.RegisterApplicationLayer(applicationOptions);
 
 // Register presentation layer services
 builder.Services.RegisterAuth(builder.Configuration, builder.Environment.IsDevelopment());

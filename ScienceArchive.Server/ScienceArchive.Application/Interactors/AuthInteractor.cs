@@ -3,6 +3,7 @@ using ScienceArchive.Application.Dtos.Auth.Request;
 using ScienceArchive.Application.Dtos.Auth.Response;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
+using ScienceArchive.Application.Options;
 using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.AuthContracts;
@@ -12,15 +13,18 @@ namespace ScienceArchive.Application.Interactors;
 
 internal class AuthInteractor : IAuthInteractor
 {
+    private readonly ApplicationOptions _options;
     private readonly IAuthService _authService;
     private readonly IUserService _userService;
     private readonly IApplicationMapper<User, UserDto> _userMapper;
 
     public AuthInteractor(
+        ApplicationOptions options,
         IAuthService authService, 
         IUserService userService,
         IApplicationMapper<User, UserDto> userMapper)
     {
+        _options = options ?? throw new ArgumentNullException(nameof(options));
         _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         _userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
@@ -31,8 +35,12 @@ internal class AuthInteractor : IAuthInteractor
     {
         var contract = new LoginContract(dto.Login, dto.Password);
         var user = await _authService.Login(contract);
+        var userDto = _userMapper.MapToDto(user);
         
-        return new(_userMapper.MapToDto(user));
+        var isUserAdmin = userDto.RolesIds.Exists(roleId => roleId.Equals(_options.AdminRoleId));
+        userDto.IsAdmin = isUserAdmin;
+
+        return new(userDto);
     }
 
     /// <inheritdoc/>
