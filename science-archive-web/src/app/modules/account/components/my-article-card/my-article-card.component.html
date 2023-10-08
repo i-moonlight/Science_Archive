@@ -1,4 +1,7 @@
-<div class="article-card">
-  <h3 class="article-card-title">{{article!.title}}</h3>
-  <p class="article-card-description">{{article!.description}}</p>
+<div
+  class="article-card"
+  (click)="onCardClick()"
+>
+  <h3 class="article-card-title">{{article.title}}</h3>
+  <p class="article-card-description">{{article.description}}</p>
 </div>

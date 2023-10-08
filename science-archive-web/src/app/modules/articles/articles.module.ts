@@ -8,7 +8,7 @@ import { ArticleCardLoadingComponent } from "./components/article-card-loading/a
 import { SafeHtmlPipe } from "../../pipes/safe-html.pipe";
 
 @NgModule({
-  imports: [CommonModule, SharedModule, SafeHtmlPipe],
+  imports: [SharedModule, SafeHtmlPipe],
   declarations: [ArticlesPageComponent, ArticleCardComponent, ArticleDetailsPageComponent, ArticleCardLoadingComponent],
 })
 export class ArticlesModule {}

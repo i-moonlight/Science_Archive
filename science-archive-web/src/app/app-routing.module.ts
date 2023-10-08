@@ -13,10 +13,20 @@ import { AccountPageComponent } from "@pages/account-page/account-page.component
 import { isAuthorizedGuard } from "./guards/auth.guard";
 import { ProfilePageComponent } from "@modules/account/pages/profile-page/profile-page.component";
 import { MyArticlesPageComponent } from "@modules/account/pages/my-articles-page/my-articles-page.component";
+import { AdminPageComponent } from "@pages/admin-page/admin-page.component";
+import { isAdminGuard } from "./guards/admin.guard";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "main" },
-  { path: "auth", component: AuthPageComponent },
+  {
+    path: "auth",
+    component: AuthPageComponent,
+  },
+  {
+    path: "admin",
+    component: AdminPageComponent,
+    canActivate: [isAdminGuard],
+  },
   {
     path: "account",
     component: AccountPageComponent,
@@ -32,30 +42,12 @@ const routes: Routes = [
     component: MainPageComponent,
     children: [
       { path: "", pathMatch: "full", redirectTo: "articles" },
-      {
-        path: "articles",
-        component: ArticlesPageComponent,
-      },
-      {
-        path: "authors",
-        component: AuthorsPageComponent,
-      },
-      {
-        path: "categories",
-        component: CategoriesPageComponent,
-      },
-      {
-        path: "news",
-        component: NewsPageComponent,
-      },
-      {
-        path: "articles/:id",
-        component: ArticleDetailsPageComponent,
-      },
-      {
-        path: "news/:id",
-        component: NewsDetailsPageComponent,
-      },
+      { path: "articles", component: ArticlesPageComponent },
+      { path: "authors", component: AuthorsPageComponent },
+      { path: "categories", component: CategoriesPageComponent },
+      { path: "news", component: NewsPageComponent },
+      { path: "articles/:id", component: ArticleDetailsPageComponent },
+      { path: "news/:id", component: NewsDetailsPageComponent },
     ],
   },
 ];

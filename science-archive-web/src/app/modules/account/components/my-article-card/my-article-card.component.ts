@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Article } from "@models/article/article";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-my-article-card",
@@ -8,4 +9,10 @@ import { Article } from "@models/article/article";
 })
 export class MyArticleCardComponent {
   @Input() article!: Article;
+
+  constructor(private readonly router: Router) {}
+
+  async onCardClick() {
+    await this.router.navigate(["/main/articles/", this.article.id]);
+  }
 }
