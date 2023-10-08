@@ -10,10 +10,11 @@ namespace ScienceArchive.Core.Repositories;
 public interface IUserRepository : ICrudRepository<UserId, User>
 {
     /// <summary>
-    /// Get all users with their passwords
+    /// Get user with specified credentials
     /// </summary>
-    /// <returns>Users entities with passwords</returns>
-    Task<List<User>> GetAllUsersWithPasswords();
+    /// <param name="login">User login</param>
+    /// <returns>Found user if it exists, otherwise, null</returns>
+    Task<User?> GetAuthUserByLogin(string login);
 
     /// <summary>
     /// Get users which are authors of any article

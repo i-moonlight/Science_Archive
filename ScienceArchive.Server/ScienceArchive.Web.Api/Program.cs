@@ -9,7 +9,6 @@ using ConfigurationManager = ScienceArchive.Web.Api.Configuration.ConfigurationM
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionOptions = ConfigurationManager.GetConnectionOptions(builder);
-var applicationOptions = ConfigurationManager.GetApplicationOptions(builder);
 
 // Register built-in services
 builder.Services.AddControllers();
@@ -19,7 +18,7 @@ builder.Services.AddSwaggerGen();
 // Register application-specific services
 builder.Services.RegisterDomainLayer();
 builder.Services.RegisterPersistenceLayer(connectionOptions);
-builder.Services.RegisterApplicationLayer(applicationOptions);
+builder.Services.RegisterApplicationLayer();
 
 // Register presentation layer services
 builder.Services.RegisterAuth(builder.Configuration, builder.Environment.IsDevelopment());

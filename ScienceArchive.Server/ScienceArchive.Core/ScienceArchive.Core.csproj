@@ -31,12 +31,10 @@
   <ItemGroup>
     <Folder Include="Domain\" />
     <Folder Include="Services\Article\" />
-    <Folder Include="Services\Auth\" />
     <Folder Include="Services\News\" />
     <Folder Include="Services\News\" />
     <Folder Include="Services\Role\" />
     <Folder Include="Services\User\" />
-    <Folder Include="Services\Auth\Contracts\" />
     <Folder Include="Services\Role\Contracts\" />
     <Folder Include="Services\System\" />
   </ItemGroup>

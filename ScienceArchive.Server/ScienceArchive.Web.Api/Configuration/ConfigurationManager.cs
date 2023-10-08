@@ -1,4 +1,3 @@
-using ScienceArchive.Application.Options;
 using ScienceArchive.Infrastructure.Persistence.Options;
 
 namespace ScienceArchive.Web.Api.Configuration;
@@ -36,18 +35,5 @@ public static class ConfigurationManager
 		{
 			PostgresConnectionString = dbConnectionString,
 		};
-	}
-
-	/// <summary>
-	/// Get application options
-	/// </summary>
-	/// <param name="builder">Instance of <see cref="WebApplicationBuilder"/></param>
-	/// <returns>Applications options</returns>
-	public static ApplicationOptions GetApplicationOptions(WebApplicationBuilder builder)
-	{
-		return builder.Configuration
-			       .GetSection(ApplicationOptions.OptionsName)
-			       .Get<ApplicationOptions>() 
-		       ?? throw new NullReferenceException("Cannot load application options");
 	}
 }

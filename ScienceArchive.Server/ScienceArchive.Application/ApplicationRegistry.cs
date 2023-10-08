@@ -9,7 +9,6 @@ using ScienceArchive.Application.Interactors;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Application.Mappers;
-using ScienceArchive.Application.Options;
 using ScienceArchive.Core.Domain.Aggregates.Article;
 using ScienceArchive.Core.Domain.Aggregates.Category;
 using ScienceArchive.Core.Domain.Aggregates.News;
@@ -26,10 +25,8 @@ public static class ApplicationRegistry
     /// </summary>
     /// <param name="services">Instance of <see cref="IServiceCollection"/></param>
     /// <param name="options">Application layer options</param>
-    public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services, ApplicationOptions options)
+    public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services)
     {
-        _ = services.AddSingleton(options);
-        
         _ = RegisterInteractors(services);
         _ = RegisterApplicationMappers(services);
 

@@ -16,6 +16,13 @@ public interface IUserService
     /// <param name="contract">Contract to get user with specified id</param>
     /// <returns>Found user if it exists, otherwise, null</returns>
     Task<User?> GetById(GetUserByIdContract contract);
+
+    /// <summary>
+    /// Get user by its credentials
+    /// </summary>
+    /// <param name="contract">Contract to get user by its credentials</param>
+    /// <returns>Found user if it exists, otherwise, null</returns>
+    Task<User?> GetUserByCredentials(GetUserByCredentialsContract contract);
     
     /// <summary>
     /// Get all existing users

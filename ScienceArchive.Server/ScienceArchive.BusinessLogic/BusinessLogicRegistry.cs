@@ -5,7 +5,6 @@ using ScienceArchive.BusinessLogic.Interfaces;
 using ScienceArchive.BusinessLogic.NewsUseCases;
 using ScienceArchive.BusinessLogic.RoleUseCases;
 using ScienceArchive.BusinessLogic.Services;
-using ScienceArchive.BusinessLogic.UseCases.Auth;
 using ScienceArchive.BusinessLogic.UseCases.System;
 using ScienceArchive.BusinessLogic.UserUseCases;
 using ScienceArchive.Core.Domain.Aggregates.Article;
@@ -18,10 +17,8 @@ using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Domain.ValueObjects;
-using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.ArticleContracts;
-using ScienceArchive.Core.Services.AuthContracts;
 using ScienceArchive.Core.Services.CategoryContracts;
 using ScienceArchive.Core.Services.NewsContracts;
 using ScienceArchive.Core.Services.RoleContracts;
@@ -53,7 +50,6 @@ public static class BusinessLogicRegistry
     private static IServiceCollection RegisterDomainServices(this IServiceCollection services)
     {
         _ = services.AddSingleton<IArticleService, ArticleService>();
-        _ = services.AddSingleton<IAuthService, AuthService>();
         _ = services.AddSingleton<ICategoryService, CategoryService>();
         _ = services.AddSingleton<INewsService, NewsService>();
         _ = services.AddSingleton<IRoleService, RoleService>();
@@ -78,9 +74,6 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<ArticleId, DeleteArticleContract>, DeleteArticleUseCase>();
         _ = services.AddTransient<IUseCase<List<Article>, GetArticlesByCategoryIdContract>, GetArticlesByCategoryIdUseCase>();
         _ = services.AddTransient<IUseCase<List<Article>, GetArticlesByAuthorIdContract>, GetArticlesByAuthorIdUseCase>();
-
-        // Auth use cases
-        _ = services.AddTransient<IUseCase<User, LoginContract>, LoginUseCase>();
 
         // Category use cases
         _ = services.AddTransient<IUseCase<List<Category>, GetAllCategoriesContract>, GetAllCategoriesUseCase>();
@@ -110,6 +103,7 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<User, UpdateUserContract>, UpdateUserUseCase>();
         _ = services.AddTransient<IUseCase<UserId, DeleteUserContract>, DeleteUserUseCase>();
         _ = services.AddTransient<IUseCase<List<Author>, GetAllAuthorsContract>, GetAllAuthorsUseCase>();
+        _ = services.AddTransient<IUseCase<User?, GetUserByCredentialsContract>, GetUserByCredentialsUseCase>();
 
         return services;
     }

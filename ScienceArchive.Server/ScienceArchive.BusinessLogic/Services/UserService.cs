@@ -14,7 +14,13 @@ internal class UserService : BaseService, IUserService
     {
         return await ExecuteUseCase<User?, GetUserByIdContract>(contract);
     }
-    
+
+    /// <inheritdoc/>
+    public async Task<User?> GetUserByCredentials(GetUserByCredentialsContract contract)
+    {
+        return await ExecuteUseCase<User?, GetUserByCredentialsContract>(contract);
+    }
+
     /// <inheritdoc/>
     public async Task<List<User>> GetAll(GetAllUsersContract contract)
     {

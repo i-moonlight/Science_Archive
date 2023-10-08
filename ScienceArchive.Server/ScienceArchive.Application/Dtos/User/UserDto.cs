@@ -15,10 +15,6 @@ public record UserDto
     /// </summary>
     public required List<string> RolesIds { get; set; }
     
-    /// <summary>
-    /// Is this user administrator
-    /// </summary>
-    public required bool IsAdmin { get; set; }
     
     /// <summary>
     /// User name
@@ -34,4 +30,9 @@ public record UserDto
     /// User auth login
     /// </summary>
     public required string Login { get; set; }
+    
+    /// <summary>
+    /// Is this user administrator
+    /// </summary>
+    public bool IsAdmin { get; set; }
 }

@@ -74,10 +74,10 @@ public class User : Entity<UserId>
     /// <summary>
     /// Does user have a password
     /// </summary>
-    public bool HasOwnPassword => string.IsNullOrWhiteSpace(Password.Value);
+    public bool HasPassword => !string.IsNullOrWhiteSpace(Password.Value);
 
     /// <summary>
     /// Does user have a password salt
     /// </summary>
-    public bool HasOwnPasswordSalt => string.IsNullOrWhiteSpace(Password.Salt);
+    public bool HasPasswordSalt => !string.IsNullOrWhiteSpace(Password.Salt);
 }

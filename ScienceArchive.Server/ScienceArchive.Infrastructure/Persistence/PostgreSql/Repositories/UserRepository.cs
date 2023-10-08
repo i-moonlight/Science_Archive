@@ -56,18 +56,19 @@ internal class PostgresUserRepository : IUserRepository
     }
 
     /// <inheritdoc/>
-    public async Task<List<User>> GetAllUsersWithPasswords()
+    public async Task<User?> GetAuthUserByLogin(string login)
     {
-        var users = await _connection.QueryAsync<UserModel>(
-            "SELECT * FROM func_get_users_with_passwords()", 
+        var parameters = new DynamicParameters();
+        parameters.Add("Login", login);
+
+        var user = await _connection.QuerySingleOrDefaultAsync<UserModel?>(
+            "SELECT * FROM func_get_auth_user_by_login(@Login)", 
+            parameters, 
             commandType: CommandType.Text);
 
-        if (users is null)
-        {
-            throw new EntityNotFoundException<User[]>("Database returned NULL!");
-        }
-
-        return users.Select(user => _userMapper.MapToEntity(user)).ToList();
+        return user is not null 
+            ? _userMapper.MapToEntity(user)
+            : null;
     }
 
     /// <inheritdoc/>
