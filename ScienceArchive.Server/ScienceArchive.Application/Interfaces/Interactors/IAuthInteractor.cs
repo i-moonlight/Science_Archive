@@ -21,4 +21,11 @@ public interface IAuthInteractor
     /// <param name="dto">DTO contract to sign up user</param>
     /// <returns>Response DTO</returns>
     Task<SignUpResponseDto> SignUp(SignUpRequestDto dto);
+
+    /// <summary>
+    /// Check user claims
+    /// </summary>
+    /// <param name="dto">DTO contract to check user claims</param>
+    /// <returns>Response DTO</returns>
+    Task<CheckUserClaimsResponseDto> CheckUserClaims(CheckUserClaimsRequestDto dto);
 }

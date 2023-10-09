@@ -112,8 +112,15 @@
   (onClose)="onCloseDrawer()"
 >
   <div class="account-actions">
-    <span class="account-action" routerLink="/account/profile">My Profile</span>
-    <span class="account-action" routerLink="/account/articles">My Articles</span>
-    <span class="account-action sign-out-action" (click)="onSignOut()">Sign Out</span>
+    <div class="drawer-elements-block">
+      <span class="account-action" routerLink="/account/profile">My Profile</span>
+      <span class="account-action" routerLink="/account/articles">My Articles</span>
+    </div>
+    <div class="drawer-elements-block">
+      <span *ngIf="isAdmin" class="account-action" routerLink="/admin">Admin Panel</span>
+    </div>
+    <div class="drawer-elements-block">
+      <span class="account-action sign-out-action" (click)="onSignOut()">Sign Out</span>
+    </div>
   </div>
 </app-side-drawer>

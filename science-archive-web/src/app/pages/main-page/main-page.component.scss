@@ -77,7 +77,13 @@
 .account-actions {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 20px;
+}
+
+.drawer-elements-block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
 .account-action {
@@ -94,7 +100,6 @@
 
   &.sign-out-action {
     color: #ff0000;
-    margin-top: 30px;
 
     &:hover {
       color: #860000;

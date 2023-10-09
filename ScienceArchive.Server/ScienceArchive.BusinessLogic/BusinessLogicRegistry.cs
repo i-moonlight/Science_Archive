@@ -92,6 +92,7 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<Role, CreateRoleContract>, CreateRoleUseCase>();
         _ = services.AddTransient<IUseCase<Role, UpdateRoleContract>, UpdateRoleUseCase>();
         _ = services.AddTransient<IUseCase<RoleId, DeleteRoleContract>, DeleteRoleUseCase>();
+        _ = services.AddTransient<IUseCase<List<RoleClaim>, GetUserClaimsContract>, GetUserClaimsUseCase>();
 
         // System use cases
         _ = services.AddTransient<IUseCase<SystemStatus, CheckSystemStatusContract>, CheckSystemStatusUseCase>();

@@ -1,1 +1,17 @@
-<p>admin-page works!</p>
+<div class="page-wrapper">
+  <div class="top-logo-wrapper">
+    <img alt="Back" ngSrc="assets/icons/navigation-back-arrow-blue.svg" class="back-button" routerLink="/main" height="800" width="800" />
+    <h2>Science Archive Admin</h2>
+  </div>
+  <div class="page-content">
+    <nav>
+      <h3 class="menu-header">Admin Panel</h3>
+      <div class="menu-element">
+        <span class="menu-element-text">News</span>
+      </div>
+    </nav>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

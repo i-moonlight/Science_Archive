@@ -55,7 +55,7 @@ public class AuthManager
             jwtIssuer,
             jwtAudience,
             claims,
-            expires: DateTime.UtcNow.AddMinutes(10),
+            expires: DateTime.UtcNow.AddDays(7),
             signingCredentials: signIn);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

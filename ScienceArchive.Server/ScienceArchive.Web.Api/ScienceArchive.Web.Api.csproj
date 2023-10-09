@@ -22,7 +22,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Responses\" />
-    <Folder Include="Auth\" />
     <Folder Include="Middleware\" />
   </ItemGroup>
   <ItemGroup>

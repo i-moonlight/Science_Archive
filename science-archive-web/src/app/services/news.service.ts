@@ -5,6 +5,9 @@ import { GetAllNewsResponse } from "@models/news/responses/get-all-news.response
 import { Observable } from "rxjs";
 import { GetNewsByIdResponse } from "@models/news/responses/get-news-by-id.response";
 import { ApiService } from "@services/api.service";
+import { News } from "@models/news/news";
+import CreateNewsResponse from "@models/news/responses/create-news.response";
+import createNewsRequest from "@models/news/requests/create-news.request";
 
 @Injectable({
   providedIn: "root",
@@ -21,6 +24,11 @@ export class NewsService extends ApiService {
 
   getNewsById(id: string): Observable<GetNewsByIdResponse> {
     const response = this.httpClient.get<Response<GetNewsByIdResponse>>(`/api/news/${id}`);
+    return this.handleResponse(response);
+  }
+
+  createNews(dto: createNewsRequest) {
+    const response = this.httpClient.post<Response<CreateNewsResponse>>("/api/news/create", dto);
     return this.handleResponse(response);
   }
 }

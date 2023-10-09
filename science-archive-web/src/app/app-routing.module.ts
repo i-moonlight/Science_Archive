@@ -10,10 +10,11 @@ import { NewsPageComponent } from "@modules/news/pages/news-page/news-page.compo
 import { NewsDetailsPageComponent } from "@modules/news/pages/news-details-page/news-details-page.component";
 import { ArticleDetailsPageComponent } from "@modules/articles/pages/article-details-page/article-details-page.component";
 import { AccountPageComponent } from "@pages/account-page/account-page.component";
-import { isAuthorizedGuard } from "./guards/auth.guard";
+import { AdminNewsPageComponent } from "@modules/admin/pages/admin-news-page/admin-news-page.component";
 import { ProfilePageComponent } from "@modules/account/pages/profile-page/profile-page.component";
 import { MyArticlesPageComponent } from "@modules/account/pages/my-articles-page/my-articles-page.component";
 import { AdminPageComponent } from "@pages/admin-page/admin-page.component";
+import { isAuthorizedGuard } from "./guards/auth.guard";
 import { isAdminGuard } from "./guards/admin.guard";
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: "admin",
     component: AdminPageComponent,
     canActivate: [isAdminGuard],
+    children: [
+      { path: "", pathMatch: "full", redirectTo: "news" },
+      { path: "news", component: AdminNewsPageComponent },
+    ],
   },
   {
     path: "account",

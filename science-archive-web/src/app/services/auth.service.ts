@@ -7,12 +7,14 @@ import { Response } from "@models/common/response";
 import { SignUpResponse } from "@models/auth/responses/sign-up.response";
 import { SignInResponse } from "@models/auth/responses/sign-in.response";
 import { ApiService } from "@services/api.service";
+import CheckAdminResponse from "@models/auth/responses/check-admin.response";
+import CheckAdminRequest from "@models/auth/requests/check-admin.request";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService extends ApiService {
-  constructor(private httpClient: HttpClient) {
+  constructor(private readonly httpClient: HttpClient) {
     super();
   }
 
@@ -23,6 +25,12 @@ export class AuthService extends ApiService {
 
   signUp(request: SignUpRequest): Observable<SignUpResponse> {
     const response = this.httpClient.post<Response<SignUpResponse>>("/api/auth/sign-up", request);
+    return this.handleResponse(response);
+  }
+
+  checkAdmin(userId: string): Observable<CheckAdminResponse> {
+    const request: CheckAdminRequest = { userId };
+    const response = this.httpClient.post<Response<CheckAdminResponse>>("/api/auth/check-admin", request);
     return this.handleResponse(response);
   }
 }

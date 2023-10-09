@@ -1,6 +1,6 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { catchError, Observable, observeOn, throwError } from "rxjs";
 import { LocalStorageService } from "@services/local-storage.service";
 
 @Injectable()
@@ -18,6 +18,23 @@ export class AuthRequestInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(req);
+    return next.handle(req).pipe(
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) {
+          this.handleUnauthorized();
+        }
+
+        return throwError(() => err);
+      })
+    );
+  }
+
+  handleUnauthorized() {
+    if (this.storageService.isLoggedIn()) {
+      alert("Session expired. Please sign in again");
+      this.storageService.clean();
+    } else {
+      alert("You should sign in");
+    }
   }
 }

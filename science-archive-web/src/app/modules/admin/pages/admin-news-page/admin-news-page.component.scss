@@ -1,0 +1,53 @@
+.page-wrapper {
+  width: 90%;
+}
+
+.news-container {
+  margin-top: 50px;
+}
+
+.page-header-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.page-header {
+  font-size: 30px;
+  color: #333333;
+}
+
+.modal-content-container {
+  padding: 30px;
+}
+
+.modal-data-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.modal-data-field {
+  margin-top: 20px;
+  width: 100%;
+
+  p {
+    font-size: 0.9em;
+    color: #6c6c6c;
+  }
+
+  &-input {
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #a4a4a4;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+}
+
+.modal-submit-wrapper {
+  margin-top: 20px;
+}
+
+

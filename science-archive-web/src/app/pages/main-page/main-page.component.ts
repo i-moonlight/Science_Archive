@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { LocalStorageService } from "src/app/services/local-storage.service";
 import { IdentifiedUser } from "@models/user/identified-user";
 import { ActivatedRoute } from "@angular/router";
+import { AuthService } from "@services/auth.service";
 
 @Component({
   selector: "app-main-page",
@@ -11,12 +12,17 @@ import { ActivatedRoute } from "@angular/router";
 export class MainPageComponent implements OnInit {
   currentUser: IdentifiedUser | null = null;
 
+  isAdmin = false;
   isAuthorized = false;
   isMobileMenuOpen = false;
   isShowAccountDrawer = false;
   activePanel!: string;
 
-  constructor(private readonly storageService: LocalStorageService, private readonly route: ActivatedRoute) {}
+  constructor(
+    private readonly storageService: LocalStorageService,
+    private readonly authService: AuthService,
+    private readonly route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     const user = this.storageService.getCurrentUser();
@@ -25,6 +31,10 @@ export class MainPageComponent implements OnInit {
     if (user && isAuthorized) {
       this.currentUser = user;
       this.isAuthorized = true;
+
+      this.authService.checkAdmin(user.id).subscribe({
+        next: (response) => (this.isAdmin = response.isAdmin),
+      });
     } else {
       this.isAuthorized = false;
       this.currentUser = null;

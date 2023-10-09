@@ -2,7 +2,7 @@
 <div class="news-container">
   <div *ngIf="isLoading; else newsList">
     <app-news-card-loading
-      *ngFor="let i of [1,2,3]"
+      *ngFor="let _ of [1,2,3]"
     />
   </div>
 

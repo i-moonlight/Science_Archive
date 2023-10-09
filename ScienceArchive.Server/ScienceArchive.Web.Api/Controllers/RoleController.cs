@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Application.Dtos.Role.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
+using ScienceArchive.Web.Api.Auth;
 using ScienceArchive.Web.Api.Responses;
 
 namespace ScienceArchive.Web.Api.Controllers;
@@ -26,6 +27,7 @@ public class RoleController : Controller
     }
     
     [HttpPost("create")]
+    [AuthorizeClaims("ADMIN")]
     public async Task<IActionResult> Create([FromBody] CreateRoleRequestDto dto)
     {
         var result = await _roleInteractor.CreateRole(dto);
@@ -35,6 +37,7 @@ public class RoleController : Controller
     }
 
     [HttpPost("update")]
+    [AuthorizeClaims("ADMIN")]
     public async Task<IActionResult> Update([FromBody] UpdateRoleRequestDto dto)
     {
         var result = await _roleInteractor.UpdateRole(dto);
@@ -44,6 +47,7 @@ public class RoleController : Controller
     }
 
     [HttpDelete("{id}")]
+    [AuthorizeClaims("ADMIN")]
     public async Task<IActionResult> Delete(string id)
     {
         var dto = new DeleteRoleRequestDto(id);

@@ -1,0 +1,49 @@
+<div class="page-wrapper">
+  <div class="page-header-wrapper">
+    <h2 class="page-header">News</h2>
+    <app-action-button
+      (onClick)="onNewClick()"
+    >
+      Create new
+    </app-action-button>
+  </div>
+  <div class="news-container">
+    <div *ngIf="isLoading; else newsList">
+      Loading...
+    </div>
+
+    <ng-template #newsList>
+      <p *ngIf="news.length === 0">There is no news available yet</p>
+      <app-admin-news-card
+        *ngFor="let singleNews of news"
+        [news]="singleNews"
+      ></app-admin-news-card>
+    </ng-template>
+  </div>
+</div>
+
+<app-modal-window
+  [isShown]="showModal"
+  (onClose)="showModal = $event"
+>
+  <div class="modal-content-container">
+    <h2>Create news</h2>
+    <div class="modal-data-container">
+      <div class="modal-data-field">
+        <p>Title</p>
+        <input class="modal-data-field-input" type="text" [(ngModel)]="newNews.title">
+      </div>
+      <div class="modal-data-field">
+        <p>Body</p>
+        <textarea class="modal-data-field-input" [(ngModel)]="newNews.body"></textarea>
+      </div>
+      <div class="modal-submit-wrapper">
+        <app-action-button
+          (onClick)="onNewsCreate()"
+        >
+          Create
+        </app-action-button>
+      </div>
+    </div>
+  </div>
+</app-modal-window>

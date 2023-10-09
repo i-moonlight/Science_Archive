@@ -22,6 +22,7 @@ import { NgOptimizedImage } from "@angular/common";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "@environments/environment";
 import { AccountModule } from "@modules/account/account.module";
+import { AdminModule } from "@modules/admin/admin.module";
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { AccountModule } from "@modules/account/account.module";
     // Other modules
     SharedModule,
     AuthModule,
+    AdminModule,
     AccountModule,
     ArticlesModule,
     AuthorsModule,

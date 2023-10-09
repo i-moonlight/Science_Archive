@@ -2,6 +2,7 @@
 using Dapper;
 using ScienceArchive.Core.Domain.Aggregates.Role;
 using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Exceptions;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
@@ -12,12 +13,17 @@ namespace ScienceArchive.Infrastructure.Persistence.PostgreSql.Repositories;
 internal class PostgresRoleRepository : IRoleRepository
 {
     private readonly IDbConnection _connection;
-    private readonly IPersistenceMapper<Role, RoleModel> _mapper;
+    private readonly IPersistenceMapper<Role, RoleModel> _roleMapper;
+    private readonly IPersistenceMapper<RoleClaim, ClaimModel> _claimMapper;
 
-    public PostgresRoleRepository(PostgresContext dbContext, IPersistenceMapper<Role, RoleModel> mapper)
+    public PostgresRoleRepository(
+        PostgresContext dbContext, 
+        IPersistenceMapper<Role, RoleModel> roleMapper,
+        IPersistenceMapper<RoleClaim, ClaimModel> claimMapper)
     {
         var context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        _claimMapper = claimMapper ?? throw new ArgumentNullException(nameof(claimMapper));
+        _roleMapper = roleMapper ?? throw new ArgumentNullException(nameof(roleMapper));
         _connection = context.CreateConnection();
     }
 
@@ -33,7 +39,7 @@ internal class PostgresRoleRepository : IRoleRepository
             throw new EntityNotFoundException<Role[]>("Database returned NULL!");
         }
 
-        return roles.Select(role => _mapper.MapToEntity(role)).ToList();
+        return roles.Select(role => _roleMapper.MapToEntity(role)).ToList();
     }
 
     /// <inheritdoc/>
@@ -52,13 +58,32 @@ internal class PostgresRoleRepository : IRoleRepository
             throw new EntityNotFoundException<Role[]>("Database returned NULL!");
         }
 
-        return _mapper.MapToEntity(role);
+        return _roleMapper.MapToEntity(role);
+    }
+    
+    /// <inheritdoc/>
+    public async Task<List<RoleClaim>> GetUserClaims(UserId userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("UserId", userId.Value);
+
+        var claims = await _connection.QueryAsync<ClaimModel>(
+            "SELECT * FROM func_get_claims_by_user_id(@UserId)",
+            parameters,
+            commandType: CommandType.Text);
+
+        if (claims is null)
+        {
+            throw new EntityNotFoundException<Role[]>("Database returned NULL!");
+        }
+
+        return claims.Select(_claimMapper.MapToEntity).ToList();
     }
 
     /// <inheritdoc/>
     public async Task<Role> Create(Role newValue)
     {
-        var roleToCreate = _mapper.MapToModel(newValue);
+        var roleToCreate = _roleMapper.MapToModel(newValue);
         var parameters = new DynamicParameters(roleToCreate);
 
         var createdRole = await _connection.QuerySingleOrDefaultAsync<RoleModel>(
@@ -71,7 +96,7 @@ internal class PostgresRoleRepository : IRoleRepository
             throw new PersistenceException("Role was not created!");
         }
 
-        return _mapper.MapToEntity(createdRole);
+        return _roleMapper.MapToEntity(createdRole);
     }
 
     /// <inheritdoc/>
@@ -92,11 +117,11 @@ internal class PostgresRoleRepository : IRoleRepository
 
         return RoleId.CreateFromGuid(deletedRoleId);
     }
-        
+
     /// <inheritdoc/>
     public async Task<Role> Update(RoleId id, Role newValue)
     {
-        var roleToUpdate = _mapper.MapToModel(newValue);
+        var roleToUpdate = _roleMapper.MapToModel(newValue);
         var parameters = new DynamicParameters(roleToUpdate);
         parameters.Add("Id", id.Value);
 
@@ -110,6 +135,6 @@ internal class PostgresRoleRepository : IRoleRepository
             throw new PersistenceException("Role was not updated!");
         }
 
-        return _mapper.MapToEntity(updatedRole);
+        return _roleMapper.MapToEntity(updatedRole);
     }
 }

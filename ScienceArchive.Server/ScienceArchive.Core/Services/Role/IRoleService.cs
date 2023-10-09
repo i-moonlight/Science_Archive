@@ -18,6 +18,13 @@ public interface IRoleService
     Task<List<Role>> GetAll(GetAllRolesContract contract);
 
     /// <summary>
+    /// Get all user claims
+    /// </summary>
+    /// <param name="contract">Contract to get all user claims</param>
+    /// <returns>User claims</returns>
+    Task<List<RoleClaim>> GetUserClaims(GetUserClaimsContract contract);
+    
+    /// <summary>
     /// Create role
     /// </summary>
     /// <param name="contract">Contract to create role</param>

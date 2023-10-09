@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Application.Dtos.Article.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Web.Api.Responses;
@@ -59,6 +60,7 @@ public class ArticleController : ControllerBase
     }
 
     [HttpPost("create")]
+    [Authorize]
     public async Task<Response> Create([FromBody] CreateArticleRequestDto dto)
     {
         var result = await _articleInteractor.CreateArticle(dto);
@@ -66,6 +68,7 @@ public class ArticleController : ControllerBase
     }
 
     [HttpPost("update")]
+    [Authorize]
     public async Task<Response> Update([FromBody] UpdateArticleRequestDto dto)
     {
         var result = await _articleInteractor.UpdateArticle(dto);
@@ -73,6 +76,7 @@ public class ArticleController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<Response> Delete(string id)
     {
         var dto = new DeleteArticleRequestDto(id);

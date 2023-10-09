@@ -1,4 +1,4 @@
-import { map, Observable } from "rxjs";
+import { catchError, map, Observable } from "rxjs";
 import { Response } from "@models/common/response";
 
 export abstract class ApiService {

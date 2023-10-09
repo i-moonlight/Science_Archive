@@ -16,6 +16,12 @@ internal class RoleService : BaseService, IRoleService
     }
 
     /// <inheritdoc/>
+    public async Task<List<RoleClaim>> GetUserClaims(GetUserClaimsContract contract)
+    {
+        return await ExecuteUseCase<List<RoleClaim>, GetUserClaimsContract>(contract);
+    }
+
+    /// <inheritdoc/>
     public async Task<Role> Create(CreateRoleContract contract)
     {
         return await ExecuteUseCase<Role, CreateRoleContract>(contract);

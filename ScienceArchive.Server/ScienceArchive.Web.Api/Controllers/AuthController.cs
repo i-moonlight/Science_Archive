@@ -7,7 +7,7 @@ using ScienceArchive.Web.Api.Responses;
 namespace ScienceArchive.Web.Api.Controllers;
 
 [Route("api/auth")]
-public class AuthController : Controller
+public class AuthController : ControllerBase
 {
     private readonly AuthManager _authManager;
     private readonly IAuthInteractor _authInteractor;
@@ -18,27 +18,35 @@ public class AuthController : Controller
         _authManager = authManager ?? throw new ArgumentNullException(nameof(authManager));
     }
 
+    [HttpPost("check-admin")]
+    public async Task<Response> CheckAdmin([FromBody] CheckUserClaimsRequestDto request)
+    {
+        request.RequiredClaims = new List<string> { "ADMIN" };
+        var result = await _authInteractor.CheckUserClaims(request);
+        
+        return new SuccessResponse(new
+        {
+            isAdmin = result.Success
+        });
+    }
+    
     [HttpPost("sign-in")]
-    public async Task<IActionResult> SignIn([FromBody] LoginRequestDto request)
+    public async Task<Response> SignIn([FromBody] LoginRequestDto request)
     {
         var result = await _authInteractor.Login(request);
         var token = _authManager.GenerateToken(result.User);
 
-        var response = new SuccessResponse(new
+        return new SuccessResponse(new
         {
             user = result.User,
             token,
         });
-
-        return Json(response);
     }
 
     [HttpPost("sign-up")]
-    public async Task<IActionResult> SignUp([FromBody] SignUpRequestDto request)
+    public async Task<Response> SignUp([FromBody] SignUpRequestDto request)
     {
         var result = await _authInteractor.SignUp(request);
-        var response = new SuccessResponse(result);
-
-        return Json(response);
+        return new SuccessResponse(result);
     }
 }

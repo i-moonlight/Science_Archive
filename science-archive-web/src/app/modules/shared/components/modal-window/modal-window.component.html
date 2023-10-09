@@ -1,0 +1,12 @@
+<div
+  class="modal-overlay"
+  [ngClass]="isShown ? '' : 'hidden'"
+  (click)="onCloseClick()"
+>
+  <div
+    class="modal-container"
+    (click)="$event.stopPropagation()"
+  >
+    <ng-content />
+  </div>
+</div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Application.Dtos.User.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Web.Api.Responses;
@@ -42,6 +43,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("update")]
+    [Authorize]
     public async Task<Response> Update([FromBody] UpdateUserRequestDto dto)
     {
         var result = await _userInteractor.UpdateUser(dto);
@@ -49,6 +51,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<Response> Delete(string id)
     {
         var dto = new DeleteUserRequestDto(id);

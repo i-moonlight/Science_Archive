@@ -60,7 +60,7 @@ internal class PostgresNewsRepository : INewsRepository
         var parameters = new DynamicParameters(newsToCreate);
 
         var createdNews = await _connection.QueryFirstOrDefaultAsync<NewsModel>(
-            "SELECT * FROM func_create_news(@Id, @Title, @Body, @AuthorId, @CreationDate)",
+            "SELECT * FROM func_create_news(:Id, :Title::varchar, :Body, :AuthorId, :CreationDate::timestamp)",
             parameters,
             commandType: CommandType.Text);
 
