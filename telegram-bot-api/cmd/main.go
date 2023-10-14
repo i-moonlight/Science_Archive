@@ -7,10 +7,17 @@ import (
 )
 
 func main() {
+	// Services initialization
 	webhookService := services.NewTelegramWebhookService()
-	webhookHandler := handlers.NewTelegramWebhookHandler(webhookService)
+	notificationService := services.NewTelegramNotificationService()
 
-	http.HandleFunc("/tg-bot-api", webhookHandler.HandleUpdate)
+	// HTTP handlers initialization
+	webhookHandler := handlers.NewTelegramWebhookHandler(webhookService)
+	notificationHandler := handlers.NewNotificationHandler(notificationService)
+
+	http.HandleFunc("/tg-bot-api/webhook", webhookHandler.HandleUpdate)
+	http.HandleFunc("/tg-bot-api/notify-new-news", notificationHandler.HandleNotifyAboutNews)
+	http.HandleFunc("/tg-bot-api/notify-new-article", notificationHandler.HandleNotifyAboutArticles)
 
 	http.ListenAndServe(":4200", nil)
 }

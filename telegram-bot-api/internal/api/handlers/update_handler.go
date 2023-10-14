@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"science-archive/telegram-bot-api/internal/domain/entities"
+	"science-archive/telegram-bot-api/internal/domain/models"
 	"science-archive/telegram-bot-api/internal/domain/services"
 )
 
@@ -19,7 +19,7 @@ func NewTelegramWebhookHandler(ws services.WebhookService) *TelegramWebhookHandl
 }
 
 func (twh *TelegramWebhookHandler) HandleUpdate(res http.ResponseWriter, req *http.Request) {
-	update := &entities.TelegramUpdate{}
+	update := &models.TelegramUpdate{}
 
 	if err := json.NewDecoder(req.Body).Decode(update); err != nil {
 		fmt.Println("Could not decode request body")

@@ -1,4 +1,4 @@
-package entities
+package models
 
 // TelegramUpdate is a request body of
 // Telegram WebHook update message

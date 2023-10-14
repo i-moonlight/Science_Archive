@@ -3,19 +3,25 @@ package services
 import (
 	"net/http"
 	"net/url"
-	"os"
-	"science-archive/telegram-bot-api/internal/domain/entities"
+	"science-archive/telegram-bot-api/internal/domain/models"
+	"science-archive/telegram-bot-api/pkg/config"
 	"strconv"
 )
 
-type TelegramWebhookService struct{}
-
-func NewTelegramWebhookService() *TelegramWebhookService {
-	return &TelegramWebhookService{}
+type TelegramWebhookService struct {
+	baseTelegramApi string
 }
 
-func (tws *TelegramWebhookService) ProcessUpdate(u *entities.TelegramUpdate) error {
-	telegramApi := "https://api.telegram.org/bot" + os.Getenv("TELEGRAM_BOT_TOKEN") + "/sendMessage"
+func NewTelegramWebhookService() *TelegramWebhookService {
+	telegramApi := config.GetBaseTelegramApi()
+
+	return &TelegramWebhookService{
+		baseTelegramApi: telegramApi,
+	}
+}
+
+func (tws *TelegramWebhookService) ProcessUpdate(u *models.TelegramUpdate) error {
+	telegramApi := tws.baseTelegramApi + "/sendMessage"
 	_, err := http.PostForm(
 		telegramApi,
 		url.Values{
