@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿using ClickHouse.Client;
+using ClickHouse.Client.ADO;
+using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using ScienceArchive.Core.Domain.Aggregates.Article;
 using ScienceArchive.Core.Domain.Aggregates.Category;
@@ -7,6 +9,7 @@ using ScienceArchive.Core.Domain.Aggregates.Role;
 using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Repositories;
+using ScienceArchive.Infrastructure.Persistence.ClickHouse.Repositories;
 using ScienceArchive.Infrastructure.Persistence.Interfaces;
 using ScienceArchive.Infrastructure.Persistence.Options;
 using ScienceArchive.Infrastructure.Persistence.PostgreSql;
@@ -43,6 +46,7 @@ public static class PersistenceRegistry
         _ = services.AddTransient<INewsRepository, PostgresNewsRepository>();
         _ = services.AddTransient<IRoleRepository, PostgresRoleRepository>();
         _ = services.AddTransient<IUserRepository, PostgresUserRepository>();
+        _ = services.AddTransient<ILogRepository, ClickHouseLogRepository>();
 
         return services;
     }
@@ -74,15 +78,45 @@ public static class PersistenceRegistry
     /// <param name="connectionOptions">Database connection options</param>
     private static IServiceCollection RegisterPersistenceConnections(this IServiceCollection services, ConnectionOptions connectionOptions)
     {
-        if (connectionOptions.PostgresConnectionString is null)
+        RegisterPostgreSql(services, connectionOptions.PostgresConnectionString);
+        RegisterClickHouse(services, connectionOptions.ClickHouseConnectionString);
+        
+        return services;
+    }
+
+    /// <summary>
+    /// Register connection to PostgreSQL
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="connectionString"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    private static IServiceCollection RegisterPostgreSql(this IServiceCollection services, string? connectionString)
+    {
+        if (connectionString is null)
         {
-            throw new ArgumentNullException(nameof(connectionOptions));
+            throw new ArgumentNullException(nameof(connectionString));
         }
 
-        var postgresContext = new PostgresContext(connectionOptions.PostgresConnectionString);
+        var postgresContext = new PostgresContext(connectionString);
 
         _ = services.AddSingleton(postgresContext);
 
+        return services;
+    }
+
+    /// <summary>
+    /// Register connection to ClickHouse
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="connectionString"></param>
+    /// <returns></returns>
+    private static IServiceCollection RegisterClickHouse(this IServiceCollection services, string connectionString)
+    {
+        var connection = new ClickHouseConnection(connectionString);
+        
+        _ = services.AddSingleton<IClickHouseConnection>(connection);
+        
         return services;
     }
 }

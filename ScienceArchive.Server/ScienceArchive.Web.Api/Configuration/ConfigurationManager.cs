@@ -12,18 +12,26 @@ public static class ConfigurationManager
 	public static ConnectionOptions GetConnectionOptions(WebApplicationBuilder builder)
 	{
 		string dbConnectionString;
+		string logConnectionString;
 
 		if (builder.Environment.IsDevelopment())
 		{
 			dbConnectionString =
 				builder.Configuration.GetConnectionString("PostgreSQL") ??
 				throw new NullReferenceException("Cannot get DB connection string from config file!");
+			logConnectionString = 
+				builder.Configuration.GetConnectionString("ClickHouse") ??
+				throw new NullReferenceException("Cannot get logs DB connection string from config file!");
 		}
 		else
 		{
 			dbConnectionString =
 				Environment.GetEnvironmentVariable("POSTGRESQL_CONNECTION_STRING") ??
 				throw new NullReferenceException("Cannot get DB connection string from environment!");
+			
+			logConnectionString =
+				Environment.GetEnvironmentVariable("CLICKHOUSE_CONNECTION_STRING") ??
+				throw new NullReferenceException("Cannot get logs DB connection string from environment!");
 		}
 
 		if (dbConnectionString is null)
@@ -31,9 +39,10 @@ public static class ConfigurationManager
 			throw new NullReferenceException("Cannot get connection string!");
 		}
 
-		return new ConnectionOptions()
+		return new ConnectionOptions
 		{
 			PostgresConnectionString = dbConnectionString,
+			ClickHouseConnectionString = logConnectionString
 		};
 	}
 }

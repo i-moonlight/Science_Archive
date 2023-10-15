@@ -28,8 +28,6 @@ public class ExceptionHandlerMiddleware
 
     private async Task ProcessException(Exception ex, HttpContext httpContext)
     {
-        _logger.LogError(ex.Message  + "\n" + ex.StackTrace);
-        
         var response = new ErrorResponse(ex.Message);
         var body = JsonSerializer.Serialize(response);
 

@@ -16,13 +16,13 @@
     <None Remove="Persistence\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Persistence\Options\" />
     <Folder Include="Persistence\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScienceArchive.Core\ScienceArchive.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ClickHouse.Client" Version="6.7.5" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Npgsql" Version="7.0.4" />

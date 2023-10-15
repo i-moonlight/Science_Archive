@@ -50,6 +50,7 @@ jobs:
         docker build \
           --build-arg POSTGRESQL_CONNECTION_STRING="${{ secrets.POSTGRESQL_CONNECTION_STRING }}" \
           --build-arg SCIENCE_ARCHIVE_JWT_KEY="${{ secrets.SCIENCE_ARCHIVE_JWT_KEY }}" \
+          --build-arg CLICKHOUSE_CONNECTION_STRING="${{ secrets.CLICKHOUSE_CONNECTION_STRING }}" \
           -t ${{ secrets.BACKEND_IMAGE_NAME }} .
 
     - name: Stop current container
