@@ -14,18 +14,18 @@ Whole project consists of the following services which are stored in separated d
 
 - `ScienceArchive.Server` - main backend service. It was created following Clean Architecture principles and powered by .NET platform. All business logic is stored there;
 - `science-archive-web` - client-side application, which is created with Angular as Single Page Application (SPA);
-- `ScienceArchive.DB` - it is database project. There all SQL and NoSQL scripts are stored. There are two DBMS used - PostgreSQL for main data and ClickHouse for logs;
-- `ScienceArchive.Mobile` - test mobile application created with .NET MAUI.
+- `ScienceArchive.DB` - it is database project. All SQL and NoSQL scripts are stored here. There are two DBMS used in this project - PostgreSQL for main data and ClickHouse for logs;
 - `doc-store-api` - web API created with Go language. It is used to work with file storage: upload, download etc;
-- `telegram-bot-api` - this is a web API service for interacting with Telegram API to send notifications to users, help to find information in service (articles, authors etc).
+- `telegram-bot-api` - this is a web API service for interacting with Telegram API to send notifications to users, help to find information in service (articles, authors etc);
+- `ScienceArchive.Mobile` - test mobile application created with .NET MAUI.
 
-## Backend Architecture
+## Common Backend Services Architecture
 
 Consider backend UML Class Diagram below:
 
 ![Backend Diagram](./docs/assets/backend/science-archive-backend-diagram.jpg)
 
-## Data Persistence Architecture
+## Database Entity-Relationships Diagram (ERD)
 
 Consider a template of database structure:
 
