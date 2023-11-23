@@ -22,7 +22,25 @@ public class RequestResponseLoggingMiddleware
 	
 	public async Task Invoke(HttpContext httpContext)
 	{
-		var log = GetRequestLog(httpContext);
+		httpContext.Request.EnableBuffering();
+		
+		var origBody = httpContext.Response.Body;
+		await using var memoryStream = new MemoryStream();
+		httpContext.Response.Body = memoryStream;
+		
+		await _next(httpContext);
+		
+		memoryStream.Seek(0, SeekOrigin.Begin);
+		var responseBody = await new StreamReader(memoryStream).ReadToEndAsync();
+		memoryStream.Seek(0, SeekOrigin.Begin);
+
+		await memoryStream.CopyToAsync(origBody);
+		httpContext.Response.Body = origBody;
+		
+		var log = await GetRequestLog(httpContext);
+
+		log.Response = responseBody;
+		
 		_logger.LogInformation($"""
 		                        Received request:
 		                        			URL: {log.Url}
@@ -30,15 +48,14 @@ public class RequestResponseLoggingMiddleware
 		                        			User-Agent: {log.UserAgent}
 		                        """);
 		_logRepository.LogRequest(log);
-		
-		await _next(httpContext);
 	}
 
-	private RequestLog GetRequestLog(HttpContext httpContext)
+	private async Task<RequestLog> GetRequestLog(HttpContext httpContext)
 	{
 		var url = httpContext.Request.GetDisplayUrl();
 		var userAgent = "unknown";
 		var ip = "unknown";
+		var requestBody = "empty";
 
 		if (httpContext.Request.Headers.TryGetValue("X-Forwarded-For", out var realIp))
 		{
@@ -49,8 +66,29 @@ public class RequestResponseLoggingMiddleware
 		{
 			userAgent = realUserAgent.FirstOrDefault()!;
 		}
+
+		if (httpContext.Request.Body.CanRead)
+		{
+			httpContext.Request.Body.Position = 0;
+			
+			using var reader = new StreamReader(httpContext.Request.Body);
+			requestBody = await reader.ReadToEndAsync();
+			
+			if (httpContext.Request.Body.CanSeek)
+			{
+				httpContext.Request.Body.Seek(0, SeekOrigin.Begin);
+			}
+		}
 		
-		var requestLog = new RequestLog(DateTime.Now, ip, url, userAgent);
+		var requestLog = new RequestLog
+		{
+			Timestamp = DateTime.Now,
+			Ip = ip,
+			Url = url,
+			UserAgent = userAgent,
+			Request = requestBody
+		};
+		
 		return requestLog;
 	}
 }

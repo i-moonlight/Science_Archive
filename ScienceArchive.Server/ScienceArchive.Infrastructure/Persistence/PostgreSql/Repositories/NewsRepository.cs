@@ -41,17 +41,12 @@ internal class PostgresNewsRepository : INewsRepository
         var parameters = new DynamicParameters();
         parameters.Add("Id", id.Value);
 
-        var news = await _connection.QueryFirstOrDefaultAsync<NewsModel>(
+        var news = await _connection.QueryFirstOrDefaultAsync<NewsModel?>(
             "SELECT * FROM func_get_news_by_id(@Id)",
             parameters,
             commandType: CommandType.Text);
 
-        if (news is null)
-        {
-            throw new EntityNotFoundException<NewsModel>($"Cannot find news with id {id.ToString()}");
-        }
-
-        return _mapper.MapToEntity(news);
+        return news is null ? null : _mapper.MapToEntity(news);
     }
 
     public async Task<News> Create(News newValue)

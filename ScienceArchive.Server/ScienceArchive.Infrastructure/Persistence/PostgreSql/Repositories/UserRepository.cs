@@ -32,12 +32,12 @@ internal class PostgresUserRepository : IUserRepository
         var parameters = new DynamicParameters();
         parameters.Add("Id", id.Value);
 
-        var user = await _connection.QuerySingleOrDefaultAsync<UserModel>(
+        var user = await _connection.QuerySingleOrDefaultAsync<UserModel?>(
             "SELECT * FROM func_get_user_by_id(@Id)", 
             parameters, 
             commandType: CommandType.Text);
 
-        return _userMapper.MapToEntity(user);
+        return user is null ? null : _userMapper.MapToEntity(user);
     }
 
     /// <inheritdoc/>
@@ -66,9 +66,7 @@ internal class PostgresUserRepository : IUserRepository
             parameters, 
             commandType: CommandType.Text);
 
-        return user is not null 
-            ? _userMapper.MapToEntity(user)
-            : null;
+        return user is not null ? _userMapper.MapToEntity(user) : null;
     }
 
     /// <inheritdoc/>

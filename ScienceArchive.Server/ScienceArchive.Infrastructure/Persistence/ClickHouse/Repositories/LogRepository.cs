@@ -54,6 +54,18 @@ public class ClickHouseLogRepository : ILogRepository
 				ParameterName = "user_agent",
 				Value = log.UserAgent
 			},
+			new ClickHouseDbParameter
+			{
+				ClickHouseType = "String",
+				ParameterName = "request_str",
+				Value = log.Request ?? "empty"
+			},
+			new ClickHouseDbParameter
+			{
+				ClickHouseType = "String",
+				ParameterName = "response_str",
+				Value = log.Response ?? "empty"
+			}
 		});
 
 		command.CommandText = @"
@@ -64,7 +76,9 @@ public class ClickHouseLogRepository : ILogRepository
 					{timestamp:DateTime('UTC')},
                     {ip:String},
                     {url:String},
-                    {user_agent:String}
+                    {user_agent:String},
+                 	{request_str:String},
+                 	{response_str:String}
                 )";
 		
 		return command;

@@ -79,14 +79,12 @@ internal class PostgresArticleRepository : IArticleRepository
         var parameters = new DynamicParameters();
         parameters.Add("Id", id.Value);
 
-        var article = await _connection.QueryFirstOrDefaultAsync<ArticleModel>(
+        var article = await _connection.QueryFirstOrDefaultAsync<ArticleModel?>(
             "SELECT * FROM func_get_article_by_id(@Id)",
             parameters,
             commandType: CommandType.Text);
 
-        return article is not null
-            ? _mapper.MapToEntity(article)
-            : null;
+        return article is not null ? _mapper.MapToEntity(article) : null;
     }
 
     public async Task<Article> Create(Article newValue)

@@ -31,7 +31,14 @@ public class ExceptionHandlerMiddleware
         var response = new ErrorResponse(ex.Message);
         var body = JsonSerializer.Serialize(response);
 
-        httpContext.Response.ContentType = "application/json";
-        await httpContext.Response.WriteAsync(body);
+        try
+        {
+            httpContext.Response.ContentType = "application/json";
+            await httpContext.Response.WriteAsync(body);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+        }
     }
 }

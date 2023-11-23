@@ -48,17 +48,12 @@ internal class PostgresRoleRepository : IRoleRepository
         var parameters = new DynamicParameters();
         parameters.Add("Id", id.Value);
 
-        var role = await _connection.QuerySingleOrDefaultAsync<RoleModel>(
+        var role = await _connection.QuerySingleOrDefaultAsync<RoleModel?>(
             "SELECT * FROM func_get_role_by_id(@Id)",
             parameters,
             commandType: CommandType.Text);
 
-        if (role is null)
-        {
-            throw new EntityNotFoundException<Role[]>("Database returned NULL!");
-        }
-
-        return _roleMapper.MapToEntity(role);
+        return role is null ? null : _roleMapper.MapToEntity(role);
     }
     
     /// <inheritdoc/>

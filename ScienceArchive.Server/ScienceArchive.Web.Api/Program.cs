@@ -36,7 +36,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Register middlewares
-app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();
