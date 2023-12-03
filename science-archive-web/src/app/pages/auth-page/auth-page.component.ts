@@ -13,8 +13,8 @@ export class AuthPageComponent implements OnInit {
 
   constructor(private systemService: SystemService) {
     this.isServerWorking = true;
-    this.isSignIn = false;
-    this.isSignUp = true;
+    this.isSignIn = true;
+    this.isSignUp = false;
   }
 
   ngOnInit(): void {

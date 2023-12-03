@@ -2,7 +2,7 @@
 <div class="categories-container">
   <div *ngIf="isLoading; else categoriesList">
     <app-category-card-loading
-      *ngFor="let i of [1,2,3]"
+      *ngFor="let _ of [1,2,3]"
     />
   </div>
 
