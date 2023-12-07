@@ -1,4 +1,5 @@
-﻿using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
+﻿using ScienceArchive.Core.Domain.Aggregates.Article.Enums;
+using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.Category.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Domain.Common;
@@ -28,6 +29,11 @@ public class Article : Entity<ArticleId>
     /// Author of an article
     /// </summary>
     public required List<UserId> AuthorsIds { get; set; }
+    
+    /// <summary>
+    /// Current status of an article
+    /// </summary>
+    public required ArticleStatus Status { get; set; }
 
     /// <summary>
     /// Date when article was created

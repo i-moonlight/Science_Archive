@@ -16,6 +16,11 @@ internal record ArticleModel
 	/// Article title
 	/// </summary>
 	public required string Title { get; set; }
+	
+	/// <summary>
+	/// Article status
+	/// </summary>
+	public required int Status { get; set; }
 
 	/// <summary>
 	/// Article author

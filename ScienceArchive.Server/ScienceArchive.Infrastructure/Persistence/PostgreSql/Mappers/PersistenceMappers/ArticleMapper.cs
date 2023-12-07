@@ -1,4 +1,5 @@
 using ScienceArchive.Core.Domain.Aggregates.Article;
+using ScienceArchive.Core.Domain.Aggregates.Article.Enums;
 using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.Category.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
@@ -21,6 +22,7 @@ internal class ArticleMapper : IPersistenceMapper<Article, ArticleModel>
 		{
 			Id = entity.Id.Value,
 			CategoryId = entity.CategoryId.Value,
+			Status = (int)entity.Status,
 			Title = entity.Title,
 			CreationDate = entity.CreationDate,
 			Description = entity.Description,
@@ -41,6 +43,7 @@ internal class ArticleMapper : IPersistenceMapper<Article, ArticleModel>
 		return new(articleId)
 		{
 			CategoryId = CategoryId.CreateFromGuid(model.CategoryId),
+			Status = (ArticleStatus)model.Status,
 			Title = model.Title,
 			CreationDate = model.CreationDate,
 			Description = model.Description,
