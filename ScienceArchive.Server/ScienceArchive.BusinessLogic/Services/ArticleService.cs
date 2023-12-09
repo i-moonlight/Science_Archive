@@ -10,25 +10,39 @@ internal class ArticleService : BaseService, IArticleService
     public ArticleService(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
     /// <inheritdoc/>
+    public async Task<Article?> GetVerifiedById(GetVerifiedArticleByIdContract contract)
+    {
+        return await ExecuteUseCase<Article?, GetVerifiedArticleByIdContract>(contract);
+    }
+
+    /// <inheritdoc/>
     public async Task<Article?> GetById(GetArticleByIdContract contract)
     {
         return await ExecuteUseCase<Article?, GetArticleByIdContract>(contract);
     }
 
+    /// <inheritdoc/>
     public async Task<List<Article>> GetByAuthorId(GetArticlesByAuthorIdContract contract)
     {
         return await ExecuteUseCase<List<Article>, GetArticlesByAuthorIdContract>(contract);
     }
 
-    public async Task<List<Article>> GetByCategoryId(GetArticlesByCategoryIdContract contract)
+    /// <inheritdoc/>
+    public async Task<List<Article>> GetVerifiedByAuthorId(GetVerifiedArticlesByAuthorIdContract contract)
     {
-        return await ExecuteUseCase<List<Article>, GetArticlesByCategoryIdContract>(contract);
+        return await ExecuteUseCase<List<Article>, GetVerifiedArticlesByAuthorIdContract>(contract);
     }
 
     /// <inheritdoc/>
-    public async Task<List<Article>> GetAll(GetAllArticlesContract contract)
+    public async Task<List<Article>> GetVerifiedByCategoryId(GetVerifiedArticlesByCategoryIdContract contract)
     {
-        return await ExecuteUseCase<List<Article>, GetAllArticlesContract>(contract);
+        return await ExecuteUseCase<List<Article>, GetVerifiedArticlesByCategoryIdContract>(contract);
+    }
+
+    /// <inheritdoc/>
+    public async Task<List<Article>> GetAllVerified(GetAllVerifiedArticlesContract contract)
+    {
+        return await ExecuteUseCase<List<Article>, GetAllVerifiedArticlesContract>(contract);
     }
 
     /// <inheritdoc/>

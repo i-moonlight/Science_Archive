@@ -68,12 +68,14 @@ public static class BusinessLogicRegistry
     {
         // Article use cases
         _ = services.AddTransient<IUseCase<Article?, GetArticleByIdContract>, GetArticleByIdUseCase>();
-        _ = services.AddTransient<IUseCase<List<Article>, GetAllArticlesContract>, GetAllArticlesUseCase>();
+        _ = services.AddTransient<IUseCase<List<Article>, GetAllVerifiedArticlesContract>, GetAllVerifiedArticlesUseCase>();
         _ = services.AddTransient<IUseCase<Article, CreateArticleContract>, CreateArticleUseCase>();
         _ = services.AddTransient<IUseCase<Article, UpdateArticleContract>, UpdateArticleUseCase>();
         _ = services.AddTransient<IUseCase<ArticleId, DeleteArticleContract>, DeleteArticleUseCase>();
-        _ = services.AddTransient<IUseCase<List<Article>, GetArticlesByCategoryIdContract>, GetArticlesByCategoryIdUseCase>();
+        _ = services.AddTransient<IUseCase<List<Article>, GetVerifiedArticlesByCategoryIdContract>, GetVerifiedArticlesByCategoryIdUseCase>();
         _ = services.AddTransient<IUseCase<List<Article>, GetArticlesByAuthorIdContract>, GetArticlesByAuthorIdUseCase>();
+        _ = services.AddTransient<IUseCase<List<Article>, GetVerifiedArticlesByAuthorIdContract>, GetVerifiedArticlesByAuthorIdUseCase>();
+        _ = services.AddTransient<IUseCase<Article?, GetVerifiedArticleByIdContract>, GetVerifiedArticleByIdUseCase>();
 
         // Category use cases
         _ = services.AddTransient<IUseCase<List<Category>, GetAllCategoriesContract>, GetAllCategoriesUseCase>();

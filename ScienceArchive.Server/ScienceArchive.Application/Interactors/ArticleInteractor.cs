@@ -26,8 +26,8 @@ internal class ArticleInteractor : IArticleInteractor
     /// <inheritdoc/>
     public async Task<GetAllArticlesResponseDto> GetAllArticles(GetAllArticlesRequestDto dto)
     {
-        var contract = new GetAllArticlesContract();
-        var articles = await _articleService.GetAll(contract);
+        var contract = new GetAllVerifiedArticlesContract();
+        var articles = await _articleService.GetAllVerified(contract);
         var articlesDtos = articles.Select(article => _articleMapper.MapToDto(article)).ToList();
 
         return new(articlesDtos);
@@ -46,8 +46,8 @@ internal class ArticleInteractor : IArticleInteractor
     /// <inheritdoc/>
     public async Task<GetArticleByIdResponseDto> GetArticleById(GetArticleByIdRequestDto dto)
     {
-        var contract = new GetArticleByIdContract(ArticleId.CreateFromString(dto.Id));
-        var article = await _articleService.GetById(contract);
+        var contract = new GetVerifiedArticleByIdContract(ArticleId.CreateFromString(dto.Id));
+        var article = await _articleService.GetVerifiedById(contract);
 
         var articleDto = article is not null
             ? _articleMapper.MapToDto(article)
@@ -55,11 +55,11 @@ internal class ArticleInteractor : IArticleInteractor
         
         return new(articleDto);
     }
-
+    
     public async Task<GetArticlesByCategoryIdResponseDto> GetArticlesByCategoryId(GetArticlesByCategoryIdRequestDto dto)
     {
-        var contract = new GetArticlesByCategoryIdContract(CategoryId.CreateFromString(dto.CategoryId));
-        var articles = await _articleService.GetByCategoryId(contract);
+        var contract = new GetVerifiedArticlesByCategoryIdContract(CategoryId.CreateFromString(dto.CategoryId));
+        var articles = await _articleService.GetVerifiedByCategoryId(contract);
 
         var articlesDtos = articles.Select(_articleMapper.MapToDto).ToList();
         return new(articlesDtos);

@@ -38,13 +38,27 @@ internal class PostgresArticleRepository : IArticleRepository
         return articles.Select(article => _mapper.MapToEntity(article)).ToList();
     }
 
-    public async Task<List<Article>> GetByCategoryId(CategoryId categoryId)
+    public async Task<List<Article>> GetAllVerified()
+    {
+        var articles = await _connection.QueryAsync<ArticleModel>(
+            "SELECT * FROM func_get_all_verified_articles()",
+            commandType: CommandType.Text);
+
+        if (articles is null)
+        {
+            throw new EntityNotFoundException<NewsModel>("Cannot get any article");
+        }
+
+        return articles.Select(article => _mapper.MapToEntity(article)).ToList();
+    }
+
+    public async Task<List<Article>> GetVerifiedByCategoryId(CategoryId categoryId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("CategoryId", categoryId.Value);
 
         var articles = await _connection.QueryAsync<ArticleModel>(
-            "SELECT * FROM func_get_articles_by_category_id(@CategoryId)",
+            "SELECT * FROM func_get_verified_articles_by_category_id(@CategoryId)",
             parameters,
             commandType: CommandType.Text);
 
@@ -63,6 +77,24 @@ internal class PostgresArticleRepository : IArticleRepository
 
         var articles = await _connection.QueryAsync<ArticleModel>(
             "SELECT * FROM func_get_articles_by_author_id(@UserId)",
+            parameters,
+            commandType: CommandType.Text);
+
+        if (articles is null)
+        {
+            throw new EntityNotFoundException<NewsModel>("Cannot get any article");
+        }
+
+        return articles.Select(_mapper.MapToEntity).ToList();
+    }
+
+    public async Task<List<Article>> GetVerifiedByAuthorId(UserId userId)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("UserId", userId.Value);
+
+        var articles = await _connection.QueryAsync<ArticleModel>(
+            "SELECT * FROM func_get_verified_articles_by_author_id(@UserId)",
             parameters,
             commandType: CommandType.Text);
 

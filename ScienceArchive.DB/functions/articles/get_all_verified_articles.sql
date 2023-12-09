@@ -1,6 +1,4 @@
-CREATE OR REPLACE FUNCTION "func_get_articles_by_author_id" (
-  "p_author_id" UUID
-)
+CREATE OR REPLACE FUNCTION "func_get_all_verified_articles" ()
 RETURNS TABLE (
   "id"                UUID,
   "categoryId"        UUID,
@@ -12,8 +10,8 @@ RETURNS TABLE (
 )
 LANGUAGE plpgsql
 AS $$
-  BEGIN
-    RETURN QUERY
+BEGIN
+  RETURN QUERY
     SELECT
       a."id",
       ac."subcategory_id",
@@ -35,7 +33,8 @@ AS $$
         WHERE ad."article_id" = a."id"
       ) AS "documents"
     FROM "articles" AS a
-      INNER JOIN "articles_categories" AS ac  ON ac."article_id"  = a."id"
-      INNER JOIN "articles_creation"   AS acr ON acr."article_id" = a."id"
-      INNER JOIN "articles_authors"    AS aa  ON aa."article_id" = a."id" and aa."author_id" = "p_author_id";
+      INNER JOIN "articles_categories"   AS ac  ON ac."article_id"  = a."id"
+      INNER JOIN "articles_creation"     AS acr ON acr."article_id" = a."id"
+      INNER JOIN  "articles_verification" AS av ON av."article_id" = a."id"
+    WHERE av."status" = 1;
 END;$$

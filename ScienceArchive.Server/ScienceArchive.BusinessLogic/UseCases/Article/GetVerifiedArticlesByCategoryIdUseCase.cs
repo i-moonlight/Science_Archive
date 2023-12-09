@@ -5,17 +5,17 @@ using ScienceArchive.Core.Services.ArticleContracts;
 
 namespace ScienceArchive.BusinessLogic.ArticleUseCases;
 
-public class GetArticlesByCategoryIdUseCase : IUseCase<List<Article>, GetArticlesByCategoryIdContract>
+public class GetVerifiedArticlesByCategoryIdUseCase : IUseCase<List<Article>, GetVerifiedArticlesByCategoryIdContract>
 {
 	private readonly IArticleRepository _articleRepository;
 	
-	public GetArticlesByCategoryIdUseCase(IArticleRepository articleRepository)
+	public GetVerifiedArticlesByCategoryIdUseCase(IArticleRepository articleRepository)
 	{
 		_articleRepository = articleRepository ?? throw new ArgumentNullException(nameof(articleRepository));
 	}
 	
-	public async Task<List<Article>> Execute(GetArticlesByCategoryIdContract contract)
+	public async Task<List<Article>> Execute(GetVerifiedArticlesByCategoryIdContract contract)
 	{
-		return await _articleRepository.GetByCategoryId(contract.CategoryId);
+		return await _articleRepository.GetVerifiedByCategoryId(contract.CategoryId);
 	}
 }

@@ -1,7 +1,7 @@
 -- Relation between articles and categories
 
 CREATE TABLE IF NOT EXISTS "articles_categories" (
-  "article_id"  UUID NOT NULL,
+  "article_id"     UUID NOT NULL,
   "subcategory_id" UUID NOT NULL,
     
   PRIMARY KEY ("article_id"),
