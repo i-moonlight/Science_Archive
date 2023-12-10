@@ -1,5 +1,6 @@
 ﻿using ScienceArchive.BusinessLogic.Interfaces;
 using ScienceArchive.Core.Domain.Aggregates.Article;
+using ScienceArchive.Core.Domain.Aggregates.Article.Enums;
 using ScienceArchive.Core.Repositories;
 using ScienceArchive.Core.Services.ArticleContracts;
 
@@ -16,6 +17,7 @@ internal class CreateArticleUseCase : IUseCase<Article, CreateArticleContract>
 
     public async Task<Article> Execute(CreateArticleContract contract)
     {
+        contract.Article.Status = ArticleStatus.ToVerify;
         return await _articleRepository.Create(contract.Article);
     }
 }

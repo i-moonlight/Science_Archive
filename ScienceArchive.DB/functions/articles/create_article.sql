@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS "func_create_article";
+
 CREATE OR REPLACE FUNCTION "func_create_article" (
   "p_id"                 UUID,
   "p_category_id"        UUID,
@@ -5,7 +7,8 @@ CREATE OR REPLACE FUNCTION "func_create_article" (
   "p_description"        TEXT,
   "p_creation_date"      TIMESTAMP,
   "p_authors_ids"        UUID[],
-  "p_documents"          JSONB
+  "p_documents"          JSONB,
+  "p_status"             INT
 )
 RETURNS TABLE (
   "id"                UUID,
@@ -14,7 +17,8 @@ RETURNS TABLE (
   "description"       TEXT,
   "creationDate"      TIMESTAMP,
   "authorsIds"        UUID[],
-  "documents"         JSONB
+  "documents"         JSONB,
+  "status"            INT
 )
 LANGUAGE plpgsql
 AS $$
@@ -26,7 +30,8 @@ BEGIN
     "p_title",
     "p_creation_date",
     "p_description",
-    "p_documents"
+    "p_documents",
+    "p_status"
   );
   
   RETURN QUERY

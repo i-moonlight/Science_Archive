@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net;
+using System.Text.Json;
 using ScienceArchive.Web.Api.Responses;
 
 namespace ScienceArchive.Web.Api.Middleware;
@@ -19,6 +20,11 @@ public class ExceptionHandlerMiddleware
         try
         {
             await _next(httpContext);
+        }
+        catch (BadHttpRequestException ex)
+        {
+            httpContext.Response.StatusCode = ex.StatusCode;
+            await ProcessException(ex, httpContext);
         }
         catch (Exception ex)
         {

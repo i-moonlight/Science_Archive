@@ -1,3 +1,5 @@
+DROP PROCEDURE IF EXISTS "proc_delete_article";
+
 CREATE OR REPLACE PROCEDURE "proc_delete_article" (
   "p_id" UUID
 )
@@ -15,6 +17,9 @@ BEGIN
   
   DELETE FROM "articles_creation" AS ac
   WHERE ac."article_id" = "p_id";
+  
+  DELETE FROM "articles_verification" AS av
+  WHERE av."article_id" = "p_id";
 
   DELETE FROM "articles" AS a
   WHERE a."id" = "p_id";

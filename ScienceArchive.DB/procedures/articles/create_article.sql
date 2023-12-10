@@ -1,3 +1,5 @@
+DROP PROCEDURE IF EXISTS "proc_create_article";
+
 CREATE OR REPLACE PROCEDURE "proc_create_article" (
   "p_id"                UUID,
   "p_category_id"       UUID,
@@ -5,7 +7,8 @@ CREATE OR REPLACE PROCEDURE "proc_create_article" (
   "p_title"             VARCHAR(255),
   "p_created_timestamp" TIMESTAMP,
   "p_description"       TEXT,
-  "p_documents"         JSONB
+  "p_documents"         JSONB,
+  "p_status"            INT
 )
 LANGUAGE plpgsql
 AS $$
@@ -61,6 +64,16 @@ BEGIN
     "p_id",
     "p_created_timestamp";
   
+  
+  INSERT INTO "articles_verification" (
+    "article_id",
+    "status", 
+    "last_updated"
+  )
+  SELECT
+    "p_id",
+    "p_status",
+    now();
   
   INSERT INTO "articles_documents" (
     "article_id", 

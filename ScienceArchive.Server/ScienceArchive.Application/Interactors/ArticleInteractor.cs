@@ -44,14 +44,24 @@ internal class ArticleInteractor : IArticleInteractor
     }
 
     /// <inheritdoc/>
+    public async Task<GetVerifiedArticlesByAuthorIdResponseDto> GetVerifiedArticlesByAuthorId(GetVerifiedArticlesByAuthorIdRequestDto dto)
+    {
+        var contract = new GetVerifiedArticlesByAuthorIdContract(UserId.CreateFromString(dto.AuthorId));
+        var articles = await _articleService.GetVerifiedByAuthorId(contract);
+
+        var articlesDtos = articles.Select(_articleMapper.MapToDto).ToList();
+        return new GetVerifiedArticlesByAuthorIdResponseDto(articlesDtos);
+    }
+
+    /// <inheritdoc/>
     public async Task<GetArticleByIdResponseDto> GetArticleById(GetArticleByIdRequestDto dto)
     {
         var contract = new GetVerifiedArticleByIdContract(ArticleId.CreateFromString(dto.Id));
         var article = await _articleService.GetVerifiedById(contract);
-
+        
         var articleDto = article is not null
             ? _articleMapper.MapToDto(article)
-            : null;
+            : throw new Exception("Cannot get article with specified ID");
         
         return new(articleDto);
     }

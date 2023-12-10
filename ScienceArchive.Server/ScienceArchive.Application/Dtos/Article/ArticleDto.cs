@@ -19,11 +19,11 @@ public record ArticleDto
     /// Article's title
     /// </summary>
     public required string Title { get; set; }
-    
+
     /// <summary>
     /// Article's status
     /// </summary>
-    public required int Status { get; set; }
+    public int Status { get; set; }
 
     /// <summary>
     /// Author of an article

@@ -1,10 +1,13 @@
+DROP FUNCTION IF EXISTS "func_update_article";
+
 CREATE OR REPLACE FUNCTION "func_update_article" (
   "p_id"                 UUID,
   "p_category_id"        UUID,
   "p_title"              VARCHAR(255),
   "p_description"        TEXT,
   "p_authors_ids"        UUID[],
-  "p_documents"          JSONB
+  "p_documents"          JSONB,
+  "p_status"             INT
 )
 RETURNS TABLE (
   "id"                UUID,
@@ -13,7 +16,8 @@ RETURNS TABLE (
   "description"       TEXT,
   "creationDate"      TIMESTAMP,
   "authorsIds"        UUID[],
-  "documents"         JSONB
+  "documents"         JSONB,
+  "status"            INT
 )
 LANGUAGE plpgsql
 AS $$
@@ -24,7 +28,8 @@ BEGIN
     "p_title",
     "p_description",
     "p_authors_ids",
-    "p_documents"
+    "p_documents",
+    "p_status"
   );
 
   RETURN QUERY 

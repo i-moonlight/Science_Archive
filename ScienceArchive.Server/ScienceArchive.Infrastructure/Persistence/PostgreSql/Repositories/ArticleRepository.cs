@@ -126,7 +126,7 @@ internal class PostgresArticleRepository : IArticleRepository
         parameters.Add("Documents", JsonSerializer.Serialize(articleToCreate.Documents));
 
         var createdArticle = await _connection.QueryFirstOrDefaultAsync<ArticleModel>(
-            "SELECT * FROM func_create_article(:Id, :CategoryId, :Title, :Description, :CreationDate, :AuthorsIds, :Documents::jsonb)",
+            "SELECT * FROM func_create_article(:Id, :CategoryId, :Title, :Description, :CreationDate, :AuthorsIds, :Documents::jsonb, :Status)",
             parameters,
             commandType: CommandType.Text);
         
@@ -147,7 +147,7 @@ internal class PostgresArticleRepository : IArticleRepository
         parameters.Add("Documents", JsonSerializer.Serialize(articleToUpdate.Documents));
 
         var updatedArticle = await _connection.QueryFirstOrDefaultAsync<ArticleModel>(
-            "SELECT * FROM func_update_article(:Id, :CategoryId, :Title, :Description, :AuthorsIds, :Documents::jsonb)",
+            "SELECT * FROM func_update_article(:Id, :CategoryId, :Title, :Description, :AuthorsIds, :Documents::jsonb, :Status)",
             parameters,
             commandType: CommandType.Text);
 

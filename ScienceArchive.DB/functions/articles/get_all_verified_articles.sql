@@ -1,3 +1,5 @@
+DROP FUNCTION IF EXISTS "func_get_all_verified_articles";
+
 CREATE OR REPLACE FUNCTION "func_get_all_verified_articles" ()
 RETURNS TABLE (
   "id"                UUID,
@@ -6,7 +8,8 @@ RETURNS TABLE (
   "description"       TEXT,
   "creationDate"      TIMESTAMP,
   "authorsIds"        UUID[],
-  "documents"         JSONB
+  "documents"         JSONB,
+  "status"            INT
 )
 LANGUAGE plpgsql
 AS $$
@@ -31,7 +34,8 @@ BEGIN
           )
         FROM "articles_documents" AS ad
         WHERE ad."article_id" = a."id"
-      ) AS "documents"
+      ) AS "documents",
+      av."status" as "status"
     FROM "articles" AS a
       INNER JOIN "articles_categories"   AS ac  ON ac."article_id"  = a."id"
       INNER JOIN "articles_creation"     AS acr ON acr."article_id" = a."id"

@@ -16,6 +16,15 @@ internal class UpdateArticleUseCase : IUseCase<Article, UpdateArticleContract>
 
     public async Task<Article> Execute(UpdateArticleContract contract)
     {
+        var currentArticle = await _articleRepository.GetById(contract.Id);
+
+        if (currentArticle is null)
+        {
+            throw new Exception("Article with specified ID was not found");
+        }
+        
+        contract.Article.Status = currentArticle.Status;
+        
         return await _articleRepository.Update(contract.Id, contract.Article);
     }
 }

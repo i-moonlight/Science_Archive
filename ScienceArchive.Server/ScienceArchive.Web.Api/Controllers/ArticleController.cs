@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ScienceArchive.Application.Dtos.Article.Request;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Web.Api.Responses;
+using ScienceArchive.Web.Api.Utils;
 
 namespace ScienceArchive.Web.Api.Controllers;
 
@@ -21,20 +22,35 @@ public class ArticleController : ControllerBase
     {
         if (string.IsNullOrWhiteSpace(categoryId))
         {
-            throw new ArgumentNullException(nameof(categoryId));
+            throw new BadHttpRequestException("Category ID was not presented");
         }
         
         var dto = new GetArticlesByCategoryIdRequestDto(categoryId);
         var result = await _articleInteractor.GetArticlesByCategoryId(dto);
         return new SuccessResponse(result);
     }
+    
+    [Authorize]
+    [HttpGet("my-articles")]
+    public async Task<Response> GetUserArticles()
+    {
+        var userId = HttpContext.GetUserIdFromToken();
 
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            throw new BadHttpRequestException("Cannot get user ID", 401);
+        }
+
+        var result = await _articleInteractor.GetArticlesByAuthorId(new (userId));
+        return new SuccessResponse(result);
+    }
+    
     [HttpGet("by-author/{authorId}")]
-    public async Task<Response> GetByAuthorId(string authorId)
+    public async Task<Response> GetVerifiedByAuthorId(string? authorId)
     {
         if (string.IsNullOrWhiteSpace(authorId))
         {
-            throw new ArgumentNullException(nameof(authorId));
+            throw new BadHttpRequestException("Author ID was not presented");
         }
 
         var dto = new GetArticlesByAuthorIdRequestDto(authorId);
@@ -43,8 +59,13 @@ public class ArticleController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public async Task<Response> GetById(string id)
+    public async Task<Response> GetById(string? id)
     {
+        if (string.IsNullOrWhiteSpace(id))
+        {
+            throw new BadHttpRequestException("ID was not presented");
+        }
+        
         var dto = new GetArticleByIdRequestDto(id);
         var result = await _articleInteractor.GetArticleById(dto);
         return new SuccessResponse(result);
@@ -58,27 +79,42 @@ public class ArticleController : ControllerBase
         var result = await _articleInteractor.GetAllArticles(emptyRequest);
         return new SuccessResponse(result);
     }
-
-    [HttpPost("create")]
+    
     [Authorize]
-    public async Task<Response> Create([FromBody] CreateArticleRequestDto dto)
+    [HttpPost("create")]
+    public async Task<Response> Create([FromBody] CreateArticleRequestDto? dto)
     {
+        if (dto is null)
+        {
+            throw new BadHttpRequestException("No data presented");
+        }
+        
         var result = await _articleInteractor.CreateArticle(dto);
         return new SuccessResponse(result);
     }
-
-    [HttpPost("update")]
+    
     [Authorize]
-    public async Task<Response> Update([FromBody] UpdateArticleRequestDto dto)
+    [HttpPost("update")]
+    public async Task<Response> Update([FromBody] UpdateArticleRequestDto? dto)
     {
+        if (dto is null)
+        {
+            throw new BadHttpRequestException("No data presented");
+        }
+        
         var result = await _articleInteractor.UpdateArticle(dto);
         return new SuccessResponse(result);
     }
 
-    [HttpDelete("{id}")]
     [Authorize]
-    public async Task<Response> Delete(string id)
+    [HttpDelete("{id}")]
+    public async Task<Response> Delete(string? id)
     {
+        if (id is null)
+        {
+            throw new BadHttpRequestException("No data presented");
+        }
+        
         var dto = new DeleteArticleRequestDto(id);
         var result = await _articleInteractor.DeleteArticle(dto);
         return new SuccessResponse(result);
