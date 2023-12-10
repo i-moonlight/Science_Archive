@@ -13,7 +13,7 @@ public record UserDto
     /// <summary>
     /// List of user roles identifiers
     /// </summary>
-    public required List<string> RolesIds { get; set; }
+    public List<string>? RolesIds { get; set; }
     
     /// <summary>
     /// User name

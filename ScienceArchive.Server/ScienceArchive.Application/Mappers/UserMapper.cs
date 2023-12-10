@@ -28,14 +28,14 @@ internal class UserMapper : IApplicationMapper<User, UserDto>
             ? UserId.CreateFromString(model.Id)
             : UserId.CreateNew();
 
-        var rolesIds = model.RolesIds.Select(RoleId.CreateFromString).ToList();
+        var rolesIds = model.RolesIds?.Select(RoleId.CreateFromString).ToList();
         
         return new User(userId)
         {
             Name = model.Name,
             Email = model.Email,
             Login = model.Login,
-            RolesIds = rolesIds,
+            RolesIds = rolesIds ?? new List<RoleId>(),
             Password = new UserPassword()
         };
     }

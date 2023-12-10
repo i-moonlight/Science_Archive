@@ -30,7 +30,9 @@ internal class AuthInteractor : IAuthInteractor
     /// <inheritdoc/>
     public async Task<LoginResponseDto> Login(LoginRequestDto dto)
     {
-        var contract = new GetUserByCredentialsContract(dto.Login, dto.Password);
+        var preparedDto = new LoginRequestDto(dto.Login.Trim(), dto.Password.Trim());
+        
+        var contract = new GetUserByCredentialsContract(preparedDto.Login, preparedDto.Password);
         var user = await _userService.GetUserByCredentials(contract);
 
         if (user is null)
@@ -44,8 +46,19 @@ internal class AuthInteractor : IAuthInteractor
     /// <inheritdoc/>
     public async Task<SignUpResponseDto> SignUp(SignUpRequestDto dto)
     {
-        var userToCreate = _userMapper.MapToEntity(dto.User);
-        userToCreate.Password.Value = dto.Password;
+        var preparedDto = new SignUpRequestDto(
+            new UserDto
+            {
+                Name = dto.User.Name.Trim(),
+                Email = dto.User.Email.Trim(),
+                Login = dto.User.Login.Trim(),
+                RolesIds = dto.User.RolesIds
+            },
+            dto.Password.Trim()
+        );
+        
+        var userToCreate = _userMapper.MapToEntity(preparedDto.User);
+        userToCreate.Password.Value = preparedDto.Password;
         
         var contract = new CreateUserContract(userToCreate);
         var createdUser = await _userService.Create(contract);
