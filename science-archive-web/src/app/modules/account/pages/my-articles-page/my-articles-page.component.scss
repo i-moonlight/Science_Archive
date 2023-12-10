@@ -1,4 +1,47 @@
 .articles-container {
-  margin-top: 30px;
+  margin-top: 20px;
+  padding: 10px;
   width: 90%;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-modal-content {
+  padding: 20px;
+}
+
+.edit-modal-form-field {
+
+}
+
+.edit-modal-form-field {
+  margin-top: 20px;
+  width: 100%;
+
+  p {
+    font-size: 0.9em;
+    color: #6c6c6c;
+  }
+
+  &-input {
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #a4a4a4;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 }

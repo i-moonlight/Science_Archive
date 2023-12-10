@@ -1,16 +1,45 @@
-<h2>My Articles</h2>
+<div class="page-wrapper">
+  <div class="page-header">
+    <h2>My Articles</h2>
+    <app-action-button
+      (onClick)="onCreateClick()"
+    >Create</app-action-button>
+  </div>
 
-<div *ngIf="isLoading">
-  <p>Loading...</p>
+  <div *ngIf="isLoading">
+    <p>Loading...</p>
+  </div>
+
+  <div class="articles-container" *ngIf="!isLoading">
+    <p *ngIf="articles.length === 0">
+      There are no articles from you yet
+    </p>
+
+    <app-my-article-card
+      *ngFor="let article of articles"
+      [article]="article"
+    />
+  </div>
 </div>
 
-<div class="articles-container" *ngIf="!isLoading">
-  <p *ngIf="articles.length === 0">
-    There are no articles from you yet
-  </p>
+<app-modal-window
+  [isShown]="showEditModal"
+  (onClose)="onEditModalClose()"
+>
+  <div class="edit-modal-content">
+    <div class="edit-form">
+      <h3 *ngIf="createNew">Create new article</h3>
+      <h3 *ngIf="!createNew">Edit article</h3>
 
-  <app-my-article-card
-    *ngFor="let article of articles"
-    [article]="article"
-  />
-</div>
+      <div class="edit-modal-form-field">
+        <p>Title</p>
+        <input class="edit-modal-form-field-input" [(ngModel)]="currentArticle.title">
+      </div>
+
+      <div class="edit-modal-form-field">
+        <p>Description</p>
+        <textarea class="edit-modal-form-field-input" [(ngModel)]="currentArticle.description"></textarea>
+      </div>
+    </div>
+  </div>
+</app-modal-window>

@@ -16,12 +16,17 @@ export interface Article {
    * Identifier of the user
    * created the article
    */
-  authorId: string;
+  authorsIds: string[];
 
   /**
    * Date when article was created
    */
   creationDate: Date;
+
+  /**
+   * ID of category
+   */
+  categoryId: string;
 
   /**
    * Article description

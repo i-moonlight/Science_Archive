@@ -11,13 +11,28 @@ import { Router } from "@angular/router";
 })
 export class MyArticlesPageComponent implements OnInit {
   isLoading = true;
+  showEditModal = false;
   articles: Article[] = [];
+
+  currentArticle: Article;
+  createNew = false;
 
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
     private articleService: ArticleService
-  ) {}
+  ) {
+    this.currentArticle = {
+      id: "",
+      title: "",
+      description: "",
+      authorsIds: [],
+      status: 0,
+      categoryId: "",
+      creationDate: new Date(),
+      documentsPaths: [],
+    };
+  }
 
   ngOnInit(): void {
     const currentUser = this.localStorageService.getCurrentUser();
@@ -33,5 +48,15 @@ export class MyArticlesPageComponent implements OnInit {
       next: (response) => (this.articles = response.articles),
       error: (err) => alert(err),
     });
+  }
+
+  onCreateClick() {
+    this.showEditModal = true;
+    this.createNew = true;
+  }
+
+  onEditModalClose() {
+    this.showEditModal = false;
+    this.createNew = false;
   }
 }

@@ -27,7 +27,7 @@
 .page-content {
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: calc(100% - 60px);
   background-color: #f7f9ff;
 
   nav {
@@ -61,8 +61,7 @@
 }
 
 .main-content {
-  margin-top: 25px;
-  margin-left: 25px;
+  padding: 25px;
   width: 100%;
 }
 
