@@ -24,6 +24,11 @@ export class SignUpFormComponent {
   }
 
   async onSignUp() {
+    if (this.password !== this.repeatPassword) {
+      alert("Password and Repeat Password are not equal");
+      return;
+    }
+
     const request: SignUpRequest = {
       user: {
         name: this.name,

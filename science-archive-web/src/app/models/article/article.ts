@@ -29,7 +29,12 @@ export interface Article {
   description: string | null;
 
   /**
-   * Path to a document linked to article
+   * Paths to documents linked to article
    */
-  documentPath: string;
+  documentsPaths: string[];
+
+  /**
+   * Current article status represented as number
+   */
+  status: number;
 }

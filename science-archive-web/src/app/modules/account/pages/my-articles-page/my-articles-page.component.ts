@@ -28,7 +28,7 @@ export class MyArticlesPageComponent implements OnInit {
       return;
     }
 
-    this.articleService.getArticleByAuthorId(currentUser.id).subscribe({
+    this.articleService.getMyArticles().subscribe({
       complete: () => (this.isLoading = false),
       next: (response) => (this.articles = response.articles),
       error: (err) => alert(err),

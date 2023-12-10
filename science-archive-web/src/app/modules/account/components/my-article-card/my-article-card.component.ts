@@ -13,6 +13,6 @@ export class MyArticleCardComponent {
   constructor(private readonly router: Router) {}
 
   async onCardClick() {
-    await this.router.navigate(["/main/articles/", this.article.id]);
+    // TODO Create logic for card click
   }
 }

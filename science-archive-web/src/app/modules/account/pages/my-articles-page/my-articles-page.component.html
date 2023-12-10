@@ -5,6 +5,10 @@
 </div>
 
 <div class="articles-container" *ngIf="!isLoading">
+  <p *ngIf="articles.length === 0">
+    There are no articles from you yet
+  </p>
+
   <app-my-article-card
     *ngFor="let article of articles"
     [article]="article"

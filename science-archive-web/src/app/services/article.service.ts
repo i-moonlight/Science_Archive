@@ -35,6 +35,11 @@ export class ArticleService extends ApiService {
     return this.handleResponse(response);
   }
 
+  getMyArticles(): Observable<GetArticlesByAuthorIdResponse> {
+    const response = this.httpClient.get<Response<GetArticlesByAuthorIdResponse>>(`/api/articles/my-articles`);
+    return this.handleResponse(response);
+  }
+
   getArticleById(id: string): Observable<GetArticleByIdResponse> {
     const response = this.httpClient.get<Response<GetArticleByIdResponse>>(`/api/articles/${id}`);
     return this.handleResponse(response);
