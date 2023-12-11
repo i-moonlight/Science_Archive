@@ -41,7 +41,24 @@
     border-radius: 5px;
     border: 1px solid #a4a4a4;
     width: 100%;
+    max-width: 100%;
+
     padding: 10px;
     box-sizing: border-box;
+  }
+}
+
+.save-button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #1b57cf;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #5f95ff;
+    cursor: pointer;
   }
 }

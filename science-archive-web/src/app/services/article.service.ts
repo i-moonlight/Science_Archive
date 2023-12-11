@@ -7,6 +7,9 @@ import { GetAllArticlesResponse } from "@models/article/responses/get-all-articl
 import { GetArticlesByCategoryIdResponse } from "@models/article/responses/get-articles-by-category-id.response";
 import { ApiService } from "@services/api.service";
 import { GetArticlesByAuthorIdResponse } from "@models/article/responses/get-articles-by-author-id.response";
+import { Article } from "@models/article/article";
+import { CreateArticleResponse } from "@models/article/responses/create-article.response";
+import { CreateArticleRequest } from "@models/article/requests/create-article.request";
 
 @Injectable({
   providedIn: "root",
@@ -42,6 +45,15 @@ export class ArticleService extends ApiService {
 
   getArticleById(id: string): Observable<GetArticleByIdResponse> {
     const response = this.httpClient.get<Response<GetArticleByIdResponse>>(`/api/articles/${id}`);
+    return this.handleResponse(response);
+  }
+
+  createArticle(newArticle: Article): Observable<CreateArticleResponse> {
+    const dto: CreateArticleRequest = {
+      article: newArticle,
+    };
+
+    const response = this.httpClient.post<Response<CreateArticleResponse>>("/api/articles/create", dto);
     return this.handleResponse(response);
   }
 }

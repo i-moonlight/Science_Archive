@@ -12,10 +12,12 @@
 
 .modal-container {
   min-width: 70%;
+  max-width: 80%;
   height: 90%;
   background-color: #ffffff;
   box-shadow: 0 1px 10px 1px #505050;
   border-radius: 15px;
+  overflow-y: auto;
 }
 
 .hidden {

@@ -14,7 +14,7 @@ export class CategoriesPageComponent implements OnInit {
   constructor(private readonly categoryService: CategoryService) {}
 
   ngOnInit() {
-    this.categoryService.getAllArticles().subscribe({
+    this.categoryService.getAllCategories().subscribe({
       complete: () => (this.isLoading = false),
       next: (response) => (this.categories = response.categories),
       error: (err) => alert(err),

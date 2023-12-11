@@ -32,6 +32,26 @@
       <h3 *ngIf="!createNew">Edit article</h3>
 
       <div class="edit-modal-form-field">
+        <p>Category</p>
+        <select class="edit-modal-form-field-input" [(ngModel)]="selectedCategory">
+          <option
+            *ngFor="let category of categories"
+            [ngValue]="category"
+          >{{category.name}}</option>
+        </select>
+      </div>
+
+      <div *ngIf="selectedCategory" class="edit-modal-form-field">
+        <p>Category</p>
+        <select class="edit-modal-form-field-input" [(ngModel)]="currentArticle.categoryId">
+          <option
+            *ngFor="let subcategory of selectedCategory.subcategories"
+            [ngValue]="subcategory.id"
+          >{{subcategory.name}}</option>
+        </select>
+      </div>
+
+      <div class="edit-modal-form-field">
         <p>Title</p>
         <input class="edit-modal-form-field-input" [(ngModel)]="currentArticle.title">
       </div>
@@ -41,5 +61,9 @@
         <textarea class="edit-modal-form-field-input" [(ngModel)]="currentArticle.description"></textarea>
       </div>
     </div>
+    <button
+      class="save-button" (click)="onSaveClick()">
+      {{createNew ? "Create" : "Save"}}
+    </button>
   </div>
 </app-modal-window>

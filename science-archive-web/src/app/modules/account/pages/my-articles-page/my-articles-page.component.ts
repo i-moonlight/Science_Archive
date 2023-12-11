@@ -3,6 +3,8 @@ import { Article } from "@models/article/article";
 import { LocalStorageService } from "@services/local-storage.service";
 import { ArticleService } from "@services/article.service";
 import { Router } from "@angular/router";
+import { Category } from "@models/category/category";
+import { CategoryService } from "@services/category.service";
 
 @Component({
   selector: "app-my-articles-page",
@@ -13,26 +15,18 @@ export class MyArticlesPageComponent implements OnInit {
   isLoading = true;
   showEditModal = false;
   articles: Article[] = [];
-
-  currentArticle: Article;
+  categories: Category[] = [];
   createNew = false;
+
+  currentArticle!: Article;
+  selectedCategory: Category | null = null;
 
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
-    private articleService: ArticleService
-  ) {
-    this.currentArticle = {
-      id: "",
-      title: "",
-      description: "",
-      authorsIds: [],
-      status: 0,
-      categoryId: "",
-      creationDate: new Date(),
-      documentsPaths: [],
-    };
-  }
+    private articleService: ArticleService,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit(): void {
     const currentUser = this.localStorageService.getCurrentUser();
@@ -48,6 +42,20 @@ export class MyArticlesPageComponent implements OnInit {
       next: (response) => (this.articles = response.articles),
       error: (err) => alert(err),
     });
+
+    this.categoryService.getAllCategories().subscribe({
+      next: (response) => (this.categories = response.categories),
+      error: (err) => alert(err),
+    });
+
+    this.currentArticle = {
+      title: "",
+      description: "",
+      authorsIds: [currentUser.id],
+      status: 0,
+      categoryId: "",
+      documentsPaths: [],
+    };
   }
 
   onCreateClick() {
@@ -58,5 +66,13 @@ export class MyArticlesPageComponent implements OnInit {
   onEditModalClose() {
     this.showEditModal = false;
     this.createNew = false;
+  }
+
+  onSaveClick() {
+    console.log(this.currentArticle);
+    this.articleService.createArticle(this.currentArticle).subscribe({
+      next: () => (this.showEditModal = false),
+      error: (err) => alert(err),
+    });
   }
 }

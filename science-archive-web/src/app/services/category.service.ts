@@ -13,7 +13,7 @@ export class CategoryService extends ApiService {
     super();
   }
 
-  getAllArticles(): Observable<GetAllCategoriesResponse> {
+  getAllCategories(): Observable<GetAllCategoriesResponse> {
     const response = this.httpClient.get<Response<GetAllCategoriesResponse>>("/api/categories/");
     return this.handleResponse(response);
   }

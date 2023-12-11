@@ -5,7 +5,7 @@ export interface Article {
   /**
    * Identifier of the article
    */
-  id: string;
+  id?: string;
 
   /**
    * Article title
@@ -21,7 +21,7 @@ export interface Article {
   /**
    * Date when article was created
    */
-  creationDate: Date;
+  creationDate?: Date;
 
   /**
    * ID of category
