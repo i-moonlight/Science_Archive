@@ -29,13 +29,16 @@ BEGIN
         FROM "articles_authors" as ac
         WHERE ac."article_id" = a."id"
       ) as "authorsIds",
-      (
-        SELECT
-          jsonb_agg(
-            json_build_object('document_path', ad."document_path")
-          )
-        FROM "articles_documents" AS ad
-        WHERE ad."article_id" = a."id"
+      COALESCE(
+        (
+          SELECT
+            jsonb_agg(
+              json_build_object('document_path', ad."document_path")
+            )
+          FROM "articles_documents" AS ad
+          WHERE ad."article_id" = a."id"
+        ),
+        '[]'::jsonb
       ) as "documents",
       av."status" as "status"
     FROM "articles" AS a

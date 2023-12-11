@@ -30,7 +30,7 @@ internal class ArticleMapper : IApplicationMapper<Article, ArticleDto>
 
     public Article MapToEntity(ArticleDto dto)
     {
-        var articleId = dto.Id is null 
+        var articleId = string.IsNullOrWhiteSpace(dto.Id)
             ? ArticleId.CreateNew()
             : ArticleId.CreateFromString(dto.Id);
 

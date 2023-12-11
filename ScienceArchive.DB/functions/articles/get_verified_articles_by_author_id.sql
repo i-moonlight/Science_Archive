@@ -29,14 +29,17 @@ AS $$
         FROM "articles_authors" as ac
         WHERE ac."article_id" = a."id"
       ) AS "authorsIds",
-      (
-        SELECT
-          jsonb_agg(
-            json_build_object('document_path', ad."document_path")
-          )
-        FROM "articles_documents" AS ad
-        WHERE ad."article_id" = a."id"
-      ) AS "documents",
+      COALESCE(
+        (
+          SELECT
+            jsonb_agg(
+              json_build_object('document_path', ad."document_path")
+            )
+          FROM "articles_documents" AS ad
+          WHERE ad."article_id" = a."id"
+        ),
+        '[]'::jsonb
+      ) as "documents",
       av."status" as "status"
     FROM "articles" AS a
       INNER JOIN "articles_categories"   AS ac  ON ac."article_id"  = a."id"

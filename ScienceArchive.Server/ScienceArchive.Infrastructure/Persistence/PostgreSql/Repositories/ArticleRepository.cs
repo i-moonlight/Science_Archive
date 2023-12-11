@@ -130,7 +130,6 @@ internal class PostgresArticleRepository : IArticleRepository
             parameters,
             commandType: CommandType.Text);
         
-
         if (createdArticle is null)
         {
             throw new PersistenceException("New article was not created!");
