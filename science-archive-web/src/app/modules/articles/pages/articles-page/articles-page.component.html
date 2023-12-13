@@ -1,4 +1,9 @@
-<h2 class="page-header">Articles</h2>
+<div class="page-header">
+  <h2>Articles</h2>
+  <p *ngIf="category">{{category.name}}</p>
+</div>
+
+
 <div class="articles-container">
   <div *ngIf="isLoading; else articlesList">
     <app-article-card-loading

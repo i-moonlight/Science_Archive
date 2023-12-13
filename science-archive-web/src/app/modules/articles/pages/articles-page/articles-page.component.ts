@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Article } from "@models/article/article";
 import { ArticleService } from "@services/article.service";
 import { ActivatedRoute } from "@angular/router";
+import { Subcategory } from "@models/category/subcategory";
 
 @Component({
   selector: "app-articles-page",
@@ -10,6 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ArticlesPageComponent implements OnInit {
   articles: Article[] = [];
+  category: Subcategory | null = null;
   isLoading: boolean = true;
 
   constructor(private readonly articleService: ArticleService, private readonly route: ActivatedRoute) {}
@@ -19,6 +21,7 @@ export class ArticlesPageComponent implements OnInit {
       const categoryId = params["categoryId"] as string;
 
       if (!categoryId) {
+        this.category = null;
         this.getAllArticles();
       } else {
         this.getArticlesByCategoryId(categoryId);
@@ -35,9 +38,13 @@ export class ArticlesPageComponent implements OnInit {
   }
 
   private getArticlesByCategoryId(categoryId: string) {
+    console.log(this.category);
     this.articleService.getArticlesByCategoryId(categoryId).subscribe({
       complete: () => (this.isLoading = false),
-      next: (response) => (this.articles = response.articles),
+      next: (response) => {
+        this.articles = response.articles;
+        this.category = response.category;
+      },
       error: (err) => alert(err.message),
     });
   }

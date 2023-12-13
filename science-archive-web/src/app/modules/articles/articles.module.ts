@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgIf } from "@angular/common";
 import SharedModule from "@modules/shared/shared.module";
 import { ArticlesPageComponent } from "@modules/articles/pages/articles-page/articles-page.component";
 import { ArticleCardComponent } from "@modules/articles/components/article-card/article-card.component";
@@ -8,7 +8,7 @@ import { ArticleCardLoadingComponent } from "./components/article-card-loading/a
 import { SafeHtmlPipe } from "../../pipes/safe-html.pipe";
 
 @NgModule({
-  imports: [SharedModule, SafeHtmlPipe],
+  imports: [SharedModule, SafeHtmlPipe, NgIf],
   declarations: [ArticlesPageComponent, ArticleCardComponent, ArticleDetailsPageComponent, ArticleCardLoadingComponent],
 })
 export class ArticlesModule {}
