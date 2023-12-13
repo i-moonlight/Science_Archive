@@ -13,18 +13,33 @@ internal class PostgresCategoryRepository : ICategoryRepository
 {
 	private readonly IDbConnection _connection;
 	private readonly IPersistenceMapper<Category, CategoryModel> _mapper;
+	private readonly IPersistenceMapper<Category, SubcategoryModel> _subcategoryMapper;
 	
-	public PostgresCategoryRepository(PostgresContext dbContext, IPersistenceMapper<Category, CategoryModel> mapper)
+	public PostgresCategoryRepository(
+		PostgresContext dbContext, 
+		IPersistenceMapper<Category, CategoryModel> mapper,
+		IPersistenceMapper<Category, SubcategoryModel> subcategoryMapper)
 	{
 		var context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
 		_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+		_subcategoryMapper = subcategoryMapper ?? throw new ArgumentNullException(nameof(subcategoryMapper));
 		_connection = context.CreateConnection();
 	}
 	
-	public Task<Category?> GetById(CategoryId id)
+	public async Task<Category?> GetById(CategoryId id)
 	{
-		throw new NotImplementedException();
+		var parameters = new DynamicParameters();
+		parameters.Add("Id", id.Value);
+
+		var category = await _connection.QueryFirstOrDefaultAsync<CategoryModel?>(
+			"SELECT * FROM func_get_category_by_id(:Id)",
+			parameters,
+			commandType: CommandType.Text);
+
+		return category is null 
+			? null 
+			: _mapper.MapToEntity(category);
 	}
 
 	public async Task<List<Category>> GetAll()
@@ -54,6 +69,21 @@ internal class PostgresCategoryRepository : ICategoryRepository
 	public Task<CategoryId> Delete(CategoryId id)
 	{
 		throw new NotImplementedException();
+	}
+
+	public async Task<Category?> GetSubcategoryById(CategoryId subcategoryId)
+	{
+		var parameters = new DynamicParameters();
+		parameters.Add("Id", subcategoryId.Value);
+
+		var subcategory = await _connection.QueryFirstOrDefaultAsync<SubcategoryModel?>(
+			"SELECT * FROM func_get_subcategory_by_id(:Id)",
+			parameters,
+			commandType: CommandType.Text);
+
+		return subcategory is null 
+			? null 
+			: _subcategoryMapper.MapToEntity(subcategory);
 	}
 
 	public Task<Category> CreateSubcategory(CategoryId categoryId, Category subcategory)

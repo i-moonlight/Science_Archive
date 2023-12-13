@@ -1,5 +1,5 @@
 ﻿using ScienceArchive.BusinessLogic.Interfaces;
-using ScienceArchive.Core.Domain.ValueObjects;
+using ScienceArchive.Core.Models.System;
 using ScienceArchive.Core.Services.SystemContracts;
 
 namespace ScienceArchive.BusinessLogic.UseCases.System;

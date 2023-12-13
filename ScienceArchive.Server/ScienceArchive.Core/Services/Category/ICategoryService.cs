@@ -1,4 +1,5 @@
 using ScienceArchive.Core.Domain.Aggregates.Category;
+using ScienceArchive.Core.Domain.Aggregates.Category.ValueObjects;
 using ScienceArchive.Core.Services.CategoryContracts;
 
 namespace ScienceArchive.Core.Services;
@@ -15,6 +16,20 @@ public interface ICategoryService
 	/// <param name="contract">Contract to get all categories</param>
 	/// <returns>All existing categories</returns>
 	Task<List<Category>> GetAll(GetAllCategoriesContract contract);
+
+	/// <summary>
+	/// Get category by ID
+	/// </summary>
+	/// <param name="contract">Contract to get category by ID</param>
+	/// <returns>Found category or null</returns>
+	Task<Category?> GetById(GetCategoryByIdContract contract);
+
+	/// <summary>
+	/// Get subcategory by ID
+	/// </summary>
+	/// <param name="contract">Contract to get subcategory by ID</param>
+	/// <returns>Found subcategory or null</returns>
+	Task<Category?> GetSubcategoryById(GetSubcategoryByIdContract contract);
 	
 	/// <summary>
 	/// Create new category

@@ -16,7 +16,7 @@ using ScienceArchive.Core.Domain.Aggregates.Role;
 using ScienceArchive.Core.Domain.Aggregates.Role.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.User;
 using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
-using ScienceArchive.Core.Domain.ValueObjects;
+using ScienceArchive.Core.Models.System;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.ArticleContracts;
 using ScienceArchive.Core.Services.CategoryContracts;
@@ -72,15 +72,17 @@ public static class BusinessLogicRegistry
         _ = services.AddTransient<IUseCase<Article, CreateArticleContract>, CreateArticleUseCase>();
         _ = services.AddTransient<IUseCase<Article, UpdateArticleContract>, UpdateArticleUseCase>();
         _ = services.AddTransient<IUseCase<ArticleId, DeleteArticleContract>, DeleteArticleUseCase>();
-        _ = services.AddTransient<IUseCase<List<Article>, GetVerifiedArticlesByCategoryIdContract>, GetVerifiedArticlesByCategoryIdUseCase>();
+        _ = services.AddTransient<IUseCase<List<Article>, GetVerifiedArticlesBySubcategoryIdContract>, GetVerifiedArticlesBySubcategoryIdUseCase>();
         _ = services.AddTransient<IUseCase<List<Article>, GetArticlesByAuthorIdContract>, GetArticlesByAuthorIdUseCase>();
         _ = services.AddTransient<IUseCase<List<Article>, GetVerifiedArticlesByAuthorIdContract>, GetVerifiedArticlesByAuthorIdUseCase>();
         _ = services.AddTransient<IUseCase<Article?, GetVerifiedArticleByIdContract>, GetVerifiedArticleByIdUseCase>();
 
         // Category use cases
+        _ = services.AddTransient<IUseCase<Category?, GetCategoryByIdContract>, GetCategoryByIdUseCase>();
         _ = services.AddTransient<IUseCase<List<Category>, GetAllCategoriesContract>, GetAllCategoriesUseCase>();
         _ = services.AddTransient<IUseCase<Category, CreateCategoryContract>, CreateCategoryUseCase>();
         _ = services.AddTransient<IUseCase<Category, UpdateCategoryContract>, UpdateCategoryUseCase>();
+        _ = services.AddTransient<IUseCase<Category?, GetSubcategoryByIdContract>, GetSubcategoryByIdUseCase>();
         
         // News use cases
         _ = services.AddTransient<IUseCase<News?, GetNewsByIdContract>, GetNewsByIdUseCase>();

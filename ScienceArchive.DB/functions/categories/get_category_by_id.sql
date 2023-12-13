@@ -11,19 +11,19 @@ AS $$
 BEGIN
   RETURN QUERY
     SELECT
-        c."id",
-        c."name",
-        (
-            SELECT
-                jsonb_agg(
-                        json_build_object(
-                                'id',   sc."id",
-                                'name', sc."name"
-                            )
-                    )
-            FROM "subcategories" as sc
-            WHERE sc."category_id" = c."id"
-        )
+      c."id",
+      c."name",
+      (
+        SELECT
+          jsonb_agg(
+            json_build_object(
+              'id',   sc."id",
+              'name', sc."name"
+            )
+          )
+        FROM "subcategories" as sc
+        WHERE sc."category_id" = c."id"
+      )
     FROM "categories" as c
     WHERE c."id" = "p_id";
 END;$$

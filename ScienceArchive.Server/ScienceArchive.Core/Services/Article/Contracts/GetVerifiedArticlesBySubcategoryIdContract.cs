@@ -6,4 +6,4 @@ namespace ScienceArchive.Core.Services.ArticleContracts;
 /// Contract to get verified articles by category ID
 /// </summary>
 /// <param name="CategoryId">Category ID</param>
-public record GetVerifiedArticlesByCategoryIdContract(CategoryId CategoryId);
+public record GetVerifiedArticlesBySubcategoryIdContract(CategoryId CategoryId);

@@ -10,18 +10,33 @@ internal class CategoryService : BaseService, ICategoryService
 	{
 	}
 
-	public async Task<List<Category>> GetAll(GetAllCategoriesContract contract)
+	/// <inheritdoc />
+	public Task<List<Category>> GetAll(GetAllCategoriesContract contract)
 	{
-		return await ExecuteUseCase<List<Category>, GetAllCategoriesContract>(contract);
+		return ExecuteUseCase<List<Category>, GetAllCategoriesContract>(contract);
 	}
 
-	public async Task<Category> Create(CreateCategoryContract contract)
+	/// <inheritdoc />
+	public Task<Category?> GetById(GetCategoryByIdContract contract)
 	{
-		return await ExecuteUseCase<Category, CreateCategoryContract>(contract);
+		return ExecuteUseCase<Category?, GetCategoryByIdContract>(contract);
 	}
 
-	public async Task<Category> Update(UpdateCategoryContract contract)
+	/// <inheritdoc />
+	public Task<Category?> GetSubcategoryById(GetSubcategoryByIdContract contract)
 	{
-		return await ExecuteUseCase<Category, UpdateCategoryContract>(contract);
+		return ExecuteUseCase<Category?, GetSubcategoryByIdContract>(contract);
+	}
+
+	/// <inheritdoc />
+	public Task<Category> Create(CreateCategoryContract contract)
+	{
+		return ExecuteUseCase<Category, CreateCategoryContract>(contract);
+	}
+
+	/// <inheritdoc />
+	public Task<Category> Update(UpdateCategoryContract contract)
+	{
+		return ExecuteUseCase<Category, UpdateCategoryContract>(contract);
 	}
 }

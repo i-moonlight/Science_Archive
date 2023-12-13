@@ -1,4 +1,4 @@
-﻿using ScienceArchive.Core.Domain.ValueObjects;
+﻿using ScienceArchive.Core.Models.System;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.SystemContracts;
 

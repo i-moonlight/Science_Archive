@@ -1,26 +1,38 @@
 ﻿using ScienceArchive.Application.Dtos.Article;
 using ScienceArchive.Application.Dtos.Article.Request;
 using ScienceArchive.Application.Dtos.Article.Response;
+using ScienceArchive.Application.Dtos.Category;
 using ScienceArchive.Application.Interfaces;
 using ScienceArchive.Application.Interfaces.Interactors;
 using ScienceArchive.Core.Domain.Aggregates.Article;
 using ScienceArchive.Core.Domain.Aggregates.Article.ValueObjects;
+using ScienceArchive.Core.Domain.Aggregates.Category;
 using ScienceArchive.Core.Domain.Aggregates.Category.ValueObjects;
 using ScienceArchive.Core.Domain.Aggregates.User.ValueObjects;
 using ScienceArchive.Core.Services;
 using ScienceArchive.Core.Services.ArticleContracts;
+using ScienceArchive.Core.Services.CategoryContracts;
 
 namespace ScienceArchive.Application.Interactors;
 
 internal class ArticleInteractor : IArticleInteractor
 {
     private readonly IArticleService _articleService;
+    private readonly ICategoryService _categoryService;
+    
     private readonly IApplicationMapper<Article, ArticleDto> _articleMapper;
-
-    public ArticleInteractor(IArticleService articleService, IApplicationMapper<Article, ArticleDto> articleMapper)
+    private readonly IApplicationMapper<Category, CategoryDto> _categoryMapper;
+    
+    public ArticleInteractor(
+        IArticleService articleService, 
+        ICategoryService categoryService,
+        IApplicationMapper<Article, ArticleDto> articleMapper,
+        IApplicationMapper<Category, CategoryDto> categoryMapper)
     {
         _articleService = articleService ?? throw new ArgumentNullException(nameof(articleService));
+        _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
         _articleMapper = articleMapper ?? throw new ArgumentNullException(nameof(articleMapper));
+        _categoryMapper = categoryMapper ?? throw new ArgumentNullException(nameof(categoryMapper));
     }
 
     /// <inheritdoc/>
@@ -68,11 +80,23 @@ internal class ArticleInteractor : IArticleInteractor
     
     public async Task<GetArticlesByCategoryIdResponseDto> GetArticlesByCategoryId(GetArticlesByCategoryIdRequestDto dto)
     {
-        var contract = new GetVerifiedArticlesByCategoryIdContract(CategoryId.CreateFromString(dto.CategoryId));
-        var articles = await _articleService.GetVerifiedByCategoryId(contract);
+        var categoryId = CategoryId.CreateFromString(dto.CategoryId);
+        var articlesContract = new GetVerifiedArticlesBySubcategoryIdContract(categoryId);
+        var articles = await _articleService.GetVerifiedBySubcategoryId(articlesContract);
 
         var articlesDtos = articles.Select(_articleMapper.MapToDto).ToList();
-        return new(articlesDtos);
+        
+        var categoryContract = new GetSubcategoryByIdContract(categoryId);
+        var category = await _categoryService.GetSubcategoryById(categoryContract);
+
+        if (category is null)
+        {
+            throw new Exception("Category with specified ID was not found");
+        }
+
+        var categoryDto = _categoryMapper.MapToDto(category);
+        
+        return new(articlesDtos, categoryDto);
     }
 
     /// <inheritdoc/>

@@ -11,6 +11,13 @@ namespace ScienceArchive.Core.Repositories;
 public interface ICategoryRepository : ICrudRepository<CategoryId, Category>
 {
 	/// <summary>
+	/// Get subcategory by ID
+	/// </summary>
+	/// <param name="subcategoryId">Subcategory ID</param>
+	/// <returns>Found subcategory or null</returns>
+	Task<Category?> GetSubcategoryById(CategoryId subcategoryId);
+	
+	/// <summary>
 	/// Create subcategory in category
 	/// </summary>
 	/// <param name="categoryId">Category ID where to create subcategory</param>

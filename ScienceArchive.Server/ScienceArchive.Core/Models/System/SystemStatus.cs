@@ -1,4 +1,4 @@
-﻿namespace ScienceArchive.Core.Domain.ValueObjects;
+﻿namespace ScienceArchive.Core.Models.System;
 
 /// <summary>
 /// System status

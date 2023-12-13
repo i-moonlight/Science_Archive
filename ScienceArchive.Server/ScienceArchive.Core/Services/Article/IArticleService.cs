@@ -43,7 +43,7 @@ public interface IArticleService
     /// </summary>
     /// <param name="contract">Contract to get articles by category ID</param>
     /// <returns>Articles with specified category ID</returns>
-    Task<List<Article>> GetVerifiedByCategoryId(GetVerifiedArticlesByCategoryIdContract contract);
+    Task<List<Article>> GetVerifiedBySubcategoryId(GetVerifiedArticlesBySubcategoryIdContract contract);
     
     /// <summary>
     /// Get all articles

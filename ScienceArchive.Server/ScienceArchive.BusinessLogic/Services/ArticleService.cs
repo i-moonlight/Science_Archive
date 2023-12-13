@@ -34,9 +34,9 @@ internal class ArticleService : BaseService, IArticleService
     }
 
     /// <inheritdoc/>
-    public async Task<List<Article>> GetVerifiedByCategoryId(GetVerifiedArticlesByCategoryIdContract contract)
+    public async Task<List<Article>> GetVerifiedBySubcategoryId(GetVerifiedArticlesBySubcategoryIdContract contract)
     {
-        return await ExecuteUseCase<List<Article>, GetVerifiedArticlesByCategoryIdContract>(contract);
+        return await ExecuteUseCase<List<Article>, GetVerifiedArticlesBySubcategoryIdContract>(contract);
     }
 
     /// <inheritdoc/>
