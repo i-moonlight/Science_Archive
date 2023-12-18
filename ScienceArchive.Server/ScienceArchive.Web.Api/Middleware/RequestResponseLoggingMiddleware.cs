@@ -57,9 +57,9 @@ public class RequestResponseLoggingMiddleware
 		var ip = "unknown";
 		var requestBody = "empty";
 
-		if (httpContext.Connection.RemoteIpAddress is not null)
+		if (httpContext.Request.Headers.TryGetValue("X-Forwarded-For", out var realIp))
 		{
-			ip = httpContext.Connection.RemoteIpAddress.ToString();
+			ip = realIp.FirstOrDefault()!;
 		}
 
 		if (httpContext.Request.Headers.TryGetValue("User-Agent", out var realUserAgent))
